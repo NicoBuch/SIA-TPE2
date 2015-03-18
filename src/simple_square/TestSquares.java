@@ -7,6 +7,6 @@ import gps.api.GPSProblem;
 public class TestSquares {
 	public static void main(String[] args) {
 		GPSEngine engine = new SimpleSquaresEngine();
-		engine.engine(new SimpleSquaresProblem(), SearchStrategy.BFS);
+		engine.engine(new SimpleSquaresProblem(), SearchStrategy.DeepIteration);
 	}
 }

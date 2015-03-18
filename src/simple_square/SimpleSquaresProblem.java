@@ -16,10 +16,10 @@ public class SimpleSquaresProblem implements GPSProblem {
 		List<Arrow> arrows = new ArrayList<Arrow>(); 
 		
 		// tablero 9
-//		blocks.add(new Block (new Position (4,2), Direction.DOWN, new Position (4,4)));
-//		blocks.add(new Block (new Position (6,2), Direction.RIGHT, new Position (4,5)));
-//		arrows.add(new Arrow (new Position (6,4), Direction.UP));
-//		arrows.add(new Arrow (new Position (6,2), Direction.RIGHT));
+		blocks.add(new Block (new Position (4,2), Direction.DOWN, new Position (4,4)));
+		blocks.add(new Block (new Position (6,2), Direction.RIGHT, new Position (4,5)));
+		arrows.add(new Arrow (new Position (6,4), Direction.UP));
+		arrows.add(new Arrow (new Position (6,2), Direction.RIGHT));
 		
 		//tablero 1
 		//blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (4,4)));
@@ -38,6 +38,7 @@ public class SimpleSquaresProblem implements GPSProblem {
 //		blocks.add(new Block (new Position (2,3), Direction.DOWN, new Position (3,3)));
 //		blocks.add(new Block (new Position (3,2), Direction.RIGHT, new Position (5,5)));
 //		blocks.add(new Block (new Position (3,4), Direction.DOWN, new Position (4,4)));
+		
 		
 		
 		

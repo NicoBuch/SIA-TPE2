@@ -14,6 +14,9 @@ public class SimpleSquaresEngine extends GPSEngine {
 		else if(strategy.equals(SearchStrategy.BFS)){
 			open.add(node);
 		}
+		else if(strategy.equals(SearchStrategy.DeepIteration)){
+			open.add(0, node);
+		}
 	}
 
 }

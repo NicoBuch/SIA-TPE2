@@ -13,9 +13,11 @@ public abstract class GPSEngine {
 
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
 
-	private List<GPSNode> closed = new ArrayList<GPSNode>();
+	protected List<GPSNode> closed = new ArrayList<GPSNode>();
 
-	private GPSProblem problem;
+	protected GPSProblem problem;
+	
+	protected int deepIterationValue = 0;
 
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
@@ -33,7 +35,20 @@ public abstract class GPSEngine {
 		open.add(rootNode);
 		while (!failed && !finished) {
 			if (open.size() <= 0) {
-				failed = true;
+				if(strategy.equals(SearchStrategy.DeepIteration)){
+					deepIterationValue ++;
+					System.out.println("new deepIterationValue: " + deepIterationValue);
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					open.add(rootNode);
+				}
+				else{
+					failed = true;
+				}
 			} else {
 				GPSNode currentNode = open.get(0);
 				closed.add(currentNode);
@@ -70,7 +85,8 @@ public abstract class GPSEngine {
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
-				newState = rule.evalRule(node.getState());
+				if(!strategy.equals(SearchStrategy.DeepIteration) || (strategy.equals(SearchStrategy.DeepIteration) && node.getCost() + rule.getCost() <= deepIterationValue))
+					newState = rule.evalRule(node.getState());
 			} catch (NotAppliableException e) {
 				// Do nothing
 			}
@@ -81,7 +97,7 @@ public abstract class GPSEngine {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
-				addNode(newNode);
+				addNode(newNode);				
 			}
 		}
 		return true;

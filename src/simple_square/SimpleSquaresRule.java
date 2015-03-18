@@ -13,7 +13,7 @@ public class SimpleSquaresRule implements GPSRule {
 
 	@Override
 	public Integer getCost() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -28,9 +28,8 @@ public class SimpleSquaresRule implements GPSRule {
 		if( current == null)
 			throw new NotAppliableException();
 		Direction dir = current.getDirection();
-		Position position = current.getNextPosition();
 		while(current != null){
-			Position pos = current.getNextPosition();
+			Position pos = current.getNextPosition(dir);
 			if(isOutOfBounds(pos)){
 				throw new NotAppliableException();
 			}
@@ -41,16 +40,8 @@ public class SimpleSquaresRule implements GPSRule {
 			}
 			current = next;
 		}
-//		System.out.println((position.getX()-2) + ", " + (position.getY()-2));
 		System.out.println((from.getX()) + ", " + (from.getY()));
-//		try {
-////			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return newState;
-		
+		return newState;		
 	}
 	
 	private boolean isOutOfBounds(Position pos){
