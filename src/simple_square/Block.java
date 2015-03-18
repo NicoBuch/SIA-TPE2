@@ -74,5 +74,10 @@ public class Block {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "direction: " + direction.toString() + ", position: " + position.toString() +  ", Objective: " + targetPosition.toString();
+	}
 
 }
