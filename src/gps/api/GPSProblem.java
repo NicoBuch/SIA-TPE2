@@ -19,7 +19,7 @@ public interface GPSProblem {
 	 */
 	GPSState getGoalState();
 
-	
+	boolean isGoalState(GPSState state);
 	/**
 	 * Provides the list of all the rules that the problem involves. 
 	 * These rules are state independent.

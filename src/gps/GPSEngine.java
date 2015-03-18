@@ -58,7 +58,7 @@ public abstract class GPSEngine {
 
 	private  boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
-				&& currentNode.getState().compare(problem.getGoalState());
+				&& problem.isGoalState(currentNode.getState());
 	}
 
 	private  boolean explode(GPSNode node) {

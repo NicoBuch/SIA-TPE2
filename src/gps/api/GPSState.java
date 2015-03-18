@@ -25,5 +25,8 @@ public interface GPSState {
 	List<Arrow> getArrows();
 
 	Block getBlockAt(Position at);
+	Arrow getArrowAt(Position at);
+	
+	GPSState clone();
 	
 }

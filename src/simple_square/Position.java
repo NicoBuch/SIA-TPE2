@@ -38,19 +38,22 @@ public class Position{
 
 
 
-	public void move(Direction dir){
+	public Position move(Direction dir){
+		Position pos = new Position(x, y);
 		if(dir == Direction.LEFT){
-			y -= 1; 
+			pos.y -= 1; 
 		}
 		if(dir == Direction.RIGHT){
-			y += 1; 
+			pos.y += 1; 
 		}
 		if(dir == Direction.UP){
-			x -= 1; 
+			pos.x -= 1; 
 		}
 		if(dir == Direction.DOWN){
-			x += 1; 
+			pos.x += 1; 
 		}
+		return pos;
+		
 	}
 
 	public int getX() {

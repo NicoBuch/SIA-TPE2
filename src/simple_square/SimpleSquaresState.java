@@ -46,4 +46,25 @@ public class SimpleSquaresState implements GPSState {
 		return null;
 	}
 	
+	public Arrow getArrowAt(Position at){
+		for(Arrow b : arrows){
+			if(b.getPos().equals(at))
+				return b;
+		}
+		return null;
+	}
+	
+	@Override
+	public GPSState clone(){
+		List<Block> cloned_blocks = new ArrayList<Block>();
+		ArrayList<Arrow> cloned_arrows = new ArrayList<Arrow>();
+		for(Block b : blocks){
+			cloned_blocks.add(b.clone());
+		}
+		for(Arrow a : arrows){
+			cloned_arrows.add(a.clone());
+		}
+		return new SimpleSquaresState(cloned_blocks, cloned_arrows);
+	}
+	
 }

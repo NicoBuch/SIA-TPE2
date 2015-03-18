@@ -1,6 +1,6 @@
 package simple_square;
 
-public class Block {
+public class Block implements Cloneable{
 	private Position position;
 	private Position targetPosition;
 	private Direction direction;
@@ -24,17 +24,15 @@ public class Block {
 	}
 
 	public void move(){
-		position.move(direction);
+		this.position = position.move(direction);
 	}
 	
 	public Position getNextPosition(){
-		Position p = new Position (position.getX(), position.getY());
-		p.move(direction);
-		return p;
+		return position.move(direction);	
 	}
 	
 	public void move(Direction d){
-		position.move(d);
+		this.position = position.move(d);
 	}
 	
 	public void rotate(Direction dir){
@@ -45,6 +43,10 @@ public class Block {
 		return position.equals(targetPosition);
 	}
 	
+	@Override
+	public Block clone(){
+		return new Block(this.position, this.direction, this.targetPosition);
+	}
 	
 	
 	@Override

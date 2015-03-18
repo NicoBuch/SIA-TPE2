@@ -8,16 +8,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleSquaresProblem implements GPSProblem {
-	private static final int MAX = 11;
+	public static final int MAX = 10;
 	
 	@Override
 	public GPSState getInitState() {
 		List<Block> blocks = new ArrayList<Block>();
 		List<Arrow> arrows = new ArrayList<Arrow>(); 
 		
-		blocks.add(new Block (new Position (1,1), Direction.RIGHT, new Position (2,3)));
-		blocks.add(new Block (new Position (0,2), Direction.LEFT, new Position (1,2)));
-		blocks.add(new Block (new Position (1,3), Direction.UP, new Position (2,1)));
+		// tablero 9
+//		blocks.add(new Block (new Position (4,2), Direction.DOWN, new Position (4,4)));
+//		blocks.add(new Block (new Position (6,2), Direction.RIGHT, new Position (4,5)));
+//		arrows.add(new Arrow (new Position (6,4), Direction.UP));
+//		arrows.add(new Arrow (new Position (6,2), Direction.RIGHT));
+		
+		//tablero 1
+		//blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (4,4)));
+
+		//tablero 2
+//		blocks.add(new Block (new Position (4,3), Direction.DOWN, new Position (5,3)));
+//		blocks.add(new Block (new Position (5,4), Direction.UP, new Position (4,4)));
+		//tablero 3
+//		blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (4,4)));
+//		blocks.add(new Block (new Position (6,3), Direction.UP, new Position (4,3)));
+//		blocks.add(new Block (new Position (5,5), Direction.LEFT, new Position (5,2)));
+		//tablero 4
+//		blocks.add(new Block (new Position (5,6), Direction.LEFT, new Position (5,2)));
+//		blocks.add(new Block (new Position (2,5), Direction.DOWN, new Position (7,4)));
+		//tablero 5
+//		blocks.add(new Block (new Position (2,3), Direction.DOWN, new Position (3,3)));
+//		blocks.add(new Block (new Position (3,2), Direction.RIGHT, new Position (5,5)));
+//		blocks.add(new Block (new Position (3,4), Direction.DOWN, new Position (4,4)));
+		
+		
 		
 		return new SimpleSquaresState(blocks,arrows);
 	}
@@ -26,23 +48,25 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public GPSState getGoalState() {
 		List<Block> blocks = new ArrayList<Block>();
 		List<Arrow> arrows = new ArrayList<Arrow>();
-		
-		blocks.add(new Block (new Position (3,3), Direction.RIGHT, new Position (3,3)));
-		blocks.add(new Block (new Position (2,2), Direction.LEFT, new Position (2,2)));
-		blocks.add(new Block (new Position (3,1), Direction.UP, new Position (3,1)));
 		return new SimpleSquaresState(blocks,arrows);
 	}
 
+	@Override
+	public boolean isGoalState(GPSState state){
+		for(Block block : state.getBlocks()){
+			if(!block.isInGoal()){
+				return false;
+			}
+		}
+		return true;
+	}
 	@Override
 	public List<GPSRule> getRules() {
 		List<GPSRule> rules = new ArrayList<GPSRule>();
 		
 		for (int i = 0; i < MAX ; i++)
 			for (int j = 0 ; j < MAX; j++){
-				rules.add(new SimpleSquaresRule(i,j,i+1,j));
-				rules.add(new SimpleSquaresRule(i,j,i-1,j));
-				rules.add(new SimpleSquaresRule(i,j,i,j+1));
-				rules.add(new SimpleSquaresRule(i,j,i,j-1));
+				rules.add(new SimpleSquaresRule(i,j));
 			}
 		return rules;
 	}
