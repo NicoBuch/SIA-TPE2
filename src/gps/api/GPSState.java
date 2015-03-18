@@ -4,6 +4,7 @@ import java.util.List;
 
 import simple_square.Arrow;
 import simple_square.Block;
+import simple_square.Position;
 
 /**
  * GPSState interface.
@@ -22,5 +23,7 @@ public interface GPSState {
 	List<Block> getBlocks();
 	
 	List<Arrow> getArrows();
+
+	Block getBlockAt(Position at);
 	
 }

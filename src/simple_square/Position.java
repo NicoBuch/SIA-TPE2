@@ -1,6 +1,6 @@
 package simple_square;
 
-public class Position {
+public class Position{
 	int x;
 	int y;
 	
@@ -46,10 +46,10 @@ public class Position {
 			y += 1; 
 		}
 		if(dir == Direction.UP){
-			x += 1; 
+			x -= 1; 
 		}
 		if(dir == Direction.DOWN){
-			x -= 1; 
+			x += 1; 
 		}
 	}
 

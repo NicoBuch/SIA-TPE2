@@ -27,6 +27,16 @@ public class Block {
 		position.move(direction);
 	}
 	
+	public Position getNextPosition(){
+		Position p = new Position (position.getX(), position.getY());
+		p.move(direction);
+		return p;
+	}
+	
+	public void move(Direction d){
+		position.move(d);
+	}
+	
 	public void rotate(Direction dir){
 		this.direction = dir;
 	}

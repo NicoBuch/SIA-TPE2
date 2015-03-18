@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleSquaresProblem implements GPSProblem {
+	private static final int MAX = 11;
 	
 	@Override
 	public GPSState getInitState() {
@@ -36,8 +37,8 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public List<GPSRule> getRules() {
 		List<GPSRule> rules = new ArrayList<GPSRule>();
 		
-		for (int i = 0; i < SimpleSquaresState.SIZE ; i++)
-			for (int j = 0 ; j < SimpleSquaresState.SIZE; j++){
+		for (int i = 0; i < MAX ; i++)
+			for (int j = 0 ; j < MAX; j++){
 				rules.add(new SimpleSquaresRule(i,j,i+1,j));
 				rules.add(new SimpleSquaresRule(i,j,i-1,j));
 				rules.add(new SimpleSquaresRule(i,j,i,j+1));

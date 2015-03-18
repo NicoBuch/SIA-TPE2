@@ -6,11 +6,9 @@ import gps.exception.NotAppliableException;
 
 public class SimpleSquaresRule implements GPSRule {
 	Position from;
-	Position to;
 	
 	public SimpleSquaresRule(int xfrom, int yfrom, int xTo, int yTo) {
 		from = new Position(xfrom, yfrom);
-		to = new Position(xTo, yTo);
 	}
 
 	@Override
@@ -20,13 +18,19 @@ public class SimpleSquaresRule implements GPSRule {
 
 	@Override
 	public String getName() {
-		return "Move block from position: " + from.toString() + " to Position:" + to.toString();
+		return "Move block in position: " + from.toString();
 	}
 
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
-		// TODO Auto-generated method stub
-		return null;
+		Block b = state.getBlockAt(from);
+		if( b == null)
+			throw new NotAppliableException();
+		
+		while(b != null){
+			Block aux= state.getBlockAt(b.getNextPosition());
+			b.move();
+		}
 	}
 
 }
