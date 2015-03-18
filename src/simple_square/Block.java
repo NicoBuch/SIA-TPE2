@@ -1,0 +1,78 @@
+package simple_square;
+
+public class Block {
+	private Position position;
+	private Position targetPosition;
+	private Direction direction;
+	
+	public Block(Position position, Direction direction, Position targetPosition){
+		this.position = position;
+		this.direction = direction;
+		this.targetPosition = targetPosition;
+	}
+	
+	public Position getPosition() {
+		return position;
+	}
+
+	public Position getTargetPosition() {
+		return targetPosition;
+	}
+	
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void move(){
+		position.move(direction);
+	}
+	
+	public void rotate(Direction dir){
+		this.direction = dir;
+	}
+	
+	public boolean isInGoal(){
+		return position.equals(targetPosition);
+	}
+	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((direction == null) ? 0 : direction.hashCode());
+		result = prime * result
+				+ ((position == null) ? 0 : position.hashCode());
+		result = prime * result
+				+ ((targetPosition == null) ? 0 : targetPosition.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Block other = (Block) obj;
+		if (direction != other.direction)
+			return false;
+		if (position == null) {
+			if (other.position != null)
+				return false;
+		} else if (!position.equals(other.position))
+			return false;
+		if (targetPosition == null) {
+			if (other.targetPosition != null)
+				return false;
+		} else if (!targetPosition.equals(other.targetPosition))
+			return false;
+		return true;
+	}
+
+}
