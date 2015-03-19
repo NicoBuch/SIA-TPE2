@@ -8,7 +8,7 @@ public class TestSquares {
 		long time = System.currentTimeMillis();
 		GPSEngine engine = new SimpleSquaresEngine();
 		
-		engine.engine(new SimpleSquaresProblem(), SearchStrategy.Greedy);
+		engine.engine(new SimpleSquaresProblem(SearchStrategy.Greedy), SearchStrategy.Greedy);
 		System.out.println("Total time in milis: " + ((System.currentTimeMillis() - time)));
 	}
 }

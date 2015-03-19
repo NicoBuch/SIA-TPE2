@@ -1,5 +1,6 @@
 package simple_square;
 
+import gps.SearchStrategy;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
@@ -12,6 +13,12 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public static final Position INITIAL_POSITION = new Position(2,2); 
 	public static final Integer HEURISTIC_MAX = Integer.MAX_VALUE;
 	public static Position max_position;
+	public static SearchStrategy strategy;
+	
+	public SimpleSquaresProblem(SearchStrategy s) {
+		super();
+		this.strategy = s;
+	}
 	
 	@Override
 	public GPSState getInitState() {
@@ -112,5 +119,11 @@ public class SimpleSquaresProblem implements GPSProblem {
 		}
 		return 0;
 	}
+
+	public static SearchStrategy getStrategy() {
+		return strategy;
+	}
+	
+	
 
 }
