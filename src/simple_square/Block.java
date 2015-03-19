@@ -27,8 +27,8 @@ public class Block implements Cloneable{
 		this.position = position.move(direction);
 	}
 	
-	public Position getNextPosition(){
-		return position.move(direction);	
+	public Position getNextPosition(Direction dir){
+		return position.move(dir);	
 	}
 	
 	public void move(Direction d){
