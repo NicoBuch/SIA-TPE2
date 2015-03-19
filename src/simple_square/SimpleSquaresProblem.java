@@ -9,29 +9,36 @@ import java.util.List;
 
 public class SimpleSquaresProblem implements GPSProblem {
 	public static final int MAX = 10;
+	public static final Position INITIAL_POSITION = new Position(2,2); 
+	public static final Integer HEURISTIC_MAX = Integer.MAX_VALUE;
+	public static Position max_position;
 	
 	@Override
 	public GPSState getInitState() {
 		List<Block> blocks = new ArrayList<Block>();
 		List<Arrow> arrows = new ArrayList<Arrow>(); 
 		
-		//tablero 21
-		blocks.add(new Block (new Position (2,2), Direction.DOWN, new Position (3,2)));
-		blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (2,3)));
-		blocks.add(new Block (new Position (4,4), Direction.UP, new Position (3,4)));
-		blocks.add(new Block (new Position (2,4), Direction.LEFT, new Position (4,3)));
-		arrows.add(new Arrow (new Position (2,2), Direction.DOWN));
-		arrows.add(new Arrow (new Position (4,2), Direction.RIGHT));
-		arrows.add(new Arrow (new Position (4,4), Direction.UP));
-		arrows.add(new Arrow (new Position (2,4), Direction.LEFT));
-		arrows.add(new Arrow (new Position (6,2), Direction.UP));
-		//tablero 16
-//		blocks.add(new Block (new Position (2,2), Direction.DOWN, new Position (3,3)));
-//		blocks.add(new Block (new Position (4,4), Direction.UP, new Position (4,3)));
-//		arrows.add(new Arrow (new Position (2,5), Direction.LEFT));
-//		arrows.add(new Arrow (new Position (3,2), Direction.RIGHT));
+//		tablero 21
+//		max_position = new Position(6, 4);
+//		blocks.add(new Block (new Position (2,2), Direction.DOWN, new Position (3,2)));
+//		blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (2,3)));
+//		blocks.add(new Block (new Position (4,4), Direction.UP, new Position (3,4)));
+//		blocks.add(new Block (new Position (2,4), Direction.LEFT, new Position (4,3)));
 //		arrows.add(new Arrow (new Position (2,2), Direction.DOWN));
+//		arrows.add(new Arrow (new Position (4,2), Direction.RIGHT));
+//		arrows.add(new Arrow (new Position (4,4), Direction.UP));
+//		arrows.add(new Arrow (new Position (2,4), Direction.LEFT));
+//		arrows.add(new Arrow (new Position (6,2), Direction.UP));
+		//tablero 16
+		max_position = new Position(4,5);
+		blocks.add(new Block (new Position (2,2), Direction.DOWN, new Position (3,3)));
+		blocks.add(new Block (new Position (4,4), Direction.UP, new Position (4,3)));
+		arrows.add(new Arrow (new Position (2,5), Direction.LEFT));
+		arrows.add(new Arrow (new Position (3,2), Direction.RIGHT));
+		arrows.add(new Arrow (new Position (2,2), Direction.DOWN));
 		// tablero 9
+//		
+//		max_position = new Position(6,5);
 //		blocks.add(new Block (new Position (4,2), Direction.DOWN, new Position (4,4)));
 //		blocks.add(new Block (new Position (6,2), Direction.RIGHT, new Position (4,5)));
 //		arrows.add(new Arrow (new Position (6,4), Direction.UP));
@@ -88,10 +95,22 @@ public class SimpleSquaresProblem implements GPSProblem {
 		return rules;
 	}
 
-	@Override
-	public Integer getHValue(GPSState state) {
-		// TODO Auto-generated method stub
-		return null;
+	public static Integer getHValue(GPSState state) {
+		for(Block b : state.getBlocks()){
+			if(b.getPosition().isAtLeftFrom(INITIAL_POSITION) && b.getDirection().equals(Direction.LEFT)){
+				return HEURISTIC_MAX;
+			}
+			if(b.getPosition().isAtUpFrom(INITIAL_POSITION) && b.getDirection().equals(Direction.UP)){
+				return HEURISTIC_MAX;
+			}
+			if(b.getPosition().isAtRightFrom(max_position) && b.getDirection().equals(Direction.RIGHT)){
+				return HEURISTIC_MAX;
+			}
+			if(b.getPosition().isAtDownFrom(max_position) && b.getDirection().equals(Direction.DOWN)){
+				return HEURISTIC_MAX;
+			}
+		}
+		return 0;
 	}
 
 }

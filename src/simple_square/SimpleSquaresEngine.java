@@ -4,18 +4,28 @@ import gps.GPSEngine;
 import gps.GPSNode;
 import gps.SearchStrategy;
 
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+
 public class SimpleSquaresEngine extends GPSEngine {
 
 	@Override
 	public void addNode(GPSNode node) {
 		if(strategy.equals(SearchStrategy.DFS)){
-			open.add(0, node);
+			LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
+			aux.add(0, node);
 		}
 		else if(strategy.equals(SearchStrategy.BFS)){
-			open.add(node);
+			LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
+			aux.add(node);
 		}
 		else if(strategy.equals(SearchStrategy.DeepIteration)){
-			open.add(0, node);
+			LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
+			aux.add(0, node);
+		}
+		else if(strategy.equals(SearchStrategy.Greedy)){
+			PriorityQueue<GPSNode> aux = (PriorityQueue<GPSNode>) open;
+			aux.add(node);
 		}
 	}
 

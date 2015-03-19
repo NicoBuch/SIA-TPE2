@@ -1,8 +1,9 @@
 package gps;
 
+import simple_square.SimpleSquaresProblem;
 import gps.api.GPSState;
 
-public class GPSNode {
+public class GPSNode implements Comparable<GPSNode>{
 
 	private GPSState state;
 
@@ -42,5 +43,10 @@ public class GPSNode {
 			return this.state.toString();
 		}
 		return this.parent.getSolution() + "\n" + this.state;
+	}
+
+	@Override
+	public int compareTo(GPSNode o) {
+		return SimpleSquaresProblem.getHValue(this.state) - SimpleSquaresProblem.getHValue(o.state);
 	}
 }

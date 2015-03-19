@@ -5,15 +5,20 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
+import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public abstract class GPSEngine {
 
-	protected List<GPSNode> open = new LinkedList<GPSNode>();
+//	protected List<GPSNode> open = new LinkedList<GPSNode>();
 
 	protected List<GPSNode> closed = new ArrayList<GPSNode>();
+	
+	protected AbstractCollection<GPSNode> open;
+//	protected PriorityQueue<GPSNode> openH = new PriorityQueue<GPSNode>();
 
 	protected GPSProblem problem;
 	
@@ -26,33 +31,46 @@ public abstract class GPSEngine {
 
 		problem = myProblem;
 		strategy = myStrategy;
-
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		boolean finished = false;
 		boolean failed = false;
 		long explosionCounter = 0;
-
+		if(isHeuristicStrategy()){
+			open = new PriorityQueue<GPSNode>();
+		}
+		else{
+			open = new LinkedList<GPSNode>();
+		}
 		open.add(rootNode);
 		while (!failed && !finished) {
+			
 			if (open.size() <= 0) {
 				if(strategy.equals(SearchStrategy.DeepIteration)){
 					deepIterationValue ++;
 					System.out.println("new deepIterationValue: " + deepIterationValue);
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+//					try {
+//						Thread.sleep(2000);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 					open.add(rootNode);
 				}
 				else{
 					failed = true;
 				}
 			} else {
-				GPSNode currentNode = open.get(0);
+				GPSNode currentNode = null;
+				if(isHeuristicStrategy()){
+					PriorityQueue<GPSNode> aux = (PriorityQueue<GPSNode>) open;
+					currentNode = aux.poll();
+				}
+				else{
+					LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
+					currentNode = aux.get(0);
+					aux.remove(0);
+				}
 				closed.add(currentNode);
-				open.remove(0);
 				if (isGoal(currentNode)) {
 					finished = true;
 					System.out.println(currentNode.getSolution());
@@ -127,5 +145,9 @@ public abstract class GPSEngine {
 	}
 
 	public abstract  void addNode(GPSNode node);
+	
+	public boolean isHeuristicStrategy(){
+		return strategy.equals(SearchStrategy.Greedy) || strategy.equals(SearchStrategy.AStar);
+	}
 	
 }
