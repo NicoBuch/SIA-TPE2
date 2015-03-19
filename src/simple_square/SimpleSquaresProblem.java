@@ -15,11 +15,27 @@ public class SimpleSquaresProblem implements GPSProblem {
 		List<Block> blocks = new ArrayList<Block>();
 		List<Arrow> arrows = new ArrayList<Arrow>(); 
 		
+		//tablero 21
+		blocks.add(new Block (new Position (2,2), Direction.DOWN, new Position (3,2)));
+		blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (2,3)));
+		blocks.add(new Block (new Position (4,4), Direction.UP, new Position (3,4)));
+		blocks.add(new Block (new Position (2,4), Direction.LEFT, new Position (4,3)));
+		arrows.add(new Arrow (new Position (2,2), Direction.DOWN));
+		arrows.add(new Arrow (new Position (4,2), Direction.RIGHT));
+		arrows.add(new Arrow (new Position (4,4), Direction.UP));
+		arrows.add(new Arrow (new Position (2,4), Direction.LEFT));
+		arrows.add(new Arrow (new Position (6,2), Direction.UP));
+		//tablero 16
+//		blocks.add(new Block (new Position (2,2), Direction.DOWN, new Position (3,3)));
+//		blocks.add(new Block (new Position (4,4), Direction.UP, new Position (4,3)));
+//		arrows.add(new Arrow (new Position (2,5), Direction.LEFT));
+//		arrows.add(new Arrow (new Position (3,2), Direction.RIGHT));
+//		arrows.add(new Arrow (new Position (2,2), Direction.DOWN));
 		// tablero 9
-		blocks.add(new Block (new Position (4,2), Direction.DOWN, new Position (4,4)));
-		blocks.add(new Block (new Position (6,2), Direction.RIGHT, new Position (4,5)));
-		arrows.add(new Arrow (new Position (6,4), Direction.UP));
-		arrows.add(new Arrow (new Position (6,2), Direction.RIGHT));
+//		blocks.add(new Block (new Position (4,2), Direction.DOWN, new Position (4,4)));
+//		blocks.add(new Block (new Position (6,2), Direction.RIGHT, new Position (4,5)));
+//		arrows.add(new Arrow (new Position (6,4), Direction.UP));
+//		arrows.add(new Arrow (new Position (6,2), Direction.RIGHT));
 		
 		//tablero 1
 		//blocks.add(new Block (new Position (4,2), Direction.RIGHT, new Position (4,4)));

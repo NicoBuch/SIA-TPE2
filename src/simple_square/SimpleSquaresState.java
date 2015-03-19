@@ -21,9 +21,6 @@ public class SimpleSquaresState implements GPSState {
 			if(!blocks.get(i).equals(state.getBlocks().get(i)))
 				return false;
 		
-		for (int i=0; i< arrows.size(); i++)
-			if(!arrows.get(i).equals(state.getArrows().get(i)))
-					return false;
 		return true;
 	}
 
@@ -65,6 +62,16 @@ public class SimpleSquaresState implements GPSState {
 			cloned_arrows.add(a.clone());
 		}
 		return new SimpleSquaresState(cloned_blocks, cloned_arrows);
+	}
+	
+	@Override
+	public String toString() {
+		String s = "" + '\n';
+		s += "En este estado los bloques son:";
+		for(Block b : blocks){
+			s += "posicion: " + b.getPosition().x + ", " + b.getPosition().y + "direccion: " + b.getDirection() + '\n';
+		}
+		return s;
 	}
 	
 }
