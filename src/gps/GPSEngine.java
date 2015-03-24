@@ -5,6 +5,7 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
+import java.io.File;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.LinkedList;
