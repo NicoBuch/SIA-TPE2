@@ -92,4 +92,8 @@ public class Block implements Cloneable{
 		return "direction: " + direction.toString() + ", position: " + position.toString() +  ", Objective: " + targetPosition.toString();
 	}
 
+	public double getDistanceToObjective() {
+		return Math.sqrt(Math.pow(position.x - targetPosition.x, 2) + Math.pow(position.y - targetPosition.y, 2));
+	}
+
 }

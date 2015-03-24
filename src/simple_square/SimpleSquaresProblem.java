@@ -105,6 +105,7 @@ public class SimpleSquaresProblem implements GPSProblem {
 //		arrows.add(new Arrow(new Position(2, 5), Direction.LEFT));
 //		arrows.add(new Arrow(new Position(3, 2), Direction.RIGHT));
 //		arrows.add(new Arrow(new Position(2, 2), Direction.DOWN));
+
 		// tablero 9
 		//
 		// max_position = new Position(6,5);
@@ -176,9 +177,9 @@ public class SimpleSquaresProblem implements GPSProblem {
 	}
 
 	public static Integer getHValue(GPSState state) {
-		for (Block b : state.getBlocks()) {
-			if (b.getPosition().isAtLeftFrom(INITIAL_POSITION)
-					&& b.getDirection().equals(Direction.LEFT)) {
+		Integer totalDistance = 0;
+		for(Block b : state.getBlocks()){
+			if(b.getPosition().isAtLeftFrom(INITIAL_POSITION) && b.getDirection().equals(Direction.LEFT)){
 				return HEURISTIC_MAX;
 			}
 			if (b.getPosition().isAtUpFrom(INITIAL_POSITION)
@@ -193,8 +194,10 @@ public class SimpleSquaresProblem implements GPSProblem {
 					&& b.getDirection().equals(Direction.DOWN)) {
 				return HEURISTIC_MAX;
 			}
+			totalDistance += (int) b.getDistanceToObjective();
 		}
-		return 0;
+		return totalDistance;
+//		return 0;
 	}
 
 	public static SearchStrategy getStrategy() {

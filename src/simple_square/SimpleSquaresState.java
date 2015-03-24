@@ -54,14 +54,10 @@ public class SimpleSquaresState implements GPSState {
 	@Override
 	public GPSState clone(){
 		List<Block> cloned_blocks = new ArrayList<Block>();
-		ArrayList<Arrow> cloned_arrows = new ArrayList<Arrow>();
 		for(Block b : blocks){
 			cloned_blocks.add(b.clone());
 		}
-		for(Arrow a : arrows){
-			cloned_arrows.add(a.clone());
-		}
-		return new SimpleSquaresState(cloned_blocks, cloned_arrows);
+		return new SimpleSquaresState(cloned_blocks, arrows);
 	}
 	
 	@Override
