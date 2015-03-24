@@ -11,15 +11,23 @@ public class TestSquares {
 		long time = System.currentTimeMillis();
 		GPSEngine engine = new SimpleSquaresEngine();
 
-		// Scanner s = new Scanner(System.in);
-		// while(true){
-//		System.out.println("Ingrese una estrategia:");
-		// String strat = s.nextLine();
-		String strat = args[0];
-		String heur = args[1];
+		String strat = args[1];
 		Heuristic heuristic = Heuristic.DEFAULT;
 		SearchStrategy strategy = SearchStrategy.BFS;
+		String heur = "default";
 		
+		if (args.length > 2) {
+			heur = args[2];
+			if (heur.toString().equals("mindistance")) {
+				heuristic = Heuristic.MinDistance;
+				System.out.println("Min Distance");
+			}
+			
+		} else {
+			heuristic = Heuristic.DEFAULT;
+			System.out.println("Sin heurística");
+		}
+
 		if (strat.toLowerCase().equals("bfs")) {
 			strategy = SearchStrategy.BFS;
 		} else if (strat.toLowerCase().equals("dfs")) {
@@ -35,16 +43,10 @@ public class TestSquares {
 		} else {
 			System.out.println("No se encontró estrategia con ese nombre");
 		}
-		
-		if(heur.toString().equals("mindistance")){
-			heuristic = Heuristic.MinDistance;
-		}else {
-			heuristic = Heuristic.DEFAULT;
-		}
 
-		engine.engine(new SimpleSquaresProblem(strategy, args[2], heuristic), strategy);
+		engine.engine(new SimpleSquaresProblem(strategy, args[0], heuristic),
+				strategy);
 		System.out.println("Total time in milis: "
 				+ ((System.currentTimeMillis() - time)));
 	}
-	// }
 }
