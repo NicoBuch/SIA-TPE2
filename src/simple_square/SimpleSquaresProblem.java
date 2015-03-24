@@ -1,5 +1,6 @@
 package simple_square;
 
+import gps.Heuristic;
 import gps.SearchStrategy;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
@@ -18,10 +19,12 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public static Position max_position;
 	public static SearchStrategy strategy;
 	private static String filepath;
+	private static Heuristic heuristic;
 
-	public SimpleSquaresProblem(SearchStrategy s, String boardName) {
+	public SimpleSquaresProblem(SearchStrategy s, String boardName, Heuristic h) {
 		super();
 		this.strategy = s;
+		this.heuristic = h;
 		this.filepath = "src/simple_square/board/" + boardName + ".txt";
 
 	}
@@ -37,7 +40,7 @@ public class SimpleSquaresProblem implements GPSProblem {
 			br = new BufferedReader(new FileReader(filepath));
 			while ((curline = br.readLine()) != null) {
 				String[] sline = curline.split(",");
-				
+
 				if (sline[0].toLowerCase().equals("block")) {
 					Direction dir;
 					if (sline[3].toLowerCase().equals("right")) {
@@ -51,13 +54,14 @@ public class SimpleSquaresProblem implements GPSProblem {
 					}
 					System.out.println("bloque");
 					Position target = null;
-					if(!sline[4].equals("null")){
-						target = new Position(Integer.valueOf(sline[4]), Integer.valueOf(sline[5]));
+					if (!sline[4].equals("null")) {
+						target = new Position(Integer.valueOf(sline[4]),
+								Integer.valueOf(sline[5]));
 					}
 					blocks.add(new Block(new Position(
 							Integer.valueOf(sline[1]), Integer
 									.valueOf(sline[2])), dir, target));
-							
+
 				} else if (sline[0].toLowerCase().equals("arrow")) {
 					Direction dir;
 					if (sline[3].toLowerCase().equals("right")) {
@@ -73,13 +77,14 @@ public class SimpleSquaresProblem implements GPSProblem {
 					arrows.add(new Arrow(new Position(
 							Integer.valueOf(sline[1]), Integer
 									.valueOf(sline[2])), dir));
-				}else if(sline[0].toLowerCase().equals("max")){
+				} else if (sline[0].toLowerCase().equals("max")) {
 					System.out.println("max");
-					max_position = new Position(Integer.valueOf(sline[1]),Integer.valueOf(sline[2]));
+					max_position = new Position(Integer.valueOf(sline[1]),
+							Integer.valueOf(sline[2]));
 				}
 			}
 			br.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,14 +105,16 @@ public class SimpleSquaresProblem implements GPSProblem {
 		// arrows.add(new Arrow (new Position (2,4), Direction.LEFT));
 		// arrows.add(new Arrow (new Position (6,2), Direction.UP));
 		// tablero 16
-//		max_position = new Position(4, 5);
-//		blocks.add(new Block(new Position(2, 2), Direction.DOWN, new Position(
-//				3, 3)));
-//		blocks.add(new Block(new Position(4, 4), Direction.UP, new Position(4,
-//				3)));
-//		arrows.add(new Arrow(new Position(2, 5), Direction.LEFT));
-//		arrows.add(new Arrow(new Position(3, 2), Direction.RIGHT));
-//		arrows.add(new Arrow(new Position(2, 2), Direction.DOWN));
+		// max_position = new Position(4, 5);
+		// blocks.add(new Block(new Position(2, 2), Direction.DOWN, new
+		// Position(
+		// 3, 3)));
+		// blocks.add(new Block(new Position(4, 4), Direction.UP, new
+		// Position(4,
+		// 3)));
+		// arrows.add(new Arrow(new Position(2, 5), Direction.LEFT));
+		// arrows.add(new Arrow(new Position(3, 2), Direction.RIGHT));
+		// arrows.add(new Arrow(new Position(2, 2), Direction.DOWN));
 
 		// tablero 9
 		//
@@ -181,26 +188,31 @@ public class SimpleSquaresProblem implements GPSProblem {
 
 	public static Integer getHValue(GPSState state) {
 		Integer totalDistance = 0;
-		for(Block b : state.getBlocks()){
-			if(b.getPosition().isAtLeftFrom(INITIAL_POSITION) && b.getDirection().equals(Direction.LEFT)){
-				return HEURISTIC_MAX;
+		for (Block b : state.getBlocks()) {
+			if (heuristic.equals(Heuristic.MinDistance)) {
+				totalDistance += (int) b.getDistanceToObjective();
+			} else if(heuristic.equals(Heuristic.DEFAULT)) {
+
+				if (b.getPosition().isAtLeftFrom(INITIAL_POSITION)
+						&& b.getDirection().equals(Direction.LEFT)) {
+					return HEURISTIC_MAX;
+				}
+				if (b.getPosition().isAtUpFrom(INITIAL_POSITION)
+						&& b.getDirection().equals(Direction.UP)) {
+					return HEURISTIC_MAX;
+				}
+				if (b.getPosition().isAtRightFrom(max_position)
+						&& b.getDirection().equals(Direction.RIGHT)) {
+					return HEURISTIC_MAX;
+				}
+				if (b.getPosition().isAtDownFrom(max_position)
+						&& b.getDirection().equals(Direction.DOWN)) {
+					return HEURISTIC_MAX;
+				}
 			}
-			if (b.getPosition().isAtUpFrom(INITIAL_POSITION)
-					&& b.getDirection().equals(Direction.UP)) {
-				return HEURISTIC_MAX;
-			}
-			if (b.getPosition().isAtRightFrom(max_position)
-					&& b.getDirection().equals(Direction.RIGHT)) {
-				return HEURISTIC_MAX;
-			}
-			if (b.getPosition().isAtDownFrom(max_position)
-					&& b.getDirection().equals(Direction.DOWN)) {
-				return HEURISTIC_MAX;
-			}
-			totalDistance += (int) b.getDistanceToObjective();
+
 		}
 		return totalDistance;
-//		return 0;
 	}
 
 	public static SearchStrategy getStrategy() {
