@@ -50,11 +50,14 @@ public class SimpleSquaresProblem implements GPSProblem {
 						dir = Direction.DOWN;
 					}
 					System.out.println("bloque");
+					Position target = null;
+					if(!sline[4].equals("null")){
+						target = new Position(Integer.valueOf(sline[4]), Integer.valueOf(sline[5]));
+					}
 					blocks.add(new Block(new Position(
 							Integer.valueOf(sline[1]), Integer
-									.valueOf(sline[2])), dir, new Position(
-							Integer.valueOf(sline[4]), Integer
-									.valueOf(sline[5]))));
+									.valueOf(sline[2])), dir, target));
+							
 				} else if (sline[0].toLowerCase().equals("arrow")) {
 					Direction dir;
 					if (sline[3].toLowerCase().equals("right")) {

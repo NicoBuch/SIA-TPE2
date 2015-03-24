@@ -40,6 +40,9 @@ public class Block implements Cloneable{
 	}
 	
 	public boolean isInGoal(){
+		if(targetPosition == null){
+			return true;
+		}
 		return position.equals(targetPosition);
 	}
 	
@@ -93,6 +96,8 @@ public class Block implements Cloneable{
 	}
 
 	public double getDistanceToObjective() {
+		if (targetPosition == null)
+			return 0;
 		return Math.sqrt(Math.pow(position.x - targetPosition.x, 2) + Math.pow(position.y - targetPosition.y, 2));
 	}
 
