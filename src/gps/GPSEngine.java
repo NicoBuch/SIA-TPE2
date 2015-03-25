@@ -5,7 +5,6 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
-import java.io.File;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -36,7 +35,7 @@ public abstract class GPSEngine {
 		boolean finished = false;
 		boolean failed = false;
 		long explosionCounter = 0;
-		if(isHeuristicStrategy()){
+		if(strategy.equals(SearchStrategy.AStar)){
 			open = new PriorityQueue<GPSNode>();
 		}
 		else{
@@ -62,7 +61,7 @@ public abstract class GPSEngine {
 				}
 			} else {
 				GPSNode currentNode = null;
-				if(isHeuristicStrategy()){
+				if(strategy.equals(SearchStrategy.AStar)){
 					PriorityQueue<GPSNode> aux = (PriorityQueue<GPSNode>) open;
 					currentNode = aux.poll();
 				}
@@ -100,7 +99,7 @@ public abstract class GPSEngine {
 			System.err.println("No rules!");
 			return false;
 		}
-		
+		PriorityQueue<GPSNode> greedyQueue = new PriorityQueue<GPSNode>();
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
@@ -116,7 +115,18 @@ public abstract class GPSEngine {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
-				addNode(newNode);				
+				if(strategy.equals(SearchStrategy.Greedy)){
+					greedyQueue.add(newNode);
+				}
+				else{
+					addNode(newNode);				
+				}
+			}
+		}
+		if(strategy.equals(SearchStrategy.Greedy)){
+			
+			for(int i = 0; !greedyQueue.isEmpty(); i ++){
+				((LinkedList<GPSNode>) open).add(i, greedyQueue.remove());
 			}
 		}
 		return true;

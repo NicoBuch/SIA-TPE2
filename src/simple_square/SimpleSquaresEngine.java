@@ -23,10 +23,14 @@ public class SimpleSquaresEngine extends GPSEngine {
 			LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
 			aux.add(0, node);
 		}
-		else if(strategy.equals(SearchStrategy.Greedy) ||strategy.equals(SearchStrategy.AStar) ){
+		else if(strategy.equals(SearchStrategy.AStar) ){
 			PriorityQueue<GPSNode> aux = (PriorityQueue<GPSNode>) open;
 			aux.add(node);
 		}
+//		else if(strategy.equals(SearchStrategy.Greedy)){
+//			LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
+//			aux.add(0, node);
+//		}
 	}
 
 }
