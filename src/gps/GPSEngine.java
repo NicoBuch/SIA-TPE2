@@ -47,6 +47,7 @@ public abstract class GPSEngine {
 			if (open.size() <= 0) {
 				if(strategy.equals(SearchStrategy.DeepIteration)){
 					deepIterationValue ++;
+					closed.clear();
 					System.out.println("new deepIterationValue: " + deepIterationValue);
 //					try {
 //						Thread.sleep(2000);
@@ -134,13 +135,13 @@ public abstract class GPSEngine {
 
 	private  boolean checkOpenAndClosed(Integer cost, GPSState state) {
 		for (GPSNode openNode : open) {
-			if (openNode.getState().compare(state) && openNode.getCost() < cost) {
+			if (openNode.getState().compare(state) && openNode.getCost() <= cost) {
 				return true;
 			}
 		}
 		for (GPSNode closedNode : closed) {
 			if (closedNode.getState().compare(state)
-					&& closedNode.getCost() < cost) {
+					&& closedNode.getCost() <= cost) {
 				return true;
 			}
 		}
@@ -151,8 +152,7 @@ public abstract class GPSEngine {
 		if (parent == null) {
 			return false;
 		}
-		return checkBranch(parent.getParent(), state)
-				|| state.compare(parent.getState());
+		return state.compare(parent.getState()) || checkBranch(parent.getParent(), state);
 	}
 
 	public abstract  void addNode(GPSNode node);
