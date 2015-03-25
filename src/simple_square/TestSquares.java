@@ -4,8 +4,6 @@ import gps.GPSEngine;
 import gps.Heuristic;
 import gps.SearchStrategy;
 
-import java.util.Scanner;
-
 public class TestSquares {
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
@@ -21,6 +19,10 @@ public class TestSquares {
 			if (heur.toString().equals("mindistance")) {
 				heuristic = Heuristic.MinDistance;
 				System.out.println("Min Distance");
+			}
+			else if(heur.toString().equals("inpath")){
+				heuristic = Heuristic.InPath;
+				System.out.println("In Path");
 			}
 			
 		} else {

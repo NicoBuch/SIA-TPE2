@@ -36,25 +36,25 @@ public class Position{
 
 
 	public boolean isAtLeftFrom(Position pos){
-		if(this.y <= pos.y){
+		if(this.y < pos.y){
 			return true;
 		}
 		return false;
 	}
 	public boolean isAtUpFrom(Position pos){
-		if(this.x <= pos.x){
+		if(this.x < pos.x){
 			return true;
 		}
 		return false;
 	}
 	public boolean isAtRightFrom(Position pos){
-		if(this.y >= pos.y){
+		if(this.y > pos.y){
 			return true;
 		}
 		return false;
 	}
 	public boolean isAtDownFrom(Position pos){
-		if(this.x >= pos.x){
+		if(this.x > pos.x){
 			return true;
 		}
 		return false;

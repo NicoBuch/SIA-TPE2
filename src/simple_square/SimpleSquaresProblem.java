@@ -89,72 +89,6 @@ public class SimpleSquaresProblem implements GPSProblem {
 			e.printStackTrace();
 		}
 
-		// tablero 21
-		// max_position = new Position(6, 4);
-		// blocks.add(new Block (new Position (2,2), Direction.DOWN, new
-		// Position (3,2)));
-		// blocks.add(new Block (new Position (4,2), Direction.RIGHT, new
-		// Position (2,3)));
-		// blocks.add(new Block (new Position (4,4), Direction.UP, new Position
-		// (3,4)));
-		// blocks.add(new Block (new Position (2,4), Direction.LEFT, new
-		// Position (4,3)));
-		// arrows.add(new Arrow (new Position (2,2), Direction.DOWN));
-		// arrows.add(new Arrow (new Position (4,2), Direction.RIGHT));
-		// arrows.add(new Arrow (new Position (4,4), Direction.UP));
-		// arrows.add(new Arrow (new Position (2,4), Direction.LEFT));
-		// arrows.add(new Arrow (new Position (6,2), Direction.UP));
-		// tablero 16
-		// max_position = new Position(4, 5);
-		// blocks.add(new Block(new Position(2, 2), Direction.DOWN, new
-		// Position(
-		// 3, 3)));
-		// blocks.add(new Block(new Position(4, 4), Direction.UP, new
-		// Position(4,
-		// 3)));
-		// arrows.add(new Arrow(new Position(2, 5), Direction.LEFT));
-		// arrows.add(new Arrow(new Position(3, 2), Direction.RIGHT));
-		// arrows.add(new Arrow(new Position(2, 2), Direction.DOWN));
-
-		// tablero 9
-		//
-		// max_position = new Position(6,5);
-		// blocks.add(new Block (new Position (4,2), Direction.DOWN, new
-		// Position (4,4)));
-		// blocks.add(new Block (new Position (6,2), Direction.RIGHT, new
-		// Position (4,5)));
-		// arrows.add(new Arrow (new Position (6,4), Direction.UP));
-		// arrows.add(new Arrow (new Position (6,2), Direction.RIGHT));
-
-		// tablero 1
-		// blocks.add(new Block (new Position (4,2), Direction.RIGHT, new
-		// Position (4,4)));
-
-		// tablero 2
-		// blocks.add(new Block (new Position (4,3), Direction.DOWN, new
-		// Position (5,3)));
-		// blocks.add(new Block (new Position (5,4), Direction.UP, new Position
-		// (4,4)));
-		// tablero 3
-		// blocks.add(new Block (new Position (4,2), Direction.RIGHT, new
-		// Position (4,4)));
-		// blocks.add(new Block (new Position (6,3), Direction.UP, new Position
-		// (4,3)));
-		// blocks.add(new Block (new Position (5,5), Direction.LEFT, new
-		// Position (5,2)));
-		// tablero 4
-		// blocks.add(new Block (new Position (5,6), Direction.LEFT, new
-		// Position (5,2)));
-		// blocks.add(new Block (new Position (2,5), Direction.DOWN, new
-		// Position (7,4)));
-		// tablero 5
-		// blocks.add(new Block (new Position (2,3), Direction.DOWN, new
-		// Position (3,3)));
-		// blocks.add(new Block (new Position (3,2), Direction.RIGHT, new
-		// Position (5,5)));
-		// blocks.add(new Block (new Position (3,4), Direction.DOWN, new
-		// Position (4,4)));
-
 		return new SimpleSquaresState(blocks, arrows);
 	}
 
@@ -187,32 +121,33 @@ public class SimpleSquaresProblem implements GPSProblem {
 	}
 
 	public static Integer getHValue(GPSState state) {
-		Integer totalDistance = 0;
+		Integer value = 0;
 		for (Block b : state.getBlocks()) {
+			if (b.getPosition().isAtLeftFrom(INITIAL_POSITION)
+					&& !b.getDirection().equals(Direction.RIGHT)) {
+				return HEURISTIC_MAX;
+			}
+			if (b.getPosition().isAtUpFrom(INITIAL_POSITION)
+					&& !b.getDirection().equals(Direction.DOWN)) {
+				return HEURISTIC_MAX;
+			}
+			if (b.getPosition().isAtRightFrom(max_position)
+					&& !b.getDirection().equals(Direction.LEFT)) {
+				return HEURISTIC_MAX;
+			}
+			if (b.getPosition().isAtDownFrom(max_position)
+					&& !b.getDirection().equals(Direction.UP)) {
+				return HEURISTIC_MAX;
+			}
 			if (heuristic.equals(Heuristic.MinDistance)) {
-				totalDistance += (int) b.getDistanceToObjective();
-			} else if(heuristic.equals(Heuristic.DEFAULT)) {
-
-				if (b.getPosition().isAtLeftFrom(INITIAL_POSITION)
-						&& b.getDirection().equals(Direction.LEFT)) {
-					return HEURISTIC_MAX;
-				}
-				if (b.getPosition().isAtUpFrom(INITIAL_POSITION)
-						&& b.getDirection().equals(Direction.UP)) {
-					return HEURISTIC_MAX;
-				}
-				if (b.getPosition().isAtRightFrom(max_position)
-						&& b.getDirection().equals(Direction.RIGHT)) {
-					return HEURISTIC_MAX;
-				}
-				if (b.getPosition().isAtDownFrom(max_position)
-						&& b.getDirection().equals(Direction.DOWN)) {
-					return HEURISTIC_MAX;
-				}
+				value += (int) b.getDistanceToObjective();
+			} else if(heuristic.equals(Heuristic.InPath)) {
+				SimpleSquaresState aux = (SimpleSquaresState) state;
+				value += aux.isInPath(b);
 			}
 
 		}
-		return totalDistance;
+		return value;
 	}
 
 	public static SearchStrategy getStrategy() {

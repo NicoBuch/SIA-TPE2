@@ -22,7 +22,7 @@ public class Block implements Cloneable{
 	public Direction getDirection() {
 		return direction;
 	}
-
+	
 	public void move(){
 		this.position = position.move(direction);
 	}
