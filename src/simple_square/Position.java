@@ -1,14 +1,14 @@
 package simple_square;
 
-public class Position{
+public class Position {
 	int x;
 	int y;
-	
-	public Position(int x, int y){
+
+	public Position(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,48 +34,50 @@ public class Position{
 		return true;
 	}
 
-
-	public boolean isAtLeftFrom(Position pos){
-		if(this.y < pos.y){
-			return true;
-		}
-		return false;
-	}
-	public boolean isAtUpFrom(Position pos){
-		if(this.x < pos.x){
-			return true;
-		}
-		return false;
-	}
-	public boolean isAtRightFrom(Position pos){
-		if(this.y > pos.y){
-			return true;
-		}
-		return false;
-	}
-	public boolean isAtDownFrom(Position pos){
-		if(this.x > pos.x){
+	public boolean isAtLeftFrom(Position pos) {
+		if (this.y < pos.y) {
 			return true;
 		}
 		return false;
 	}
 
-	public Position move(Direction dir){
+	public boolean isAtUpFrom(Position pos) {
+		if (this.x < pos.x) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isAtRightFrom(Position pos) {
+		if (this.y > pos.y) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isAtDownFrom(Position pos) {
+		if (this.x > pos.x) {
+			return true;
+		}
+		return false;
+	}
+
+	public Position move(Direction dir) {
 		Position pos = new Position(x, y);
-		if(dir == Direction.LEFT){
-			pos.y -= 1; 
+		if (dir == Direction.LEFT) {
+			pos.y -= 1;
 		}
-		if(dir == Direction.RIGHT){
-			pos.y += 1; 
+		if (dir == Direction.RIGHT) {
+			pos.y += 1;
 		}
-		if(dir == Direction.UP){
-			pos.x -= 1; 
+		if (dir == Direction.UP) {
+			pos.x -= 1;
 		}
-		if(dir == Direction.DOWN){
-			pos.x += 1; 
+		if (dir == Direction.DOWN) {
+			pos.x += 1;
 		}
 		return pos;
-		
+
 	}
 
 	public int getX() {
@@ -85,9 +87,17 @@ public class Position{
 	public int getY() {
 		return y;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ")";
+	}
+
+	public boolean isInArea(Position from, Position to) {
+		if (Math.max(from.x, to.x) >= x && Math.min(from.x, to.x) <= x
+				&& Math.max(from.y, to.y) >= y && Math.min(from.y, to.y) <= y) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -140,10 +140,22 @@ public class SimpleSquaresProblem implements GPSProblem {
 				return HEURISTIC_MAX;
 			}
 			if (heuristic.equals(Heuristic.MinDistance)) {
-				value += (int) b.getDistanceToObjective();
+				value += b.getManhattanDistanceToObjective();
 			} else if(heuristic.equals(Heuristic.InPath)) {
 				SimpleSquaresState aux = (SimpleSquaresState) state;
 				value += aux.isInPath(b);
+			}
+			else if(heuristic.equals(Heuristic.AdmisibleMinDistance)){
+				int currentValue = b.getManhattanDistanceToObjective();
+				if(currentValue != 0){
+					int blocksInArea = 1;
+					for(Block block : state.getBlocks()){
+						if(!block.equals(b) && block.getPosition().isInArea(b.getPosition(), b.getTargetPosition())){
+							blocksInArea ++;
+						}
+					}
+					value += (currentValue / blocksInArea);
+				}
 			}
 
 		}

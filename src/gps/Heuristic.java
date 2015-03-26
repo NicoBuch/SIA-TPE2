@@ -3,5 +3,6 @@ package gps;
 public enum Heuristic {
 	DEFAULT,
 	MinDistance,
-	InPath
+	InPath,
+	AdmisibleMinDistance
 }

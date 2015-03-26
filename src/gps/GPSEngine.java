@@ -134,16 +134,33 @@ public abstract class GPSEngine {
 	}
 
 	private  boolean checkOpenAndClosed(Integer cost, GPSState state) {
+		GPSNode repetedNode = null;
 		for (GPSNode openNode : open) {
-			if (openNode.getState().compare(state) && openNode.getCost() <= cost) {
-				return true;
+			if (openNode.getState().compare(state)) {
+				if(openNode.getCost() <= cost){
+					return true;
+				}
+				else{
+					repetedNode = openNode;
+				}
 			}
 		}
+		if(repetedNode != null){
+			open.remove(repetedNode);
+			repetedNode = null;
+		}
 		for (GPSNode closedNode : closed) {
-			if (closedNode.getState().compare(state)
-					&& closedNode.getCost() <= cost) {
-				return true;
+			if (closedNode.getState().compare(state)) {
+				if(closedNode.getCost() <= cost){
+					return true;
+				}
+				else{
+					repetedNode = closedNode;
+				}
 			}
+		}
+		if(repetedNode != null){
+			closed.remove(repetedNode);
 		}
 		return false;
 	}
