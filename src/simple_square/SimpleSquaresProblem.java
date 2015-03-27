@@ -139,13 +139,13 @@ public class SimpleSquaresProblem implements GPSProblem {
 					&& !b.getDirection().equals(Direction.UP)) {
 				return HEURISTIC_MAX;
 			}
-			if (heuristic.equals(Heuristic.MinDistance)) {
+			if (heuristic.equals(Heuristic.MinDistance1)) {
 				value += b.getManhattanDistanceToObjective();
 			} else if(heuristic.equals(Heuristic.InPath)) {
 				SimpleSquaresState aux = (SimpleSquaresState) state;
 				value += aux.isInPath(b);
 			}
-			else if(heuristic.equals(Heuristic.AdmisibleMinDistance)){
+			else if(heuristic.equals(Heuristic.MinDistance2)){
 				int currentValue = b.getManhattanDistanceToObjective();
 				if(currentValue != 0){
 					int blocksInArea = 1;
@@ -157,7 +157,23 @@ public class SimpleSquaresProblem implements GPSProblem {
 					value += (currentValue / blocksInArea);
 				}
 			}
-
+			else if (heuristic.equals(Heuristic.AdmissibleMinDistance)){
+				int currentValue = b.getManhattanDistanceToObjective();
+				if (currentValue > value)
+					value = currentValue;
+			}
+			else if (heuristic.equals(Heuristic.MinDistance3)){
+				int currentValue = b.getManhattanDistanceToObjective();
+				if(currentValue != 0){
+					int blocksInArea = 1;
+					for(Block block : state.getBlocks()){
+						if(!block.equals(b) && block.analyizeTotalArea(b)){
+							blocksInArea ++;
+						}
+					}
+					value += (currentValue / blocksInArea);
+				}
+			}
 		}
 		return value;
 	}

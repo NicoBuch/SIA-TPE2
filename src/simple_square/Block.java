@@ -1,5 +1,9 @@
 package simple_square;
 
+import javax.sql.rowset.CachedRowSet;
+
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 public class Block implements Cloneable{
 	private Position position;
 	private Position targetPosition;
@@ -105,6 +109,63 @@ public class Block implements Cloneable{
 		if (targetPosition == null)
 			return 0;
 		return Math.abs(targetPosition.x - position.x) + Math.abs(targetPosition.y - position.y);
+	}
+
+	public boolean analyizeTotalArea(Block b) {
+		Position from = b.getPosition();
+		Position target = b.getTargetPosition();
+		int difx = target.x - from.x;
+		int dify = target.y - from.y;
+		Direction direcICanMoveB = this.getDirection();
+		
+		//difx < 0 => from.x > target.x => target esta a la izquierda de b
+		//dify < 0 => from.y > target.y => target esta arriba de b
+	
+		if(difx<0){
+			// si el target de b esta arriba a la izquierda del bloque
+			if(dify < 0){
+				//si este bloque (this) esta abajo y  puede mover a b arriba o this esta a la derecha y puede mover a b la izq
+				if((this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP)) || (this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT)))
+					return true;
+			}
+			
+			else if(dify == 0){
+				// si this esta horizontalmente igual que b a la derecha y lo puede mover a la izquierda
+				if(this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT))
+					return true;
+			}
+			else if (dify > 0){
+				if((this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN)) || (this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT)))
+					return true;
+			}
+		}
+		else if (difx == 0){
+			if(dify > 0){
+				if(this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN))
+					return true;
+			}
+			else if (dify < 0){
+				if(this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP))
+					return true;
+			}
+			else if (dify == 0)
+				return true;
+		}
+		else if (difx > 0){
+			if(dify < 0){
+				if((this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT)) || (this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP)))
+					return true;
+			}
+			else if (dify == 0){
+				if(this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT))
+					return true;
+			}
+			else if (dify > 0){
+				if((this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN)) || (this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT)))
+					return true;
+			}
+		}
+		return false;
 	}
 
 }

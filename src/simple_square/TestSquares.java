@@ -16,17 +16,28 @@ public class TestSquares {
 		
 		if (args.length > 2) {
 			heur = args[2];
-			if (heur.toString().equals("mindistance")) {
-				heuristic = Heuristic.MinDistance;
-				System.out.println("Min Distance");
+			if (heur.toString().equals("mindistance1")) {
+				heuristic = Heuristic.MinDistance1;
+				System.out.println("Min Distance -- first version (all distances)");
 			}
+			
+			else if (heur.toString().equals("mindistance2")) {
+				heuristic = Heuristic.MinDistance2;
+				System.out.println("Min Distance -- second version (all distances + consider area)");
+			}
+			
+			else if (heur.toString().equals("mindistance3")) {
+				heuristic = Heuristic.MinDistance3;
+				System.out.println("Min Distance -- third version (all distances + consider any block in the path)");
+			}
+			
 			else if(heur.toString().equals("inpath")){
 				heuristic = Heuristic.InPath;
 				System.out.println("In Path");
 			}
-			else if(heur.toString().equals("admisiblemindistance")){
-				heuristic = Heuristic.AdmisibleMinDistance;
-				System.out.println("Admisible Min Distance");
+			else if(heur.toString().equals("admissiblemindistance")){
+				heuristic = Heuristic.AdmissibleMinDistance;
+				System.out.println("Admissible Min Distance");
 			}
 			
 		} else {
