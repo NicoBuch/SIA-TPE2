@@ -74,19 +74,20 @@ public class SimpleSquaresState implements GPSState {
 		if(b.isInGoal()){
 			return 0;
 		}
-		int value = getPath(null, b.getPosition(), b.getDirection(), b.getTargetPosition());
+		int value = getPath(null, null,b.getPosition(), b.getDirection(), b.getTargetPosition());
 		if(value == Integer.MAX_VALUE){
 			return b.getManhattanDistanceToObjective();
 		}
 		return value;
 	}
 	
-	private int getPath(Position initial, Position pos, Direction dir, Position target){
-		if(pos.equals(initial)){
+	private int getPath(Position initial,Direction initialDirection ,Position pos, Direction dir, Position target){
+		if(pos.equals(initial) && initialDirection.equals(dir)){
 			return Integer.MAX_VALUE;
 		}
 		if(initial == null){
 			initial = pos;
+			initialDirection = dir;
 		}
 		if(dir.equals(Direction.UP) && pos.isAtDownFrom(target)){
 			return pos.x - target.x;
@@ -102,16 +103,16 @@ public class SimpleSquaresState implements GPSState {
 		}
 		for(Arrow a : arrows){
 			if(a.getDir().equals(Direction.UP) && pos.isAtDownFrom(a.getPos())){
-				return (pos.x - a.getPos().x) + getPath(initial, a.getPos(), a.getDir(), target);
+				return (pos.x - a.getPos().x) + getPath(initial, initialDirection,a.getPos(), a.getDir(), target);
 			}
 			if(a.getDir().equals(Direction.LEFT) && pos.isAtRightFrom(a.getPos())){
-				return (pos.y - a.getPos().y) + getPath(initial, a.getPos(), a.getDir(), target);
+				return (pos.y - a.getPos().y) + getPath(initial, initialDirection, a.getPos(), a.getDir(), target);
 			}
 			if(a.getDir().equals(Direction.DOWN) && pos.isAtUpFrom(a.getPos())){
-				return (a.getPos().x - pos.x) + getPath(initial, a.getPos(), a.getDir(), target);
+				return (a.getPos().x - pos.x) + getPath(initial, initialDirection, a.getPos(), a.getDir(), target);
 			}
 			if(a.getDir().equals(Direction.RIGHT) && pos.isAtLeftFrom(a.getPos())){
-				return (a.getPos().y - pos.y) + getPath(initial, a.getPos(), a.getDir(), target);
+				return (a.getPos().y - pos.y) + getPath(initial, initialDirection, a.getPos(), a.getDir(), target);
 			}
 		}
 		return Integer.MAX_VALUE;

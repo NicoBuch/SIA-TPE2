@@ -167,6 +167,22 @@ public class SimpleSquaresProblem implements GPSProblem {
 				int currentValue = ((SimpleSquaresState)state).getPath(b);
 				if (currentValue > value)
 					value = currentValue;
+			} else if (heuristic.equals(Heuristic.AdmissibleCombination)) {
+				int currentValue = ((SimpleSquaresState)state).getPath(b);
+				if (currentValue > value)
+					value = currentValue; 
+				currentValue = b.getManhattanDistanceToObjective();
+				if (currentValue > value)
+					value = currentValue;
+			} else if (heuristic.equals(Heuristic.NotAdmissibleCombination)) {
+				int minDistanceValue = b.getManhattanDistanceToObjective();
+				int inPathValue = ((SimpleSquaresState) state).getPath(b);
+				if(minDistanceValue > inPathValue){
+					value += minDistanceValue;
+				}
+				else{
+					value += inPathValue;
+				}
 			} else if (heuristic.equals(Heuristic.MinDistance3)) {
 				int currentValue = b.getManhattanDistanceToObjective();
 				if (currentValue != 0) {

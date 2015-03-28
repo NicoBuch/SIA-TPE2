@@ -45,6 +45,14 @@ public class TestSquares {
 				heuristic = Heuristic.AdmissibleInPath;
 				System.out.println("Admissible In Path");
 			}
+			else if(heur.toString().equals("admissiblecombination")){
+				heuristic = Heuristic.AdmissibleCombination;
+				System.out.println("Combinación de Admissible's In path and Min Distance");
+			}
+			else if(heur.toString().equals("notadmissiblecombination")){
+				heuristic = Heuristic.NotAdmissibleCombination;
+				System.out.println("Combination of Min Distance 1 and In Path");
+			}
 			
 		} else {
 			heuristic = Heuristic.DEFAULT;

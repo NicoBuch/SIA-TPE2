@@ -7,6 +7,8 @@ public enum Heuristic {
 	AdmissibleMinDistance,
 	AdmissibleInPath,
 	MinDistance1,
-	MinDistance2, 
+	MinDistance2,
+	AdmissibleCombination,
+	NotAdmissibleCombination,
 	MinDistance3
 }

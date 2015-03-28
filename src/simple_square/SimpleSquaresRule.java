@@ -40,6 +40,12 @@ public class SimpleSquaresRule implements GPSRule {
 			}
 			current = next;
 		}
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		System.out.println((from.getX()) + ", " + (from.getY()));
 		return newState;		
 	}
