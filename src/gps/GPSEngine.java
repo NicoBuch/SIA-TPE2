@@ -208,11 +208,11 @@ public abstract class GPSEngine {
 		
 		String sstrategy = this.strategy.toString();
 		String sheuristic = "";
+		String sboard = "_board_"  + ((SimpleSquaresProblem)problem).getBoardName();
+		if(strategy.equals(SearchStrategy.AStar) || strategy.equals(SearchStrategy.Greedy))
+			sheuristic += "_heuristic_" + ((SimpleSquaresProblem)problem).getHeuristic();
 		
-		if(sstrategy.equals(SearchStrategy.AStar) || sstrategy.equals(SearchStrategy.Greedy))
-			sheuristic += "heuristic_" + ((SimpleSquaresProblem)problem).getHeuristic();
-		
-		File file = new File(dir, "strategy_" + sstrategy + sheuristic +".dot");
+		File file = new File(dir, "strategy_" + sstrategy + sheuristic + sboard + ".dot");
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(file, false));
 		pw.println("digraph GPS {");

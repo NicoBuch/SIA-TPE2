@@ -20,11 +20,13 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public static SearchStrategy strategy;
 	private static String filepath;
 	private static Heuristic heuristic;
+	private static String boardName;
 
 	public SimpleSquaresProblem(SearchStrategy s, String boardName, Heuristic h) {
 		super();
 		this.strategy = s;
 		this.heuristic = h;
+		this.boardName = boardName;
 		this.filepath = "src/simple_square/board/" + boardName + ".txt";
 
 	}
@@ -184,6 +186,9 @@ public class SimpleSquaresProblem implements GPSProblem {
 	
 	public Heuristic getHeuristic(){
 		return heuristic;
+	}
+	public String getBoardName(){
+		return boardName;
 	}
 
 }
