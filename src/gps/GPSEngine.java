@@ -32,8 +32,11 @@ public abstract class GPSEngine {
 
 	protected int deepIterationValue = 0;
 
-	StringWriter nodes = new StringWriter();
-	PrintWriter nodeWriter = new PrintWriter(nodes, false);
+	static StringWriter nodes = new StringWriter();
+	static PrintWriter nodeWriter = new PrintWriter(nodes, false);
+	
+	static StringWriter color = new StringWriter();
+	static PrintWriter colorWriter = new PrintWriter(color, false);
 
 	StringWriter arcs = new StringWriter();
 	PrintWriter arcWriter = new PrintWriter(arcs, false);
@@ -87,18 +90,25 @@ public abstract class GPSEngine {
 				closed.add(currentNode);
 				if (isGoal(currentNode)) {
 					for(GPSNode n: closed){
-						if(n.getParent() != null)
+						if(n.getParent() != null){
+							addNodeToDiGraph(n);
 							addArc(n.getParent(), n);
+						}
+					}
+					for(GPSNode n: open){
+						if(n.getParent() != null){
+							addNodeToDiGraph(n);
+							addArc(n.getParent(), n);}
 					}
 					paintPath(currentNode);
 					finished = true;
 					System.out.println(currentNode.getSolution());
 					System.out.println("Expanded nodes: " + explosionCounter);
-					
+//					
 					createDotFile();
 				} else {
 					explosionCounter++;
-					addNodeToDiGraph(currentNode);
+//					addNodeToDiGraph(currentNode);
 					explode(currentNode);
 				}
 			}
@@ -141,6 +151,8 @@ public abstract class GPSEngine {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
+				//addNodeToDiGraph(newNode);
+//				addArc(node, newNode);
 				if (strategy.equals(SearchStrategy.Greedy)) {
 					greedyQueue.add(newNode);
 				} else {
@@ -219,9 +231,11 @@ public abstract class GPSEngine {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(file, false));
 		pw.println("digraph GPS {");
 		pw.println(nodes.toString());
+		pw.println(color.toString());
 		pw.println(arcs.toString());
 		pw.println("}");
 		nodeWriter.close();
+		colorWriter.close();
 		arcWriter.close();
 		pw.close();
 	}
@@ -237,9 +251,12 @@ public abstract class GPSEngine {
 	private void paintPath(GPSNode node) {
 		GPSNode currentNode = node;
 		while (currentNode != null) {
-			nodeWriter.println(currentNode.getName()
-					+ " [fillcolor = darkturquoise, style = filled]");
+			paintNode(currentNode, "darkturquoise");
 			currentNode = currentNode.getParent();
 		}
+	}
+	
+	public static void paintNode(GPSNode node, String color){
+		colorWriter.println(node.getName() + " [fillcolor = " + color + ", style = filled];");
 	}
 }
