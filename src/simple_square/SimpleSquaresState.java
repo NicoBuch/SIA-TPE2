@@ -70,14 +70,24 @@ public class SimpleSquaresState implements GPSState {
 		return s;
 	}
 	
-	public int isInPath(Block b){
+	public int getPath(Block b){
 		if(b.isInGoal()){
 			return 0;
 		}
-		return isInPath(b.getPosition(), b.getDirection(), b.getTargetPosition());
+		int value = getPath(null, b.getPosition(), b.getDirection(), b.getTargetPosition());
+		if(value == Integer.MAX_VALUE){
+			return b.getManhattanDistanceToObjective();
+		}
+		return value;
 	}
 	
-	private int isInPath(Position pos, Direction dir, Position target){
+	private int getPath(Position initial, Position pos, Direction dir, Position target){
+		if(pos.equals(initial)){
+			return Integer.MAX_VALUE;
+		}
+		if(initial == null){
+			initial = pos;
+		}
 		if(dir.equals(Direction.UP) && pos.isAtDownFrom(target)){
 			return pos.x - target.x;
 		}
@@ -92,19 +102,19 @@ public class SimpleSquaresState implements GPSState {
 		}
 		for(Arrow a : arrows){
 			if(a.getDir().equals(Direction.UP) && pos.isAtDownFrom(a.getPos())){
-				return (pos.x - a.getPos().x) + isInPath(a.getPos(), a.getDir(), target);
+				return (pos.x - a.getPos().x) + getPath(initial, a.getPos(), a.getDir(), target);
 			}
 			if(a.getDir().equals(Direction.LEFT) && pos.isAtRightFrom(a.getPos())){
-				return (pos.y - a.getPos().y) + isInPath(a.getPos(), a.getDir(), target);
+				return (pos.y - a.getPos().y) + getPath(initial, a.getPos(), a.getDir(), target);
 			}
 			if(a.getDir().equals(Direction.DOWN) && pos.isAtUpFrom(a.getPos())){
-				return (a.getPos().x - pos.x) + isInPath(a.getPos(), a.getDir(), target);
+				return (a.getPos().x - pos.x) + getPath(initial, a.getPos(), a.getDir(), target);
 			}
 			if(a.getDir().equals(Direction.RIGHT) && pos.isAtLeftFrom(a.getPos())){
-				return (a.getPos().y - pos.y) + isInPath(a.getPos(), a.getDir(), target);
+				return (a.getPos().y - pos.y) + getPath(initial, a.getPos(), a.getDir(), target);
 			}
 		}
-		return 20;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override

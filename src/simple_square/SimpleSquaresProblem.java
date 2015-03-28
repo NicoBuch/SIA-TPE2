@@ -18,14 +18,14 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public static final Integer HEURISTIC_MAX = Integer.MAX_VALUE;
 	public static Position max_position;
 	public static SearchStrategy strategy;
-	private static String filepath;
+	private String filepath;
 	private static Heuristic heuristic;
-	private static String boardName;
+	private String boardName;
 
 	public SimpleSquaresProblem(SearchStrategy s, String boardName, Heuristic h) {
 		super();
-		this.strategy = s;
-		this.heuristic = h;
+		SimpleSquaresProblem.strategy = s;
+		SimpleSquaresProblem.heuristic = h;
 		this.boardName = boardName;
 		this.filepath = "src/simple_square/board/" + boardName + ".txt";
 
@@ -143,34 +143,37 @@ public class SimpleSquaresProblem implements GPSProblem {
 			}
 			if (heuristic.equals(Heuristic.MinDistance1)) {
 				value += b.getManhattanDistanceToObjective();
-			} else if(heuristic.equals(Heuristic.InPath)) {
+			} else if (heuristic.equals(Heuristic.InPath)) {
 				SimpleSquaresState aux = (SimpleSquaresState) state;
-				value += aux.isInPath(b);
-			}
-			else if(heuristic.equals(Heuristic.MinDistance2)){
+				value += aux.getPath(b);
+			} else if (heuristic.equals(Heuristic.MinDistance2)) {
 				int currentValue = b.getManhattanDistanceToObjective();
-				if(currentValue != 0){
+				if (currentValue != 0) {
 					int blocksInArea = 1;
-					for(Block block : state.getBlocks()){
-						if(!block.equals(b) && block.getPosition().isInArea(b.getPosition(), b.getTargetPosition())){
-							blocksInArea ++;
+					for (Block block : state.getBlocks()) {
+						if (!block.equals(b)
+								&& block.getPosition().isInArea(
+										b.getPosition(), b.getTargetPosition())) {
+							blocksInArea++;
 						}
 					}
 					value += (currentValue / blocksInArea);
 				}
-			}
-			else if (heuristic.equals(Heuristic.AdmissibleMinDistance)){
+			} else if (heuristic.equals(Heuristic.AdmissibleMinDistance)) {
 				int currentValue = b.getManhattanDistanceToObjective();
 				if (currentValue > value)
 					value = currentValue;
-			}
-			else if (heuristic.equals(Heuristic.MinDistance3)){
+			} else if (heuristic.equals(Heuristic.AdmissibleInPath)) {
+				int currentValue = ((SimpleSquaresState)state).getPath(b);
+				if (currentValue > value)
+					value = currentValue;
+			} else if (heuristic.equals(Heuristic.MinDistance3)) {
 				int currentValue = b.getManhattanDistanceToObjective();
-				if(currentValue != 0){
+				if (currentValue != 0) {
 					int blocksInArea = 1;
-					for(Block block : state.getBlocks()){
-						if(!block.equals(b) && block.analyizeTotalArea(b)){
-							blocksInArea ++;
+					for (Block block : state.getBlocks()) {
+						if (!block.equals(b) && block.analyizeTotalArea(b)) {
+							blocksInArea++;
 						}
 					}
 					value += (currentValue / blocksInArea);
@@ -183,11 +186,12 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public static SearchStrategy getStrategy() {
 		return strategy;
 	}
-	
-	public Heuristic getHeuristic(){
+
+	public Heuristic getHeuristic() {
 		return heuristic;
 	}
-	public String getBoardName(){
+
+	public String getBoardName() {
 		return boardName;
 	}
 
