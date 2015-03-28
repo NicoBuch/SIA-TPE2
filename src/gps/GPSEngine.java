@@ -106,6 +106,8 @@ public abstract class GPSEngine {
 
 		if (finished) {
 			System.out.println("OK! solution found!");
+			System.out.println("Generated States: " + (closed.size() + open.size()));
+			System.out.println("Opened Nodes: " + open.size());
 		} else if (failed) {
 			System.err.println("FAILED! solution not found!");
 		}

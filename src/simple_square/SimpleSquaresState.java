@@ -101,19 +101,43 @@ public class SimpleSquaresState implements GPSState {
 		if(dir.equals(Direction.RIGHT) && pos.isAtLeftFrom(target)){
 			return target.y - pos.y;
 		}
+		Arrow arrow = null;
 		for(Arrow a : arrows){
-			if(a.getDir().equals(Direction.UP) && pos.isAtDownFrom(a.getPos())){
-				return (pos.x - a.getPos().x) + getPath(initial, initialDirection,a.getPos(), a.getDir(), target);
+			if(dir.equals(Direction.UP) && pos.isAtDownFrom(a.getPos())){
+				if(arrow == null || a.getPos().isAtDownFrom(arrow.getPos())){
+					arrow = a;
+				}
 			}
-			if(a.getDir().equals(Direction.LEFT) && pos.isAtRightFrom(a.getPos())){
-				return (pos.y - a.getPos().y) + getPath(initial, initialDirection, a.getPos(), a.getDir(), target);
+			if(dir.equals(Direction.LEFT) && pos.isAtRightFrom(a.getPos())){
+				if(arrow == null || a.getPos().isAtRightFrom(arrow.getPos())){
+					arrow = a;
+				}
 			}
-			if(a.getDir().equals(Direction.DOWN) && pos.isAtUpFrom(a.getPos())){
-				return (a.getPos().x - pos.x) + getPath(initial, initialDirection, a.getPos(), a.getDir(), target);
+			if(dir.equals(Direction.DOWN) && pos.isAtUpFrom(a.getPos())){
+				if(arrow == null || a.getPos().isAtUpFrom(arrow.getPos())){
+					arrow = a;
+				}
 			}
-			if(a.getDir().equals(Direction.RIGHT) && pos.isAtLeftFrom(a.getPos())){
-				return (a.getPos().y - pos.y) + getPath(initial, initialDirection, a.getPos(), a.getDir(), target);
+			if(dir.equals(Direction.RIGHT) && pos.isAtLeftFrom(a.getPos())){
+				if(arrow == null || a.getPos().isAtLeftFrom(arrow.getPos())){
+					arrow = a;
+				}
 			}
+		}
+		if(arrow == null){
+			return Integer.MAX_VALUE;
+		}
+		if(dir.equals(Direction.UP) && pos.isAtDownFrom(arrow.getPos())){
+			return (pos.x - arrow.getPos().x) + getPath(initial, initialDirection,arrow.getPos(), arrow.getDir(), target);
+		}
+		if(dir.equals(Direction.LEFT) && pos.isAtRightFrom(arrow.getPos())){
+			return (pos.y - arrow.getPos().y) + getPath(initial, initialDirection, arrow.getPos(), arrow.getDir(), target);
+		}
+		if(dir.equals(Direction.DOWN) && pos.isAtUpFrom(arrow.getPos())){
+			return (arrow.getPos().x - pos.x) + getPath(initial, initialDirection, arrow.getPos(), arrow.getDir(), target);
+		}
+		if(dir.equals(Direction.RIGHT) && pos.isAtLeftFrom(arrow.getPos())){
+			return (arrow.getPos().y - pos.y) + getPath(initial, initialDirection, arrow.getPos(), arrow.getDir(), target);
 		}
 		return Integer.MAX_VALUE;
 	}
