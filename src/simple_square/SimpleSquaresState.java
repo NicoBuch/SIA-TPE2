@@ -106,5 +106,23 @@ public class SimpleSquaresState implements GPSState {
 		}
 		return 20;
 	}
+
+	@Override
+	public String getName() {
+		String name="";
+		for(Block b: blocks){
+			name += b.getDirection() + "" + b.getPosition().x + b.getPosition().y;
+		}
+		return name;
+	}
+
+	@Override
+	public String getPrintableName() {
+		String name="";
+		for(Block b: blocks){
+			name += "(" + b.getPosition().x +", " + b.getPosition().y + ", " + b.getDirection() + ")";
+		}
+		return name;
+	}
 	
 }

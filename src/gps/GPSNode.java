@@ -44,6 +44,11 @@ public class GPSNode implements Comparable<GPSNode>{
 		}
 		return this.parent.getSolution() + "\n" + this.state;
 	}
+	
+	public String getName(){
+		return state.getName();
+	}
+	
 
 	@Override
 	public int compareTo(GPSNode o) {
@@ -52,5 +57,9 @@ public class GPSNode implements Comparable<GPSNode>{
 		}else{
 			return SimpleSquaresProblem.getHValue(this.state) - SimpleSquaresProblem.getHValue(o.state);
 		}
+	}
+
+	public String getPrintableName() {
+		return state.getPrintableName();
 	}
 }

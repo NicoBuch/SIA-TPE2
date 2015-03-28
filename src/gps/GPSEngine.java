@@ -5,29 +5,44 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import simple_square.SimpleSquaresProblem;
+
 public abstract class GPSEngine {
 
-//	protected List<GPSNode> open = new LinkedList<GPSNode>();
+	// protected List<GPSNode> open = new LinkedList<GPSNode>();
 
 	protected List<GPSNode> closed = new ArrayList<GPSNode>();
-	
+
 	protected AbstractCollection<GPSNode> open;
-//	protected PriorityQueue<GPSNode> openH = new PriorityQueue<GPSNode>();
+	// protected PriorityQueue<GPSNode> openH = new PriorityQueue<GPSNode>();
 
 	protected GPSProblem problem;
-	
+
 	protected int deepIterationValue = 0;
+
+	StringWriter nodes = new StringWriter();
+	PrintWriter nodeWriter = new PrintWriter(nodes, false);
+
+	StringWriter arcs = new StringWriter();
+	PrintWriter arcWriter = new PrintWriter(arcs, false);
 
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
 
-	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+	public void engine(GPSProblem myProblem, SearchStrategy myStrategy)
+			throws IOException {
 
 		problem = myProblem;
 		strategy = myStrategy;
@@ -35,49 +50,55 @@ public abstract class GPSEngine {
 		boolean finished = false;
 		boolean failed = false;
 		long explosionCounter = 0;
-		if(strategy.equals(SearchStrategy.AStar)){
+		if (strategy.equals(SearchStrategy.AStar)) {
 			open = new PriorityQueue<GPSNode>();
-		}
-		else{
+		} else {
 			open = new LinkedList<GPSNode>();
 		}
+
 		open.add(rootNode);
 		while (!failed && !finished) {
-			
 			if (open.size() <= 0) {
-				if(strategy.equals(SearchStrategy.DeepIteration)){
-					deepIterationValue ++;
+				if (strategy.equals(SearchStrategy.DeepIteration)) {
+					deepIterationValue++;
 					closed.clear();
-					System.out.println("new deepIterationValue: " + deepIterationValue);
-//					try {
-//						Thread.sleep(2000);
-//					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+					System.out.println("new deepIterationValue: "
+							+ deepIterationValue);
+					// try {
+					// Thread.sleep(2000);
+					// } catch (InterruptedException e) {
+					// // TODO Auto-generated catch block
+					// e.printStackTrace();
+					// }
 					open.add(rootNode);
-				}
-				else{
+				} else {
 					failed = true;
 				}
 			} else {
 				GPSNode currentNode = null;
-				if(strategy.equals(SearchStrategy.AStar)){
+				if (strategy.equals(SearchStrategy.AStar)) {
 					PriorityQueue<GPSNode> aux = (PriorityQueue<GPSNode>) open;
 					currentNode = aux.poll();
-				}
-				else{
+				} else {
 					LinkedList<GPSNode> aux = (LinkedList<GPSNode>) open;
 					currentNode = aux.get(0);
 					aux.remove(0);
 				}
 				closed.add(currentNode);
 				if (isGoal(currentNode)) {
+					for(GPSNode n: closed){
+						if(n.getParent() != null)
+							addArc(n.getParent(), n);
+					}
+					paintPath(currentNode);
 					finished = true;
 					System.out.println(currentNode.getSolution());
 					System.out.println("Expanded nodes: " + explosionCounter);
+					
+					createDotFile();
 				} else {
 					explosionCounter++;
+					addNodeToDiGraph(currentNode);
 					explode(currentNode);
 				}
 			}
@@ -90,13 +111,13 @@ public abstract class GPSEngine {
 		}
 	}
 
-	private  boolean isGoal(GPSNode currentNode) {
+	private boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
 				&& problem.isGoalState(currentNode.getState());
 	}
 
-	private  boolean explode(GPSNode node) {
-		if(problem.getRules() == null){
+	private boolean explode(GPSNode node) {
+		if (problem.getRules() == null) {
 			System.err.println("No rules!");
 			return false;
 		}
@@ -104,7 +125,9 @@ public abstract class GPSEngine {
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
-				if(!strategy.equals(SearchStrategy.DeepIteration) || (strategy.equals(SearchStrategy.DeepIteration) && node.getCost() + rule.getCost() <= deepIterationValue))
+				if (!strategy.equals(SearchStrategy.DeepIteration)
+						|| (strategy.equals(SearchStrategy.DeepIteration) && node
+								.getCost() + rule.getCost() <= deepIterationValue))
 					newState = rule.evalRule(node.getState());
 			} catch (NotAppliableException e) {
 				// Do nothing
@@ -116,66 +139,105 @@ public abstract class GPSEngine {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
-				if(strategy.equals(SearchStrategy.Greedy)){
+				if (strategy.equals(SearchStrategy.Greedy)) {
 					greedyQueue.add(newNode);
-				}
-				else{
-					addNode(newNode);				
+				} else {
+					addNode(newNode);
 				}
 			}
 		}
-		if(strategy.equals(SearchStrategy.Greedy)){
-			
-			for(int i = 0; !greedyQueue.isEmpty(); i ++){
+		if (strategy.equals(SearchStrategy.Greedy)) {
+
+			for (int i = 0; !greedyQueue.isEmpty(); i++) {
 				((LinkedList<GPSNode>) open).add(i, greedyQueue.remove());
 			}
 		}
 		return true;
 	}
 
-	private  boolean checkOpenAndClosed(Integer cost, GPSState state) {
+	private boolean checkOpenAndClosed(Integer cost, GPSState state) {
 		GPSNode repetedNode = null;
 		for (GPSNode openNode : open) {
 			if (openNode.getState().compare(state)) {
-				if(openNode.getCost() <= cost){
+				// corregir greedy
+				if (openNode.getCost() <= cost) {
 					return true;
-				}
-				else{
+				} else {
 					repetedNode = openNode;
 				}
 			}
 		}
-		if(repetedNode != null){
+		if (repetedNode != null) {
 			open.remove(repetedNode);
 			repetedNode = null;
 		}
 		for (GPSNode closedNode : closed) {
 			if (closedNode.getState().compare(state)) {
-				if(closedNode.getCost() <= cost){
+				if (closedNode.getCost() <= cost) {
 					return true;
-				}
-				else{
+				} else {
 					repetedNode = closedNode;
 				}
 			}
 		}
-		if(repetedNode != null){
+		if (repetedNode != null) {
 			closed.remove(repetedNode);
 		}
 		return false;
 	}
 
-	private  boolean checkBranch(GPSNode parent, GPSState state) {
+	private boolean checkBranch(GPSNode parent, GPSState state) {
 		if (parent == null) {
 			return false;
 		}
-		return state.compare(parent.getState()) || checkBranch(parent.getParent(), state);
+		return state.compare(parent.getState())
+				|| checkBranch(parent.getParent(), state);
 	}
 
-	public abstract  void addNode(GPSNode node);
-	
-	public boolean isHeuristicStrategy(){
-		return strategy.equals(SearchStrategy.Greedy) || strategy.equals(SearchStrategy.AStar);
+	public abstract void addNode(GPSNode node);
+
+	public boolean isHeuristicStrategy() {
+		return strategy.equals(SearchStrategy.Greedy)
+				|| strategy.equals(SearchStrategy.AStar);
 	}
-	
+
+	public void createDotFile() throws FileNotFoundException {
+		File dir = new File ("Solutions");
+		if(!dir.exists())
+			dir.mkdirs();
+		
+		String sstrategy = this.strategy.toString();
+		String sheuristic = "";
+		
+		if(sstrategy.equals(SearchStrategy.AStar) || sstrategy.equals(SearchStrategy.Greedy))
+			sheuristic += "heuristic_" + ((SimpleSquaresProblem)problem).getHeuristic();
+		
+		File file = new File(dir, "strategy_" + sstrategy + sheuristic +".dot");
+		
+		PrintWriter pw = new PrintWriter(new FileOutputStream(file, false));
+		pw.println("digraph GPS {");
+		pw.println(nodes.toString());
+		pw.println(arcs.toString());
+		pw.println("}");
+		nodeWriter.close();
+		arcWriter.close();
+		pw.close();
+	}
+
+	private void addNodeToDiGraph(GPSNode node) {
+		nodeWriter.println(node.getName() + " [label = \"" + node.getPrintableName() + "\"];");
+	}
+
+	private void addArc(GPSNode from, GPSNode to) {
+		arcWriter.println(from.getName() + " -> " + to.getName() + ";");
+	}
+
+	private void paintPath(GPSNode node) {
+		GPSNode currentNode = node;
+		while (currentNode != null) {
+			nodeWriter.println(currentNode.getName()
+					+ " [fillcolor = darkturquoise, style = filled]");
+			currentNode = currentNode.getParent();
+		}
+	}
 }

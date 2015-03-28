@@ -181,5 +181,9 @@ public class SimpleSquaresProblem implements GPSProblem {
 	public static SearchStrategy getStrategy() {
 		return strategy;
 	}
+	
+	public Heuristic getHeuristic(){
+		return heuristic;
+	}
 
 }

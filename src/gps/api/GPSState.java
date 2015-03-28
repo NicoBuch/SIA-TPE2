@@ -28,5 +28,9 @@ public interface GPSState {
 	Arrow getArrowAt(Position at);
 	
 	GPSState clone();
+
+	String getName();
+
+	String getPrintableName();
 	
 }

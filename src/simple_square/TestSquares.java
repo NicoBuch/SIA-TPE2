@@ -1,5 +1,7 @@
 package simple_square;
 
+import java.io.IOException;
+
 import gps.GPSEngine;
 import gps.Heuristic;
 import gps.SearchStrategy;
@@ -61,8 +63,13 @@ public class TestSquares {
 			System.out.println("No se encontró estrategia con ese nombre");
 		}
 
-		engine.engine(new SimpleSquaresProblem(strategy, args[0], heuristic),
-				strategy);
+		try {
+			engine.engine(new SimpleSquaresProblem(strategy, args[0], heuristic),
+					strategy);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Total time in milis: "
 				+ ((System.currentTimeMillis() - time)));
 	}

@@ -1,8 +1,5 @@
 package simple_square;
 
-import javax.sql.rowset.CachedRowSet;
-
-import org.omg.PortableServer.THREAD_POLICY_ID;
 
 public class Block implements Cloneable{
 	private Position position;
