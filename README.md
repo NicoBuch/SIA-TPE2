@@ -5,7 +5,7 @@
 
 Clone the repository, make sure you have maven installed
  ```bash
-   > git clone https://github.com/NicoBuch/SIA-TPE1.git
+   > git clone git@bitbucket.org:itba/sia-2015-07.git
    > sudo apt-get install maven
  ```
 

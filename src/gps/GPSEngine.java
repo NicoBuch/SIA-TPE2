@@ -103,6 +103,7 @@ public abstract class GPSEngine {
 					paintPath(currentNode);
 					finished = true;
 					System.out.println(currentNode.getSolution());
+					System.out.println("Movimientos: " + currentNode.getCost());
 					System.out.println("Expanded nodes: " + explosionCounter);
 //					
 					createDotFile();

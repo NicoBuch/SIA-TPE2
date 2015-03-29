@@ -99,7 +99,8 @@ public class Block implements Cloneable{
 	public double getDistanceToObjective() {
 		if (targetPosition == null)
 			return 0;
-		return Math.sqrt(Math.pow(position.x - targetPosition.x, 2) + Math.pow(position.y - targetPosition.y, 2));
+//		return Math.sqrt(Math.pow(position.x - targetPosition.x, 2) + Math.pow(position.y - targetPosition.y, 2));
+		return Math.abs(position.x - targetPosition.x) + Math.abs(position.y - targetPosition.y);
 	}
 	
 	public int getManhattanDistanceToObjective() {
@@ -115,48 +116,57 @@ public class Block implements Cloneable{
 		int dify = target.y - from.y;
 		Direction direcICanMoveB = this.getDirection();
 		
-		//difx < 0 => from.x > target.x => target esta a la izquierda de b
-		//dify < 0 => from.y > target.y => target esta arriba de b
+		//difx < 0 => target esta arriba de b
+		//difx > 0 => target abajo de b
+		// difx == 0 -> misma linea hor
+		//dify < 0 => target esta a la izq de b
+		//dify > 0 => target a la derecha de b
+		// dify == 0 => target misma linea vert
 	
 		if(difx<0){
-			// si el target de b esta arriba a la izquierda del bloque
+			//target arriba izquierda
 			if(dify < 0){
-				//si este bloque (this) esta abajo y  puede mover a b arriba o this esta a la derecha y puede mover a b la izq
+				//
 				if((this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP)) || (this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT)))
 					return true;
 			}
-			
+			//target esta arriba y en la misma linea vertical
 			else if(dify == 0){
-				// si this esta horizontalmente igual que b a la derecha y lo puede mover a la izquierda
-				if(this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT))
+				if(this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP))
 					return true;
 			}
+			//target arriba a la derecha
 			else if (dify > 0){
-				if((this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN)) || (this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT)))
+				if((this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP)) || (this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT)))
 					return true;
 			}
 		}
 		else if (difx == 0){
+			//misma linea horizontal y target a la derecha
 			if(dify > 0){
-				if(this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN))
-					return true;
-			}
-			else if (dify < 0){
-				if(this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP))
-					return true;
-			}
-			else if (dify == 0)
-				return true;
-		}
-		else if (difx > 0){
-			if(dify < 0){
-				if((this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT)) || (this.getPosition().isAtDownFrom(from) && direcICanMoveB.equals(Direction.UP)))
-					return true;
-			}
-			else if (dify == 0){
 				if(this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT))
 					return true;
 			}
+			//misma linea horizontal y target a la izquierda
+			else if (dify < 0){
+				if(this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT))
+					return true;
+			}
+			else if (dify == 0)
+				return false;
+		}
+		else if (difx > 0){
+			//target abajo izquierda
+			if(dify < 0){
+				if((this.getPosition().isAtRightFrom(from) && direcICanMoveB.equals(Direction.LEFT)) || (this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN)))
+					return true;
+			}
+			//target abajo y en la misma linea vert
+			else if (dify == 0){
+				if(this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN))
+					return true;
+			}
+			//target abajo derecha
 			else if (dify > 0){
 				if((this.getPosition().isAtUpFrom(from) && direcICanMoveB.equals(Direction.DOWN)) || (this.getPosition().isAtLeftFrom(from) && direcICanMoveB.equals(Direction.RIGHT)))
 					return true;
