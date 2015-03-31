@@ -67,12 +67,6 @@ public abstract class GPSEngine {
 					closed.clear();
 					System.out.println("new deepIterationValue: "
 							+ deepIterationValue);
-					// try {
-					// Thread.sleep(2000);
-					// } catch (InterruptedException e) {
-					// // TODO Auto-generated catch block
-					// e.printStackTrace();
-					// }
 					open.add(rootNode);
 				} else {
 					failed = true;
@@ -89,17 +83,6 @@ public abstract class GPSEngine {
 				}
 				closed.add(currentNode);
 				if (isGoal(currentNode)) {
-					for(GPSNode n: closed){
-						if(n.getParent() != null){
-							addNodeToDiGraph(n);
-							addArc(n.getParent(), n);
-						}
-					}
-					for(GPSNode n: open){
-						if(n.getParent() != null){
-							addNodeToDiGraph(n);
-							addArc(n.getParent(), n);}
-					}
 					paintPath(currentNode);
 					finished = true;
 					System.out.println(currentNode.getSolution());
@@ -109,7 +92,6 @@ public abstract class GPSEngine {
 					createDotFile();
 				} else {
 					explosionCounter++;
-//					addNodeToDiGraph(currentNode);
 					explode(currentNode);
 				}
 			}
@@ -152,8 +134,8 @@ public abstract class GPSEngine {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
-				//addNodeToDiGraph(newNode);
-//				addArc(node, newNode);
+				addNodeToDiGraph(newNode);
+				addArc(node, newNode);
 				if (strategy.equals(SearchStrategy.Greedy)) {
 					greedyQueue.add(newNode);
 				} else {
@@ -174,7 +156,6 @@ public abstract class GPSEngine {
 		GPSNode repetedNode = null;
 		for (GPSNode openNode : open) {
 			if (openNode.getState().compare(state)) {
-				// corregir greedy
 				if (openNode.getCost() <= cost) {
 					return true;
 				} else {

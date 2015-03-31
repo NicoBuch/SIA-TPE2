@@ -56,8 +56,6 @@ public class GPSNode implements Comparable<GPSNode>{
 		Integer otherHeuristicValue = SimpleSquaresProblem.getHValue(o.state);
 		if(heuristicValue.equals(Integer.MAX_VALUE))
 			GPSEngine.paintNode(this, "red");
-//		if(otherHeuristicValue.equals(Integer.MAX_VALUE))
-//			GPSEngine.paintNode(o, "red");
 		if(SimpleSquaresProblem.getStrategy().equals(SearchStrategy.AStar)){
 			return (heuristicValue + cost ) - (otherHeuristicValue + o.cost);
 		}else{
