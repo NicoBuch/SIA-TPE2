@@ -1,5 +1,0 @@
-max,5,5
-block,2,3,down,3,3
-block,3,2,right,5,5
-block,3,4,down,4,4
- 

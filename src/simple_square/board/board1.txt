@@ -1,3 +1,0 @@
-//(tipo,x,y,drection,targetx,targety)
-max,6,5
-block,4,4,Direction.RIGHT,4,4

@@ -1,6 +1,0 @@
-max,4,5
-block,2,2,down,3,3
-block,4,4,up,4,3
-arrow,2,5,left
-arrow,3,2,right
-arrow,2,2,down
