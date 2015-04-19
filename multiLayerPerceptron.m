@@ -1,18 +1,18 @@
-function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error)
+function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error, momentum, etaAdaptativo)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
-	% Devuelve en A un array de matrices de pesos. (No olvidar el peso del umbral)
+	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
 	W = initializeWeights(layerSizes);
   do
 		age = 0;
     for i = 1: length(values)
 			for j = 1 : (length(layerSizes) + 1)
 				if (j == 1)
-					H(j) = outValue(values(i, 1), A(j));
+					H(j) = outValue(values(i, 1), W{j});
 				elseif
-					% outValue devuelve el producto escalar entre hiddenOut y la matriz de pesos (array que representa los valores de salida de la capa oculta)
-		    	H(j) = outValue(V(j-1), A(j));
+					% outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
+		    	H(j) = outValue(V(j-1), W{j});
 				endif
-				V(j) = g(H(j), gFunction);
+				V(j) = g(H(j), gFunction, beta);
 			endfor
 				delta(length(layerSizes) + 1) = calculateLastDelta(H(length(layerSizes) + 1), values(:, 2), V, gFunction);
 				delta = calculateDeltas(H, W, delta);
@@ -23,5 +23,4 @@ function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error)
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 
 endfunction
-
 
