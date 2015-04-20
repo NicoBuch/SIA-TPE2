@@ -4,23 +4,24 @@ function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error, m
 	W = initializeWeights(layerSizes);
   do
 		age = 0;
+    H = cell(1, length(layerSizes));
+    V = cell(1, length(layerSizes));
     for i = 1: length(values)
 			for j = 1 : (length(layerSizes))
 				if (j == 1)
-					H(j) = outValue(values(i, 1), W{j});
+					H{j} = outValue(values(i, 1), W{j});
 				elseif
-					% outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
-		    	H(j) = outValue(V(j-1), W{j});
+					% outValue devuelve el producto escalar entre V{j-1} y la matriz de pesos (array que representa los valores de salida de la capa oculta)
+		    	H{j} = outValue(V{j-1}, W{j});
 				endif
-				V(j) = g(H(j), gFunction, beta);
+				V{j}= g(H{j}, gFunction, beta);
 			endfor
-				delta(length(layerSizes)) = calculateLastDelta(H(length(layerSizes)), values(:, 2), V, gFunction);
+				delta(length(layerSizes)) = calculateLastDelta(H{length(layerSizes)}, values(:, 2), V{length(layerSizes)}, gFunction);
 				delta = calculateDeltas(H, W, delta);
 		    W = updateWeights(W, eta, delta, V);
 		endfor
     age += 1;
-  until(compareOutValues(values(:, 2), output, error))
+  until(compareOutValues(values(:, 2), V{length(layerSizes)}, error))
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 
 endfunction
-
