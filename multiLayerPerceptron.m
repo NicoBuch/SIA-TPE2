@@ -22,6 +22,9 @@ function multiLayerPerceptron(filename, layerSizes, eta, beta, gFunction, error,
 		    W = updateWeights(W, eta, delta, V);
 		endfor
     age += 1;
+    if(mod(age, 3) == 0)
+      plot(values(:, 1), values(:,2), values(:,1), V{length(layerSizes)});
+    endif
   until(compareOutValues(values(:, 2), V{length(layerSizes)}, error))
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 
