@@ -5,7 +5,7 @@ function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error, m
   do
 		age = 0;
     for i = 1: length(values)
-			for j = 1 : (length(layerSizes) + 1)
+			for j = 1 : (length(layerSizes))
 				if (j == 1)
 					H(j) = outValue(values(i, 1), W{j});
 				elseif
@@ -14,7 +14,7 @@ function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error, m
 				endif
 				V(j) = g(H(j), gFunction, beta);
 			endfor
-				delta(length(layerSizes) + 1) = calculateLastDelta(H(length(layerSizes) + 1), values(:, 2), V, gFunction);
+				delta(length(layerSizes)) = calculateLastDelta(H(length(layerSizes)), values(:, 2), V, gFunction);
 				delta = calculateDeltas(H, W, delta);
 		    W = updateWeights(W, eta, delta, V);
 		endfor
