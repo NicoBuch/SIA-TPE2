@@ -1,7 +1,8 @@
-function multiLayerPerceptron(values, layerSizes, eta, beta, gFunction, error, momentum, etaAdaptativo)
+function multiLayerPerceptron(filename, layerSizes, eta, beta, gFunction, error, momentum, etaAdaptativo)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
 	W = initializeWeights(layerSizes);
+	load filename values;
   do
 		age = 0;
     H = cell(1, length(layerSizes));
