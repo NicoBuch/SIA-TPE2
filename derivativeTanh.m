@@ -1,3 +1,3 @@
-function der = derivativeTanh(a, x)
-	der = x*(sech(a*h))^2
+function der = derivativeTanh(a, h)
+	der = realpow(sech(a*h), 2);
 end
