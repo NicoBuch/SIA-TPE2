@@ -19,12 +19,12 @@
 
 
 
-function multiLayerPerceptron(values, layerSizes, eta, gValue, error, momentum, etaAdaptativo)
+function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentum, etaAdaptativo)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
 	W = initializeWeights(layerSizes);
 
-	M = length(layerSizes)
+	M = length(layerSizes);
   %functions{1, 1} = @tanhFunc;
   %functions{1, 2} = @derivativeTanh;
 
@@ -32,32 +32,40 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, error, momentum, 
   % functions{1, 2} = @exponentialDerivated;
 
   %g = functions{gValue, 1};
-  do
 		age = 0;
+  do
 		H = cell(1, M);
 		V = cell(1, M);
     for i = 1: length(values)
+			inp = values(i, 1);
+			inp(end+1, 1) = -1;
 			for j = 1 : M
 				if (j == 1)
-					H{j} = outValue(values(i, 1), W{j});
+					H{j} = outValue(inp, W{j});
 				else
 					% outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
 		    	H{j} = outValue(V{j-1}, W{j});
 				endif
 				% V{j} = g(H{j}, gValue, bet);
-				V{j} = tanh(H{j}*0.5)
+				V{j} = tanh(H{j}*a);
+				if(j != M)
+					V{j}(end + 1, 1) = -1;
+				endif
 			endfor
-				delta{M} = calculateLastDelta(H{M}, values(i, 2), V{M}, gValue, 0.5);
-				for k = 1:(M-1)
-				delta{M - k} = calculateDeltas(H{M - k }, W{M - k + 1}, delta{M - k + 1}, 0.5);
-				endfor
-		    W = updateWeights(W, eta, delta, V);
+			delta{M} = calculateLastDelta(H{M}, values(i, 2), V{M}, gValue, 1);
+			for k = M-1 : -1 : 1
+				delta{k} = calculateDeltas(H{k}, W{k + 1}, delta{k+1}, 1);
+			endfor
+		  W = updateWeights(W, eta, delta, V, inp);
 		endfor
-    age += 1;
-    if(mod(age, 3) == 0)
-      plot(values(:, 1), values(:,2), values(:,1), V{length(layerSizes)});
-    endif
-  until(compareOutValues(values(:, 2), V{length(layerSizes)}, error))
+    age = age + 1;
+    if(mod(age, 10) == 0)
+    	age
+    	eta = eta*0.9
+    	err = mean(abs(values(:, 2) - V{M}))
+    endif    
+    %plot(values(:, 1), values(:,2), values(:,1), V{length(layerSizes)});
+  until(compareOutValues(values(:, 2), V{M}, error))
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 
 endfunction

@@ -1,6 +1,6 @@
-function W = updateWeights(W, eta, delta, V);
-  for m = 1 : length(W)
-	  dw = eta * delta{m} * transpose(V{m});
-  	  W{m} = W{m} + dw;
+function W = updateWeights(W, eta, delta, V, inp)
+ 	W{1} = W{1} + (eta * (delta{1}' * inp'));
+  for m = 2 : length(W)
+	  W{m} = W{m} + (eta * (delta{m}' * V{m-1}'));
   endfor
 endfunction

@@ -1,4 +1,4 @@
-function delta = calculateDeltas(hLastValues, WactualValues, deltaActualValues, gValue, num)
+function delta = calculateDeltas(hLastValues, WactualValues, deltaActualValues, gValue, a)
 
 
 %functions{1, 1} = @tanhFunc;
@@ -11,12 +11,12 @@ function delta = calculateDeltas(hLastValues, WactualValues, deltaActualValues, 
 %derivatedG = functions{gValue, 2};
 % der = cell(1, length(HlowerValues));
 % der = derivativeTanh(0.5, HlowerValues);
-der = 1 - (tanh (hLastValues)) .^ 2;
-
-wSum = WactualValues * deltaActualValues;
-
-wSum = sum(wSum);
-
-delta = der * wSum;
+	derivate = 1 * (sech(1 * hLastValues) .^ 2);
+	
+	wSum = deltaActualValues * WactualValues;
+	
+	wSum = wSum(1 : end-1);
+	
+	delta = derivate' .* wSum;
 
 endfunction
