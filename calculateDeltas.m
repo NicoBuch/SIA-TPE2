@@ -9,7 +9,7 @@ function delta = calculateDeltas(hLastValues, WactualValues, deltaActualValues, 
 
 %g = functions{gValue, 1};
 %derivatedG = functions{gValue, 2};
-% der = cell(1, length(HlowerValues));
+% der = cell(1, length(HlowerValus));
 % der = derivativeTanh(0.5, HlowerValues);
 	derivate = 1 * (sech(1 * hLastValues) .^ 2);
 	
