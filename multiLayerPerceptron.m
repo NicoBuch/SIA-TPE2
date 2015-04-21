@@ -1,34 +1,55 @@
-function multiLayerPerceptron(values, layerSizes, eta, bet, gValue, error, momentum, etaAdaptativo)
+% datos utiles:
+% M es la cantidad de capas (sin contar la primera)
+% H es un cell array de M arrays
+% H(i) es un array que es el resultado de haber hecho matriz de peso * el valor de las unidades de entrada
+% V es un cell array de M arrays 
+% V{i} es un array igual a H pero todos los elementos evaluados en g
+
+% delta es un cell array de M arrays
+% delta{i} es un array de la i-esima capa con un delta por cada unidad de esa capa
+
+% W es un cell array de M matrices
+% W(i) es una matriz de k * (N+1). k va a representar cada nodo de la capa DESTINO de W(i), y N la cantidad de nodos de la capa ORIGEN de W (+1 por el umbral). 
+
+%cosas utiles:
+% El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
+
+% no se porque cuando se pasa un solo punto en values falla **
+
+
+
+
+function multiLayerPerceptron(values, layerSizes, eta, gValue, error, momentum, etaAdaptativo)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
 	W = initializeWeights(layerSizes);
 
-
-  functions{1, 1} = @tanhFunc;
-  functions{1, 2} = @derivativeTanh;
+	M = length(layerSizes)
+  %functions{1, 1} = @tanhFunc;
+  %functions{1, 2} = @derivativeTanh;
 
   % functions{1, 1} = @exponential;
   % functions{1, 2} = @exponentialDerivated;
 
-  g = functions{gValue, 1};
-
+  %g = functions{gValue, 1};
   do
 		age = 0;
-		H = cell(1, length(layerSizes));
-		V = cell(1, length(layerSizes));
+		H = cell(1, M);
+		V = cell(1, M);
     for i = 1: length(values)
-			for j = 1 : (length(layerSizes))
+			for j = 1 : M
 				if (j == 1)
 					H{j} = outValue(values(i, 1), W{j});
 				else
 					% outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
 		    	H{j} = outValue(V{j-1}, W{j});
 				endif
-				V{j} = g(H{j}, gValue, bet);
+				% V{j} = g(H{j}, gValue, bet);
+				V{j} = tanh(H{j}*0.5)
 			endfor
-				delta{length(layerSizes)} = calculateLastDelta(H{length(layerSizes)}, values(:, 2), V{length(layerSizes)}, gValue, bet);
-				for k = 1: length(layerSizes)
-				delta{length(layerSizes) - k}() = calculateDeltas(H{length(layerSizes) - k }, W{length(layerSizes) - k + 1}, delta{length(layerSizes) - k + 1}, bet);
+				delta{M} = calculateLastDelta(H{M}, values(i, 2), V{M}, gValue, 0.5);
+				for k = 1:(M-1)
+				delta{M - k} = calculateDeltas(H{M - k }, W{M - k + 1}, delta{M - k + 1}, 0.5);
 				endfor
 		    W = updateWeights(W, eta, delta, V);
 		endfor
