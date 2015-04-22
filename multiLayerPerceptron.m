@@ -34,6 +34,7 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
   %g = functions{gValue, 1};
 	age = 0;
   do
+  values = [-1 1 1; 1 -1 1; -1 -1 -1; 1 1 -1];
     for i = 1: length(values)
 			inp = [values(i, 1) values(i, 2)]';
 			inp(end+1, 1) = -1;
@@ -48,25 +49,23 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
 				V{j} = tanh(H{j}*a);
 				if(j != M)
 					V{j}(end + 1, 1) = -1;
-				endif
+				endif		
 			endfor
 			outValues(i, 1) = V{M};
-			delta{M} = calculateLastDelta(H{M}, values(i, 3), V{M}, gValue, 1);
-			for k = M-1 : -1 : 1
-				delta{k} = calculateDeltas(H{k}, W{k + 1}, delta{k+1}, 1);
+			delta{M} = calculateLastDelta(H{M}, values(i, 3), V{M}, gValue, a);
+			for m = M : -1 : 2
+				delta{m-1} = calculateDeltas(H{m-1}, W{m}, delta{m}, gValue, a);
 			endfor
-		  W = updateWeights(W, eta, delta, V, inp);
+			W = updateWeights(W, eta, delta, V, inp);
 		endfor
-    if(mod(age, 50) == 0)
-    	%eta = eta*0.9;
-    	age
-    	err = mean(abs(values(:, 3) - outValues))
-    	outValues
+    if(mod(age, 100) == 0)
+    	eta = eta*0.9;
+    	err = halfCuadraticError(values(:, 3), outValues);
+			outValues
     endif    
     age = age + 1;
-    plot(values(:, 1), values(:,2), values(:,1), outValues);
-  until(compareOutValues(values(:, 3), outValues, error))
+    %plot(values(:, 1), values(:,2), values(:,1), outValues);
+ 	until(compareOutValues(values(:, 3), outValues, error) || age == 5000)
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
-	outValues
 endfunction
 
