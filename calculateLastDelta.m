@@ -1,4 +1,4 @@
-function last = calculateLastDelta(hLastValues, yValues, lastVvalues, gValue, a)
+function last = calculateLastDelta(yValues, lastVvalues, gValue, a)
 
 % functions{1, 1} = @tanhFunc;
 % functions{1, 2} = @derivativeTanh;
@@ -11,7 +11,10 @@ function last = calculateLastDelta(hLastValues, yValues, lastVvalues, gValue, a)
 
 %der = cell(1, length(hLastValues));
 % Vector de long de la ultima layer
-	derivate = a*(sech(a*hLastValues) .^ 2);
+
+%	derivate = a*(1 - lastVvalues .^ 2);
+	derivate = (2*a*lastVvalues).*(1-lastVvalues);
+
 % Vector de long de la ultima layer
 	dif = yValues - lastVvalues;
 	last = derivate' .* dif;
