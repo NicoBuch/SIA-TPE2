@@ -11,7 +11,7 @@ function delta = calculateDeltas(hLastValues, WactualValues, deltaActualValues, 
 %derivatedG = functions{gValue, 2};
 % der = cell(1, length(HlowerValus));
 % der = derivativeTanh(0.5, HlowerValues);
-	derivate = 1 * (sech(1 * hLastValues) .^ 2);
+	derivate = realpow(sech(1*hLastValues), 2);
 	
 	wSum = deltaActualValues * WactualValues;
 	
