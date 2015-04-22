@@ -46,7 +46,11 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
 				endif
 				% V{j} = g(H{j}, gValue, bet);
 				%V{j} = tanh(H{j}*a);
-				V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
+				if(j == M)
+					V{j} = H{j};
+				else
+					V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
+				endif
 				if(j != M)
 					V{j}(end + 1, 1) = -1;
 				endif
@@ -63,8 +67,8 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
 			outValues
 		endif
     age = age + 1;
-    %plot(values(:, 1), values(:,2), values(:,1), outValues);
-  until(compareOutValues(values(:, 2), outValues, error))
+  until(compareOutValues(values(:, 2), outValues, error) || age == 1000)
+    plot(values(:, 1), values(:,2), values(:,1), outValues);
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 endfunction
 

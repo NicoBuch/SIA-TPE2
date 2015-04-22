@@ -15,11 +15,12 @@ function delta = calculateDeltas(LastVvalues, WactualValues, deltaActualValues, 
 %	derivate = a*(1 - LastVvalues(1: end-1) .^ 2);
 	derivate = (2*a*LastVvalues(1: end-1)) .* (1-LastVvalues(1: end-1));
 	
-	wSum = deltaActualValues * WactualValues;
+	WactualValues = WactualValues(:, 1 : end-1);
+		
+	wSum = WactualValues' * deltaActualValues';
 
 	% Le saco a wSum el ultimo elemento que seria el correspondiente al delta del umbral
-	wSum = wSum(1 : end-1);
 	
-	delta = derivate' .* wSum;
+	delta = derivate' .* wSum';
 
 endfunction
