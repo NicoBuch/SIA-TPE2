@@ -45,11 +45,12 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
 		    	H{j} = outValue(V{j-1}, W{j});
 				endif
 				% V{j} = g(H{j}, gValue, bet);
-				%V{j} = tanh(H{j}*a);
+				%
 				if(j == M)
 					V{j} = H{j};
 				else
-					V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
+					V{j} = tanh(H{j}*a);
+					%V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
 				endif
 				if(j != M)
 					V{j}(end + 1, 1) = -1;
@@ -63,8 +64,9 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
 		  W = updateWeights(W, eta, delta, V, inp);
 		endfor
 		if(mod(age, 100) == 0)
-			err = halfCuadraticError(values(:, 2), outValues);
 			outValues
+			err = halfCuadraticError(values(:, 2), outValues)
+			age
 		endif
     age = age + 1;
   until(compareOutValues(values(:, 2), outValues, error) || age == 1000)

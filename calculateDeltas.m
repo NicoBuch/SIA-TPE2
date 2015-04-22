@@ -12,8 +12,8 @@ function delta = calculateDeltas(LastVvalues, WactualValues, deltaActualValues, 
 % der = cell(1, length(HlowerValus));
 % der = derivativeTanh(0.5, HlowerValues);
 	
-%	derivate = a*(1 - LastVvalues(1: end-1) .^ 2);
-	derivate = (2*a*LastVvalues(1: end-1)) .* (1-LastVvalues(1: end-1));
+	derivate = a*(1 - LastVvalues(1: end-1) .^ 2);
+%	derivate = (2*a*LastVvalues(1: end-1)) .* (1-LastVvalues(1: end-1));
 	
 	WactualValues = WactualValues(:, 1 : end-1);
 		

@@ -13,10 +13,10 @@ function last = calculateLastDelta(yValues, lastVvalues, gValue, a)
 % Vector de long de la ultima layer
 
 %	derivate = a*(1 - lastVvalues .^ 2);
-	derivate = (2*a*lastVvalues).*(1-lastVvalues);
+%	derivate = (2*a*lastVvalues).*(1-lastVvalues);
 
 % Vector de long de la ultima layer
 	dif = yValues - lastVvalues;
-	last = derivate' .* dif;
+	last = dif;
 
 endfunction
