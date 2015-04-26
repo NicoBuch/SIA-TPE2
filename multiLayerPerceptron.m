@@ -14,17 +14,17 @@
 %cosas utiles:
 % El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
 
-% no se porque cuando se pasa un solo punto en values falla **
 
 
 
 
-function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentum, etaAdaptativo)
+function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, randomParam)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
 	W = initializeWeights(layerSizes);
 
 	M = length(layerSizes);
+	
   %functions{1, 1} = @tanhFunc;
   %functions{1, 2} = @derivativeTanh;
 
@@ -32,9 +32,15 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
   % functions{1, 2} = @exponentialDerivated;
 
   %g = functions{gValue, 1};
-	age = 0;
+  if (randomParam == 0)
+	  iterLength = length(values);
+  else if(randomParam == 1)
+	  iterLength = randperm(length(values));
+  	endif
+  endif
+  age = 0;
   do
-    for i = 1: length(values)
+    for i = 1: iterLength
 			inp = values(i, 1);
 			inp(end+1, 1) = -1;
 			for j = 1 : M
@@ -44,27 +50,28 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, a, error, momentu
 					% outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
 		    	H{j} = outValue(V{j-1}, W{j});
 				endif
-				% V{j} = g(H{j}, gValue, bet);
-				%
 				if(j == M)
 					V{j} = H{j};
 				else
-					V{j} = tanh(H{j}*a);
+					V{j} = tanh(H{j}*betaValue);
 					%V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
 				endif
 				if(j != M)
 					V{j}(end + 1, 1) = -1;
 				endif
+				% printf("nivel: %d \n", j);
+% 				V{j}
+% 				printf("\n");
 			endfor
 			outValues(i, 1) = V{M};
-			delta{M} = calculateLastDelta(values(i, 2), V{M}, gValue, a);
+			delta{M} = calculateLastDelta(values(i, 2), V{M}, gValue);
 			for m = M : -1 : 2
-				delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, gValue, a);
+				delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, gValue, betaValue);
 			endfor
-		  W = updateWeights(W, eta, delta, V, inp);
+		  W = updateWeights(W, eta, delta, V, inp, momentum);
 		endfor
 		if(mod(age, 100) == 0)
-			outValues
+			% outValues
 			err = halfCuadraticError(values(:, 2), outValues)
 			age
 		endif

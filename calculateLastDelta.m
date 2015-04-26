@@ -1,4 +1,4 @@
-function last = calculateLastDelta(yValues, lastVvalues, gValue, a)
+function last = calculateLastDelta(yValues, lastVvalues, gValue)
 
 % functions{1, 1} = @tanhFunc;
 % functions{1, 2} = @derivativeTanh;
