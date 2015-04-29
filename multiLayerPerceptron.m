@@ -18,12 +18,15 @@
 
 
 
-function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, randomParam)
+function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b, randomParam)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
 	W = initializeWeights(layerSizes);
-
+  previousDeltaW = W;
 	M = length(layerSizes);
+  firstTime = 0;
+  etaIterator = 0;
+  initialMomentum = momentum;
 
   %functions{1, 1} = @tanhFunc;
   %functions{1, 2} = @derivativeTanh;
@@ -35,42 +38,65 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
   if (randomParam == 0)
 	  iterLength = 1 : length(values);
   elseif(randomParam == 1)
-	  iterLength = randperm(length(values));
+    iterLength = randperm(length(values));
   endif
   age = 0;
   do
+    previousW = W;
     for i = iterLength
-			inp = values(i, 1);
-			inp(end+1, 1) = -1;
-			for j = 1 : M
-				if (j == 1)
-					H{j} = outValue(inp, W{j});
-				else
-					% outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
-		    	H{j} = outValue(V{j-1}, W{j});
-				endif
-				if(j == M)
-					V{j} = H{j};
-				else
-					V{j} = tanh(H{j}*betaValue);
-					%V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
-				endif
-				if(j != M)
-					V{j}(end + 1, 1) = -1;
-				endif
-				% printf("nivel: %d \n", j);
-% 				V{j}
-% 				printf("\n");
-			endfor
-%			outValues(i, 1) = V{M};
-			delta{M} = calculateLastDelta(values(i, 2), V{M}, gValue);
-			for m = M : -1 : 2
-				delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, gValue, betaValue);
-			endfor
-		  W = updateWeights(W, eta, delta, V, inp, momentum);
-		endfor
+      inp = values(i, 1);
+      inp(end+1, 1) = -1;
+      for j = 1 : M
+        if (j == 1)
+          H{j} = outValue(inp, W{j});
+        else
+          % outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
+          H{j} = outValue(V{j-1}, W{j});
+        endif
+        if(j == M)
+          V{j} = H{j};
+        else
+          V{j} = tanh(H{j}*betaValue);
+          %V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
+        endif
+        if(j != M)
+          V{j}(end + 1, 1) = -1;
+        endif
+        % printf("nivel: %d \n", j);
+%         V{j}
+%         printf("\n");
+      endfor
+%     outValues(i, 1) = V{M};
+      delta{M} = calculateLastDelta(values(i, 2), V{M}, gValue);
+      for m = M : -1 : 2
+        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, gValue, betaValue);
+      endfor
+      [W, previousDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
+      firstTime = 1;
+    endfor
 		outValues = calculateOutValues(W, values, M, betaValue, gValue);
-		if(mod(age, 100) == 0)
+    if (etaAdaptativo != 0)
+      if(etaIterator != 0)
+        deltaError = halfCuadraticError(values(:, 2), outValues) - previousError;
+        if(deltaError < 0)
+          previousError = halfCuadraticError(values(:, 2), outValues);
+          momentum = initialMomentum;
+          if(etaIterator == etaAdaptativo)
+            eta = eta + a;
+          else
+            etaIterator = etaIterator + 1;
+          endif
+        elseif (deltaError > 0)
+          momentum = 0;
+          W = previousW;
+          eta = eta - b*eta;
+          etaIterator = 0;
+        else
+          etaIterator = 0;
+        endif
+      endif
+    endif
+		if(mod(age, 5) == 0)
 			% outValues
 			err = halfCuadraticError(values(:, 2), outValues)
 			age
