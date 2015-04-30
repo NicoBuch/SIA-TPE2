@@ -94,15 +94,19 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
         else
           etaIterator = 0;
         endif
+      else
+        previousError = halfCuadraticError(values(:, 2), outValues);
+        etaIterator = etaIterator + 1;
       endif
     endif
-		if(mod(age, 5) == 0)
+		if(mod(age, 50) == 0)
 			% outValues
 			err = halfCuadraticError(values(:, 2), outValues)
 			age
+      eta
 		endif
     age = age + 1;
-  until(compareOutValues(values(:, 2), outValues, error) || age == 1000)
+  until(compareOutValues(values(:, 2), outValues, error) || age == 500)
   plot(values(:, 1), values(:,2), values(:,1), outValues);
 	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 endfunction
