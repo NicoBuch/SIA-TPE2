@@ -28,13 +28,12 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
   etaIterator = 0;
   initialMomentum = momentum;
 
-  %functions{1, 1} = @tanhFunc;
-  %functions{1, 2} = @derivativeTanh;
+  functions{1, 1} = @tanhFunc;
+  functions{1, 2} = @derivativeTanh;
+  functions{2, 1} = @exponential;
+  functions{2, 2} = @exponentialDerivated;
 
-  % functions{1, 1} = @exponential;
-  % functions{1, 2} = @exponentialDerivated;
-
-  %g = functions{gValue, 1};
+  g = functions{gValue, 1};
   if (randomParam == 0)
 	  iterLength = 1 : length(values);
   elseif(randomParam == 1)
@@ -50,26 +49,20 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
         if (j == 1)
           H{j} = outValue(inp, W{j});
         else
-          % outValue devuelve el producto escalar entre V(j-1) y la matriz de pesos (array que representa los valores de salida de la capa oculta)
           H{j} = outValue(V{j-1}, W{j});
         endif
         if(j == M)
           V{j} = H{j};
         else
-          V{j} = tanh(H{j}*betaValue);
-          %V{j} = (1 + exp(-2*H{j}*a)) .^ -1;
+          V{j} = g(betaValue, H{j});
         endif
         if(j != M)
           V{j}(end + 1, 1) = -1;
         endif
-        % printf("nivel: %d \n", j);
-%         V{j}
-%         printf("\n");
       endfor
-%     outValues(i, 1) = V{M};
       delta{M} = calculateLastDelta(values(i, 2), V{M}, gValue);
       for m = M : -1 : 2
-        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, gValue, betaValue);
+        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, functions{gValue, 2}, betaValue);
       endfor
       [W, previousDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
       firstTime = 1;
@@ -108,6 +101,5 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
     age = age + 1;
   until(compareOutValues(values(:, 2), outValues, error) || age == 500)
   plot(values(:, 1), values(:,2), values(:,1), outValues);
-	% el compareOutValues de arriba devuelve true si los values comparados con el output tienen todos un error menor a "error"
 endfunction
 
