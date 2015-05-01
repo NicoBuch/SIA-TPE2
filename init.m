@@ -1,0 +1,13 @@
+global values;
+load lineal.txt values;
+global layerSizes = [1 25];
+global eta = 0.01;
+global gValue = 1;
+global betaValue = 0.5;
+global error = 0.1;
+global momentum = 0.9;
+global etaAdaptativo = 3;
+global a = 0.05;
+global b = 0.2;
+global randomParam = 1;
+multiLayerPerceptron();

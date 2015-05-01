@@ -1,4 +1,4 @@
-function outValues = calculateOutValues(W, values, M, betaValue, gFunction)
+function outValues = forwardPropagation(W, values, M, betaValue, gFunction)
 	% for i = 1 : length(values)
 		inp = values(:, 1)';
 		inp(end+1, :) = -1;

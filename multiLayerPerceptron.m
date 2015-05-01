@@ -14,15 +14,23 @@
 %cosas utiles:
 % El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
 
-
-
-
-
-function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b, randomParam)
+function multiLayerPerceptron()
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
+	global values;
+	global layerSizes;
+	global eta;
+	global gValue;
+	global betaValue;
+	global error;
+	global momentum;
+	global etaAdaptativo;
+	global a;
+	global b;
+	global randomParam;
+
 	W = initializeWeights(layerSizes);
-  previousDeltaW = W;
+ previousDeltaW = W;
 	M = length(layerSizes);
   firstTime = 0;
   etaIterator = 0;
@@ -32,7 +40,8 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
   functions{1, 2} = @derivativeTanh;
   functions{2, 1} = @exponential;
   functions{2, 2} = @exponentialDerivated;
-
+	  gValue
+	  eta
   g = functions{gValue, 1};
   if (randomParam == 0)
 	  iterLength = 1 : length(values);
@@ -67,7 +76,7 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
       [W, previousDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
       firstTime = 1;
     endfor
-		outValues = calculateOutValues(W, values, M, betaValue, gValue);
+	outValues = forwardPropagation(W, values, M, betaValue, gValue);
     if (etaAdaptativo != 0)
       if(etaIterator != 0)
         deltaError = halfCuadraticError(values(:, 2), outValues) - previousError;
