@@ -83,9 +83,9 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
           momentum = 0;
           W = previousW;
           eta = eta - b*eta;
-          etaIterator = 0;
+          etaIterator = 1;
         else
-          etaIterator = 0;
+          etaIterator = 1;
         endif
       else
         previousError = halfCuadraticError(values(:, 2), outValues);
@@ -99,7 +99,7 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
       eta
 		endif
     age = age + 1;
-  until(compareOutValues(values(:, 2), outValues, error) || age == 500)
+  until(compareOutValues(values(:, 2), outValues, error))
   plot(values(:, 1), values(:,2), values(:,1), outValues);
 endfunction
 
