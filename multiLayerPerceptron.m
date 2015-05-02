@@ -58,8 +58,11 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
       firstTime = 1;
     endfor
 	  outValues = forwardPropagation(W, values, M, betaValue, g);
+    age = age + 1;
+  	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
+  	errors(end+1) = errorr;
     if (etaAdaptativo != 0)
-      actualError = halfCuadraticError(values(:, 2), outValues);
+      actualError = errorr;
       if(etaIterator != 0)
         deltaError =  actualError - previousError;
         if(deltaError < 0)
@@ -71,6 +74,7 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
             etaIterator = etaIterator + 1;
           endif
         elseif (deltaError > 0)
+          errors(end) = previousError;
           momentum = 0;
           W = previousW;
           eta = eta - b*eta;
@@ -83,26 +87,23 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
         etaIterator = etaIterator + 1;
       endif
     endif
-    age = age + 1;
-  	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
-  	errors(end+1) = errorr;
-  	if(mod(age, 50) == 0)
+  	if(mod(age, 5) == 0)
   		% outValues
   		err = errors(end)
   		age
      	eta
+      hold on;
+      subplot(2,1,1)
+      plot(values(:, 1), values(:,2), values(:,1), outValues);
+      xlabel ("x");
+      ylabel("f(x)");
+      subplot(2,1,2);
+      plot(1 : age, errors);
+      xlabel("epoca");
+      ylabel("Error");
+      hold off;
+    	refresh;
     endif
-    hold on;
-    subplot(2,1,1)
-    plot(values(:, 1), values(:,2), values(:,1), outValues);
-	  xlabel ("x");
-	  ylabel("f(x)");
-    subplot(2,1,2);
-    plot(1 : age, errors);
-	  xlabel("epoca");
-	  ylabel("Error");
-    hold off;
-		refresh;
   until(finished)
   age
   err = errors(end)
