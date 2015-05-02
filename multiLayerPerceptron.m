@@ -57,14 +57,15 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
       [W, previousDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
       firstTime = 1;
     endfor
-	  outValues = forwardPropagation(W, values, M, betaValue, functions{gValue, 1});
+	  outValues = forwardPropagation(W, values, M, betaValue, g);
     if (etaAdaptativo != 0)
+      actualError = halfCuadraticError(values(:, 2), outValues);
       if(etaIterator != 0)
-        deltaError = halfCuadraticError(values(:, 2), outValues) - previousError;
+        deltaError =  actualError - previousError;
         if(deltaError < 0)
-          previousError = halfCuadraticError(values(:, 2), outValues);
+          previousError = actualError;
           momentum = initialMomentum;
-          if(etaIterator == etaAdaptativo)
+          if(etaIterator >= etaAdaptativo)
             eta = eta + a;
           else
             etaIterator = etaIterator + 1;
@@ -78,31 +79,36 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
           etaIterator = 1;
         endif
       else
-        previousError = halfCuadraticError(values(:, 2), outValues);
+        previousError = actualError;
         etaIterator = etaIterator + 1;
       endif
     endif
     age = age + 1;
   	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
   	errors(end+1) = errorr;
-  	errorr
   	if(mod(age, 50) == 0)
   		% outValues
-  		err = halfCuadraticError(values(:, 2), outValues);
-  		age;
+  		err = errors(end)
+  		age
      	eta
-      hold on;
-      subplot(2,1,1)
-      plot(values(:, 1), values(:,2), values(:,1), outValues);
-  	  xlabel ("x");
-  	  ylabel("f(x)");
-      subplot(2,1,2);
-      plot(1 : age, errors);
-  	  xlabel("epoca");
-  	  ylabel("Error");
-      hold off;
-  		refresh;
-  	endif
+    endif
+    hold on;
+    subplot(2,1,1)
+    plot(values(:, 1), values(:,2), values(:,1), outValues);
+	  xlabel ("x");
+	  ylabel("f(x)");
+    subplot(2,1,2);
+    plot(1 : age, errors);
+	  xlabel("epoca");
+	  ylabel("Error");
+    hold off;
+		refresh;
   until(finished)
+  age
+  err = errors(end)
+  initialMomentum
+  etaAdaptativo
+  a
+  b
 endfunction
 
