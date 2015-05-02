@@ -17,16 +17,7 @@
 function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b,W)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
-	% global values;
-	% global layerSizes;
-	% global eta;
-	% global gValue;
-	% global betaValue;
-	% global error;
-	% global momentum;
-	% global etaAdaptativo;
-	% global a;
-	% global b;
+
 
 	W = initializeWeights(layerSizes);
   previousDeltaW = W;
@@ -94,22 +85,22 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
         etaIterator = etaIterator + 1;
       endif
     endif
-		if(mod(age, 50) == 0)
-			% outValues
-			err = halfCuadraticError(values(:, 2), outValues)
-			age
-      eta
-		endif
-    errors(end+1) = err;
-    hold on;
-      subplot(2,1,1)
-      plot(values(:, 1), values(:,2), values(:,1), outValues);
-      subplot(2,1,2)
-      plot(0 : age, errors)
-    hold off;
-    refresh;
     age = age + 1;
-  until(compareOutValues(values(:, 2), outValues, error))
-  W
+	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
+	errors(end+1) = errorr;
+	if(mod(age, 50) == 0)
+		% outValues
+		err = halfCuadraticError(values(:, 2), outValues);
+		age;
+     	eta
+	    hold on;
+	      subplot(2,1,1)
+	      plot(values(:, 1), values(:,2), values(:,1), outValues);
+	      subplot(2,1,2)
+	      plot(1 : age, errors)
+	    hold off;
+		refresh;
+	endif
+  until(finished)
 endfunction
 

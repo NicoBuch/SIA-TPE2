@@ -1,14 +1,11 @@
 more off;
-load ourFunctionIn7 values;
-x = -1 : 0.01 : 1;
-y = sin(x + 2 * (x .^ 2) + 3 * (x .^ 3));
-values = [x' y'];
-layerSizes = [1 20];
-eta = 0.1;
+load points.txt values;
+layerSizes = [1 5 5];
+eta = 0.01;
 gValue = 1;
 betaValue = 0.5;
 error = 0.1;
-momentum = 0.9;
+momentum = 0;
 etaAdaptativo = 0;
 a = 0.05;
 b = 0.2;
