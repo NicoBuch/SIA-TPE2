@@ -2,14 +2,14 @@ function [W, previousDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, pr
   if (firstTime == 0)
 	  momentum = 0;
   endif
-    actualDeltaW = (eta * (delta{1}' * inp')) + momentum * previousDeltaW{1};
-    W{1} = W{1} + actualDeltaW;
-    previousDeltaW{1} = actualDeltaW;
-    for m = 2 : length(W)
-      actualDeltaW = (eta * (delta{m}' * V{m-1}')) + momentum * previousDeltaW{m};
-      W{m} = W{m} + actualDeltaW;
-      previousDeltaW{m} = actualDeltaW;
-    endfor
+  actualDeltaW = (eta * (delta{1}' * inp')) + momentum * previousDeltaW{1};
+  W{1} = W{1} + actualDeltaW;
+  previousDeltaW{1} = actualDeltaW;
+  for m = 2 : length(W)
+    actualDeltaW = (eta * (delta{m}' * V{m-1}')) + momentum * previousDeltaW{m};
+    W{m} = W{m} + actualDeltaW;
+    previousDeltaW{m} = actualDeltaW;
+  endfor
 
  	 % previousDeltaW{1} = (eta * (delta{1}' * inp'))
  % 	if(firstTime != 0)
