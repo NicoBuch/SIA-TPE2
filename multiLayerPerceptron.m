@@ -88,6 +88,7 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
     age = age + 1;
 	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
 	errors(end+1) = errorr;
+	errorr
 	if(mod(age, 50) == 0)
 		% outValues
 		err = halfCuadraticError(values(:, 2), outValues);
