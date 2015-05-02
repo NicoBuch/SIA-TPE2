@@ -14,12 +14,9 @@
 %cosas utiles:
 % El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
 
-function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b,W)
+function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
-
-
-	W = initializeWeights(layerSizes);
   previousDeltaW = W;
 	M = length(layerSizes);
   firstTime = 0;
@@ -97,8 +94,12 @@ function multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error,
 	    hold on;
 	      subplot(2,1,1)
 	      plot(values(:, 1), values(:,2), values(:,1), outValues);
-	      subplot(2,1,2)
-	      plot(1 : age, errors)
+		  xlabel ("x");
+		  ylabel("f(x)");
+	      subplot(2,1,2);
+	      plot(1 : age, errors);
+		  xlabel("epoca");
+		  ylabel("Error");
 	    hold off;
 		refresh;
 	endif

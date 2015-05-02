@@ -1,12 +1,13 @@
 more off;
-load points0.05.txt values;
-layerSizes = [1 5 5];
+load ourFunctionIn7 values;
+layerSizes = [1 20 5];
 eta = 0.01;
 gValue = 1;
 betaValue = 0.5;
 error = 0.1;
 momentum = 0.5;
-etaAdaptativo = 0;
+etaAdaptativo = 3;
 a = 0.05;
 b = 0.2;
-multiLayerPerceptron(values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b);
+W = initializeWeights(layerSizes);
+multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b);
