@@ -57,7 +57,7 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
       [W, previousDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
       firstTime = 1;
     endfor
-	  outValues = forwardPropagation(W, values, M, betaValue, g);
+	  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
     age = age + 1;
   	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
   	errors(end+1) = errorr;
@@ -105,11 +105,22 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
     	refresh;
     endif
   until(finished)
-  age
-  err = errors(end)
-  initialMomentum
-  etaAdaptativo
-  a
-  b
+
+  disp("He Aprendido!!\n");
+
+  ended = 0;
+
+  while(ended == 0)
+    in  = input("Ingrese el valor a probar\n");
+    if(in < values(1, 1) || in > values(end, 1))
+      disp("El valor ingresado no se encuentra en el intervalo aprendido\n");
+      continue;
+    endif
+    out = forwardPropagation(W, in, M, betaValue, g);
+    disp("El resultado es: ");
+    disp(out);
+    disp("\n\n");
+  endwhile
+
 endfunction
 

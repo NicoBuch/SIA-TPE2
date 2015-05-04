@@ -1,11 +1,12 @@
 more off;
-load puntosEsquinas10.txt values;
-layerSizes = [1 40 30 20 15 20 30 40];
-eta = 0.1;
+format long;
+load ourFunctionIn5.txt values;
+layerSizes = [1 20 15 10];
+eta = 0.01;
 gValue = 1;
 betaValue = 0.5;
 error = 1;
-momentum = 0;
+momentum = 0.5;
 etaAdaptativo = 0;
 a = 0.01;
 b = 0.1;

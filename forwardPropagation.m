@@ -1,5 +1,5 @@
 function outValues = forwardPropagation(W, values, M, betaValue, g)
-		inp = values(:, 1)';
+		inp = values';
 		inp(end+1, :) = -1;
 		for j = 1 : M
 			if (j == 1)
