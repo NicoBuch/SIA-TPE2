@@ -22,7 +22,7 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
   firstTime = 0;
   etaIterator = 0;
   initialMomentum = momentum;
-  startTime = time();
+  tic;
   functions{1, 1} = @tanhFunc;
   functions{1, 2} = @derivativeTanh;
   functions{2, 1} = @exponential;
@@ -77,6 +77,7 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
           errors(end) = previousError;
           momentum = 0;
           W = previousW;
+          outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
           eta = eta - b*eta;
           etaIterator = 1;
         else
@@ -102,20 +103,20 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
       xlabel("epoca");
       ylabel("Error");
       hold off;
-    	refresh;
+      refresh;
     endif
   until(finished)
 
-  finalW = W
   age
   err = errors(end)
   layerSizes
   eta
+  momentum
   betaValue
   etaAdaptativo
   a
   b
-  time = startTime - now()
+  toc
   disp("\n\n");
   disp("He Aprendido!!\n");
 
