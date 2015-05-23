@@ -26,8 +26,10 @@ replace_method = 1;
 community_size = 10;
 parents_size = 5;
 max_generations = 100;
-mutation_probability = 0.75;
+mutation_probability = 0.01;
+cross_probability = 0.75
 pick_method = 1;
+crossover_method = 1;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
 replace_function = replace_methods{replace_method};
@@ -35,5 +37,8 @@ replace_function = replace_methods{replace_method};
 pick_methods = {@elite, @roulette, @boltzman, @tournaments, @mixed};
 pick_function = pick_methods{pick_method};
 
-genetic_algorithm(replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, layerSizes, values, betaValue, g, error);
+crossover_methods = {@classic, @two_points, @uniform, @anular}
+crossover_function = crossover_methods{crossover_method};
+
+genetic_algorithm(crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, layerSizes, values, betaValue, g, error);
 

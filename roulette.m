@@ -1,6 +1,5 @@
 function people = roulette(community, picked_size, community_fitness)
-  % randoms = rand(1,picked_size);
-  randoms = [0.276 0.096 0.893];
+  randoms = rand(1,picked_size);
   total_fitness = sum(community_fitness);
   for i = 1 : length(community)
     if(i == 1)
@@ -11,7 +10,7 @@ function people = roulette(community, picked_size, community_fitness)
   endfor
 
   for i = 1 : picked_size
-    [x, index] = min(find(acummulated > randoms(i)));
+    index = min(find(acummulated > randoms(i)));
     people{i} = community{index};
   endfor
 endfunction
