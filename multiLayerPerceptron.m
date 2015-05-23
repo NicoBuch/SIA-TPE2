@@ -20,9 +20,7 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
   previousDeltaW = W;
 	M = length(layerSizes);
   firstTime = 0;
-  etaIterator = 0;
-  etaInicial = eta;
-  minDeltaW = 1000;
+  etaIterator = 1;
   initialMomentum = momentum;
   tic;
   functions{1, 1} = @tanhFunc;
@@ -30,7 +28,11 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
   functions{2, 1} = @exponential;
   functions{2, 2} = @exponentialDerivated;
   g = functions{gValue, 1};
+  dg = functions{gValue, 2};
   age = 0;
+  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+  [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
+  errors(1) = previousError;
   do
     previousW = W;
     iterVector = randperm(length(values));
@@ -52,41 +54,37 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
           V{j}(end + 1, 1) = -1;
         endif
       endfor
-      delta{M} = calculateLastDelta(values(i, 2), V{M}, functions{gValue, 2}, betaValue);
+      delta{M} = calculateLastDelta(values(i, 2), V{M}, dg, betaValue);
       for m = M : -1 : 2
-        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, functions{gValue, 2}, betaValue);
+        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, dg, betaValue);
       endfor
       [W, previousDeltaW, minDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
       firstTime = 1;
     endfor
-	  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+    outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
     age = age + 1;
-  	[finished, errorr] = compareOutValues(values(:, 2), outValues, error);
-  	errors(end+1) = errorr;
+    [finished, errorr] = compareOutValues(values(:, 2), outValues, error);
+    errors(end+1) = errorr;
     if (etaAdaptativo != 0)
       actualError = errorr;
-      if(etaIterator != 0)
-        deltaError =  actualError - previousError;
-        if(deltaError < 0)
-          previousError = actualError;
-          momentum = initialMomentum;
-          if(etaIterator >= etaAdaptativo)
-            eta = eta + a;
-          else
-            etaIterator = etaIterator + 1;
-          endif
-        elseif (deltaError > 0)
-          errors(end) = previousError;
-          momentum = 0;
-          W = previousW;
-          eta = eta - b * eta;
-          etaIterator = 1;
-        else
-          etaIterator = 1;
-        endif
-      else
+      deltaError =  actualError - previousError;
+      if(deltaError < 0)
         previousError = actualError;
-        etaIterator = etaIterator + 1;
+        momentum = initialMomentum;
+        if(etaIterator >= etaAdaptativo)
+          eta = eta + a;
+        else
+          etaIterator = etaIterator + 1;
+        endif
+      elseif (deltaError > 0)
+        errors(end) = previousError;
+        momentum = 0;
+        W = previousW;
+        outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+        eta = eta - b*eta;
+        etaIterator = 1;
+      else
+        etaIterator = 1;
       endif
     endif
     if(age > 1 && abs(errors(end) - errors(end - 1)) > 0 && abs(errors(end) - errors(end - 1)) < minimumDeltaError)
@@ -104,7 +102,7 @@ function multiLayerPerceptron(W,values, layerSizes, eta, gValue, betaValue, erro
       xlabel ("x");
       ylabel("f(x)");
       subplot(2,1,2);
-      plot(1 : age, errors);
+      plot(0 : age, errors);
       xlabel("epoca");
       ylabel("Error");
       hold off;
