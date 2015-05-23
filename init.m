@@ -1,7 +1,7 @@
 more off;
 format long;
 load ourFunctionHomogenic.txt values;
-x = [[-15 : 0.05 : -12.5] [-12.5 : 0.25 : -5] [-5 : 0.5 : 5] [5 : 0.25 : 12.5] [12.5 : 0.05 : 15]];
+x = -15 : 0.2 : 15
 y = sin(x) + 6 * (cos(x) .^ 2);
 values = [x' y'];
 layerSizes = [1 256 128 128 64 32 16];
