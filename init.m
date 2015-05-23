@@ -1,7 +1,8 @@
 more off;
 format long;
-%load ourFunctionHomogenic.txt values;
-x = -5 : 0.1 : 5;
+
+load ourFunctionHomogenic.txt values;
+x = -15 : 0.2 : 15
 y = sin(x) + 6 * (cos(x) .^ 2);
 % y  = (sin(x) .* x.^3 + x/2);
 % y = (sin(x) .* (x .^ 3) + x ./ 2);
