@@ -34,7 +34,7 @@ crossover_method = 1;
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
 replace_function = replace_methods{replace_method};
 
-pick_methods = {@elite, @roulette, @boltzman, @tournaments, @mixed};
+pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
 pick_function = pick_methods{pick_method};
 
 crossover_methods = {@classic, @two_points, @uniform, @anular}
