@@ -142,7 +142,6 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  %    % disp("\n\n");
  %  endwhile
 
- perceptron.layerSizes = layerSizes;
  perceptron.eta = eta;
  perceptron.g = g;
  perceptron.dg = dg;
