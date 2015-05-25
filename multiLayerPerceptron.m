@@ -158,8 +158,8 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  perceptron.a = a;
  perceptron.b = b;
  perceptron.layerSizes = layerSizes;
- perceptron.weightsVector = weightsToVector(W)
- prueba = vectorToWeights(perceptron.weightsVector,layerSizes)
+ perceptron.weightsVector = weightsToVector(W);
+ prueba = vectorToWeights(perceptron.weightsVector,layerSizes);
 
 endfunction
 

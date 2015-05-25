@@ -1,5 +1,6 @@
 function people = roulette(community, picked_size, community_fitness)
   randoms = rand(1,picked_size);
+
   total_fitness = sum(community_fitness);
   for i = 1 : length(community)
     if(i == 1)
