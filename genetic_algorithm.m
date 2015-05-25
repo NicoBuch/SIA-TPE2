@@ -13,4 +13,7 @@ function genetic_algorithm(mutation_function, crossover_function, replace_functi
   end
   fitness
   age
+
 endfunction
+
+    

@@ -1,4 +1,4 @@
-function community = replace_method_1(community, community_fitness, pick_function, cross_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error)
+function community = replace_method_1(community, community_fitness, pick_function, cross_function, mutation_probability, mutation_function, k, ages_to_train, cross_probability, layerSizes, values, error)
   children = {};
   if(mod(length(community), 2) == 1)
     disp("Para el metodo de reemplazo 1, la comunidad debe tener cantidad par de gente");
