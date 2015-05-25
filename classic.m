@@ -2,11 +2,6 @@ function [child1 child2] = classic(father, mother)
   locus = randi(length(father.weightsVector));
   child1 = father;
   child2 = mother;
-  for i = 1 : length(father.weightsVector)
-    if(i < locus)
-      aux = child1.weightsVector(i);
-      child1.weightsVector(i) = child2.weightsVector(i);
-      child2.weightsVector(i) = aux;
-    endif
-  endfor
+  child1.weightsVector(1:locus) = mother.weightsVector(1:locus);
+  child2.weightsVector(1:locus) = father.weightsVector(1:locus);
 endfunction
