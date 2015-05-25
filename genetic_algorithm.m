@@ -9,5 +9,6 @@ function genetic_algorithm(mutation_function, crossover_function, replace_functi
     fitness = max(community_fitness)
     age++;
   end
-
+  fitness
+  age
 endfunction

@@ -1,15 +1,15 @@
 more off;
 format long;
 % load ourFunctionHomogenic.txt values;
-x = -1 : 0.01 : 1;
-% y = sin(x) + 6 * (cos(x) .^ 2);
+x = -15 : 0.25 : 15;
+y = sin(x) + 6 * (cos(x) .^ 2);
 % y  = (sin(x) .* x.^3 + x/2);
-y = sin(x + 2*x.^2 + 3*x.^3);
+% y = sin(x + 2*x.^2 + 3*x.^3);
 y = y ./ max(abs(y));
 values = [x' y'];
 error = 200;
 gValue = 1;
-layerSizes = [1 15];
+layerSizes = [1 25];
 
 functions{1, 1} = @tanhFunc;
 functions{1, 2} = @derivativeTanh;
@@ -30,15 +30,15 @@ basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-ages_to_train = 100;
+ages_to_train = 50;
 replace_method = 1;
-community_size = 10;
+community_size = 26;
 parents_size = 5;
-max_generations = 1000;
+max_generations = 200;
 mutation_probability = 0.1;
 cross_probability = 0.75;
 pick_method = 2;
-crossover_method = 1;
+crossover_method = 2;
 mutation_method = 2;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
