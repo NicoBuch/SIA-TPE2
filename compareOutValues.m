@@ -1,5 +1,4 @@
-function [ret, errorr] = compareOutValues (yValues, Vfinal, error)
-  % Esto hay que cambiarlo por el error cuadratico medio. Preguntar como se hace!
-  errorr = halfCuadraticError(yValues, Vfinal);
+function [ret, errorr] = compareOutValues (expectedValues, outValues, error)
+  errorr = halfCuadraticError(expectedValues, outValues);
   ret = errorr <= error;
 endfunction

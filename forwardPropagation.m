@@ -7,11 +7,11 @@ function outValues = forwardPropagation(W, values, M, betaValue, g)
 			else
 	    	H{j} = W{j} * V{j-1};
 			endif
-			if(j == M)
-				V{j} = H{j};
-			else
+			% if(j == M)
+			% 	V{j} = H{j};
+			% else
 				V{j} = g(betaValue, H{j});
-			endif
+			% endif
 			if(j != M)
 				V{j}(end + 1, :) = -1;
 			endif

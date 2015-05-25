@@ -1,6 +1,7 @@
-function last = calculateLastDelta(yValues, lastVvalues)
+function last = calculateLastDelta(yValues, lastVvalues, dg, betaValue)
 
-	dif = yValues - lastVvalues;
-	last = dif;
+	dif = dg(betaValue, lastVvalues) .* (yValues - lastVvalues);
+	% dif = yValues - lastVvalues;
+  last = dif;
 
 endfunction

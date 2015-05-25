@@ -4,8 +4,8 @@ function delta = calculateDeltas(LastVvalues, WactualValues, deltaActualValues, 
 
 	WactualValues = WactualValues(:, 1 : end-1);
 
-	wSum = WactualValues' * deltaActualValues';
+	wSum =  deltaActualValues * WactualValues;
 
-	delta = derivate' .* wSum';
+	delta = derivate' .* wSum;
 
 endfunction

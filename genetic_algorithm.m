@@ -5,7 +5,8 @@ function genetic_algorithm(replace_method, community_size, parents_size, max_gen
     people = pick_people(community, pick_criteria); %implementar elite, ruleta, boltzman, torneos y mixto.
     children = copulate(people); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
     mutants = mutate(children); % mutacion clasica y no uniforme
-    community_fitness = evaluate_fitness(mutants);
+    trained = train(mutants, ages_to_train) % hacer backpropagation durante x cantidad de epocas.
+    trained_fitness = evaluate_fitness(trained);
     community = generate_new_community(community, mutants) % metodos de reemplazo 1, 2 y 3
   endwhile
 endfunction
