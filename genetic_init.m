@@ -31,9 +31,9 @@ basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
 error = 0.01;
-ages_to_train = 10;
+ages_to_train = 50;
 replace_method = 1;
-community_size = 3;
+community_size = 25;
 parents_size = 5;
 max_generations = 200;
 mutation_probability = 0.1;
@@ -41,7 +41,7 @@ cross_probability = 0.75;
 pick_method = 2;
 crossover_method = 2;
 mutation_method = 2;
-structureQuantity = (3/4) * community_size;
+structureQuantity = 0.75 * community_size;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
 replace_function = replace_methods{replace_method};
