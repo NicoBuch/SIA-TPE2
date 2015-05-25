@@ -14,7 +14,7 @@
 %cosas utiles:
 % El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
 
-function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b, minimumDeltaError, noisePercentage)
+function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, betaValue,g,dg, error, momentum, etaAdaptativo, a, b, minimumDeltaError, noisePercentage)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
   previousDeltaW = W;
@@ -23,12 +23,6 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   etaIterator = 1;
   initialMomentum = momentum;
   % tic;
-  functions{1, 1} = @tanhFunc;
-  functions{1, 2} = @derivativeTanh;
-  functions{2, 1} = @exponential;
-  functions{2, 2} = @exponentialDerivated;
-  g = functions{gValue, 1};
-  dg = functions{gValue, 2};
   age = 0;
   outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
   [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
@@ -91,23 +85,23 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
       W = addNoise(W, minDeltaW, noisePercentage);
       added = minDeltaW * noisePercentage
     endif
-    % if(mod(age, 1) == 0)
-    %   % outValues
-    %   err = errors(end)
-    %   age
-    %   eta
-    %   hold on;
-    %   subplot(2,1,1)
-    %   plot(values(:, 1), values(:,2), values(:,1), outValues);
-    %   xlabel ("x");
-    %   ylabel("f(x)");
-    %   subplot(2,1,2);
-    %   plot(0 : age, errors);
-    %   xlabel("epoca");
-    %   ylabel("Error");
-    %   hold off;
-    % 	refresh;
-    % endif
+    if(mod(age, 1) == 0)
+      % outValues
+      err = errors(end)
+      age
+      eta
+      hold on;
+      subplot(2,1,1)
+      plot(values(:, 1), values(:,2), values(:,1), outValues);
+      xlabel ("x");
+      ylabel("f(x)");
+      subplot(2,1,2);
+      plot(0 : age, errors);
+      xlabel("epoca");
+      ylabel("Error");
+      hold off;
+    	refresh;
+    endif
   until(finished || age == max_ages)
 
   % finalW = W
@@ -157,9 +151,9 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  perceptron.etaAdaptativo = etaAdaptativo;
  perceptron.a = a;
  perceptron.b = b;
- perceptron.layerSizes = layerSizes;
- perceptron.weightsVector = weightsToVector(W)
- prueba = vectorToWeights(perceptron.weightsVector,layerSizes)
+ perceptron.weightsVector = weightsToVector(W);
+ perceptron.noicePercentage = noicePercentage;
+ perceptron.minimumDeltaError = minimumDeltaError;
 
 endfunction
 
