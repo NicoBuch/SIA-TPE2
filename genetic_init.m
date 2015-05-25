@@ -7,7 +7,6 @@ y = sin(x) + 6 * (cos(x) .^ 2);
 % y = sin(x + 2*x.^2 + 3*x.^3);
 y = y ./ max(abs(y));
 values = [x' y'];
-error = 200;
 gValue = 1;
 layerSizes = [1 25];
 
@@ -18,6 +17,8 @@ functions{2, 2} = @exponentialDerivated;
 
 g = functions{gValue, 1};
 dg = functions{gValue, 2};
+
+error = 0.05;
 
 basePerceptron.eta = 0.025;
 basePerceptron.betaValue = 1;
@@ -30,14 +31,10 @@ basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-error = 0.01;
-ages_to_train = 50;
-replace_method = 1;
-community_size = 25;
-ages_to_train = 100;
-replace_method = 2;
+ages_to_train = 10;
 community_size = 10;
-parents_size = 5;
+replace_method = 2;
+parents_size = 4;
 max_generations = 200;
 mutation_probability = 0.1;
 cross_probability = 0.75;
@@ -45,7 +42,6 @@ pick_method = 2;
 crossover_method = 2;
 mutation_method = 2;
 structureQuantity = 0.75 * community_size;
-k = 4;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
 replace_function = replace_methods{replace_method};
@@ -59,5 +55,5 @@ crossover_function = crossover_methods{crossover_method};
 mutation_methods = {@one_gen_mutation, @multi_gen_mutation};
 mutation_function = mutation_methods{mutation_method};
 tic
+genetic_algorithm(mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity)
 toc;
-genetic_algorith(mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, k, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity)

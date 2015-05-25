@@ -1,18 +1,25 @@
-function community = replace_method_2(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, k, ages_to_train, cross_probability, layerSizes, values, error)
+function community = replace_method_2(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size)
 	children = {};
-    people = pick_function(community, k, community_fitness); %implementar elite, ruleta, boltzman, torneos y mixto.
-    while(rand < cross_probability)
-    	father_index = floor(rand() * length(people)) + 1;
-    	mother_index = floor(rand() * length(people)) + 1;
+    if(mod(parents_size, 2) == 1)
+        disp("Para el metodo de reemplazo 2, la cantidad de progenitores debe ser par");
+        exit
+    end
+    people = pick_function(community,parents_size, community_fitness); %implementar elite, ruleta, boltzman, torneos y mixto.
+    while(length(children) < length(people))
+    	father_index = randi(length(people));
+    	mother_index = randi(length(people));
     	selected{1} = people{father_index};
     	selected{2} = people{mother_index};
-
-    	new_children = crossover(selected, crossover_function); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
-    	children{end+1} = new_children{1};
-    	children{end+1} = new_children{2};
+        if(rand < cross_probability)
+    	   new_children = crossover(selected, crossover_function); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
+    	   children{end+1} = new_children{1};
+    	   children{end+1} = new_children{2};
+        end
     end
-  mutants = mutate(children, mutation_probability, mutation_function); % mutacion clasica y no uniforme
-  community = train(mutants, layerSizes, values, ages_to_train, error);
+    mutants = mutate(children, mutation_probability, mutation_function); % mutacion clasica y no uniforme
 
+    not_modified = pick_function(community, length(community) - parents_size, community_fitness);
+    trained = train(mutants, layerSizes, values, ages_to_train, error);
+    community = [not_modified trained];
 
 endfunction
