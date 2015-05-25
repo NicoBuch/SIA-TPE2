@@ -24,7 +24,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   initialMomentum = momentum;
   % tic;
   age = 0;
-  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g)
+  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
   [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
   errors(1) = previousError;
   previousW = W;
