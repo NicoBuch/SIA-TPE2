@@ -1,0 +1,2 @@
+function two_points
+endfunction
