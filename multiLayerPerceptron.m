@@ -14,7 +14,7 @@
 %cosas utiles:
 % El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
 
-function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, gValue, betaValue, error, momentum, etaAdaptativo, a, b, minimumDeltaError, noisePercentage)
+function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, betaValue,g,dg, error, momentum, etaAdaptativo, a, b, minimumDeltaError, noisePercentage)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
   previousDeltaW = W;
@@ -23,14 +23,8 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   etaIterator = 1;
   initialMomentum = momentum;
   % tic;
-  functions{1, 1} = @tanhFunc;
-  functions{1, 2} = @derivativeTanh;
-  functions{2, 1} = @exponential;
-  functions{2, 2} = @exponentialDerivated;
-  g = functions{gValue, 1};
-  dg = functions{gValue, 2};
   age = 0;
-  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g)
   [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
   errors(1) = previousError;
   previousW = W;
@@ -148,7 +142,6 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  %    % disp("\n\n");
  %  endwhile
 
- perceptron.layerSizes = layerSizes;
  perceptron.eta = eta;
  perceptron.g = g;
  perceptron.dg = dg;
@@ -157,9 +150,9 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  perceptron.etaAdaptativo = etaAdaptativo;
  perceptron.a = a;
  perceptron.b = b;
- perceptron.layerSizes = layerSizes;
- perceptron.weightsVector = weightsToVector(W)
- prueba = vectorToWeights(perceptron.weightsVector,layerSizes)
+ perceptron.weightsVector = weightsToVector(W);
+ perceptron.noisePercentage = noisePercentage;
+ perceptron.minimumDeltaError = minimumDeltaError;
 
 endfunction
 

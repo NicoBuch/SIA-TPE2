@@ -1,0 +1,2 @@
+function replace_method_1
+endfunction
