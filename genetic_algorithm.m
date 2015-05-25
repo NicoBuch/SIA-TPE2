@@ -6,7 +6,7 @@ function genetic_algorithm(mutation_function, crossover_function, replace_functi
   while(!finished(community_fitness, max_generations, age, error)) % finished tiene que ser una funcion que evalue si hay que terminar, segun los criterios que dice en la consigna
     community = replace_method_1(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error);
     community_fitness = evaluate_fitness(community);
-    fitness = mean(community_fitness)
+    fitness = max(community_fitness)
     age++;
   end
 

@@ -77,7 +77,6 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
         errors(end) = errors(end-1);
         outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
       else
-
         etaIterator = 1;
       end
 	  end
@@ -85,6 +84,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
       W = addNoise(W, minDeltaW, noisePercentage);
       added = minDeltaW * noisePercentage
     endif
+
     % if(mod(age, 1) == 0)
     %   % outValues
     %   err = errors(end)
