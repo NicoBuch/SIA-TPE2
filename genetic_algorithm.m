@@ -3,6 +3,7 @@ function genetic_algorithm(mutation_function, crossover_function, replace_functi
   community = train(community, layerSizes, values,ages_to_train,error);
   community_fitness = evaluate_fitness(community); % implementar el forward propagation que calcule los errores de cada individuo.
   last_community_fitness = community_fitness;
+  fitness = max(community_fitness)
   age=0;
   while(!finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity)) % finished tiene que ser una funcion que evalue si hay que terminar, segun los criterios que dice en la consigna
   	last_community_fitness = community_fitness;

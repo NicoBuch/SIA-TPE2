@@ -1,4 +1,4 @@
-function community = replace_method_1(community, community_fitness, pick_function, cross_function, mutation_probability, mutation_function, k, ages_to_train, cross_probability, layerSizes, values, error)
+function community = replace_method_1(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size)
   children = {};
   if(mod(length(community), 2) == 1)
     disp("Para el metodo de reemplazo 1, la comunidad debe tener cantidad par de gente");
@@ -7,7 +7,7 @@ function community = replace_method_1(community, community_fitness, pick_functio
   while(length(children) < length(community))
     people = pick_function(community, 2, community_fitness); %implementar elite, ruleta, boltzman, torneos y mixto.
     if(rand < cross_probability)
-      new_children = crossover(people, cross_function); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
+      new_children = crossover(people, crossover_function); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
       children{end+1} = new_children{1};
       children{end+1} = new_children{2};
     endif
