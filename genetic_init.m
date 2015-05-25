@@ -4,7 +4,7 @@ format long;
 x = -15 : 0.2 : 15;
 y = sin(x) + 6 * (cos(x) .^ 2);
 values = [x' y'];
-error = 1;
+error = 10;
 gValue = 1;
 layerSizes = [1 25];
 
@@ -22,8 +22,8 @@ basePerceptron.momentum = 0.5;
 basePerceptron.etaAdaptativo = 0;
 basePerceptron.a = 0.0005;
 basePerceptron.b = 0.1;
-basePerceptron.g = 0.0005;
-basePerceptron.dg = 0.1;
+basePerceptron.g = g;
+basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 

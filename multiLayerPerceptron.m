@@ -24,7 +24,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   initialMomentum = momentum;
   % tic;
   age = 0;
-  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g)
   [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
   errors(1) = previousError;
   previousW = W;
@@ -85,23 +85,23 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
       W = addNoise(W, minDeltaW, noisePercentage);
       added = minDeltaW * noisePercentage
     endif
-    if(mod(age, 1) == 0)
-      % outValues
-      err = errors(end)
-      age
-      eta
-      hold on;
-      subplot(2,1,1)
-      plot(values(:, 1), values(:,2), values(:,1), outValues);
-      xlabel ("x");
-      ylabel("f(x)");
-      subplot(2,1,2);
-      plot(0 : age, errors);
-      xlabel("epoca");
-      ylabel("Error");
-      hold off;
-    	refresh;
-    endif
+    % if(mod(age, 1) == 0)
+    %   % outValues
+    %   err = errors(end)
+    %   age
+    %   eta
+    %   hold on;
+    %   subplot(2,1,1)
+    %   plot(values(:, 1), values(:,2), values(:,1), outValues);
+    %   xlabel ("x");
+    %   ylabel("f(x)");
+    %   subplot(2,1,2);
+    %   plot(0 : age, errors);
+    %   xlabel("epoca");
+    %   ylabel("Error");
+    %   hold off;
+    % 	refresh;
+    % endif
   until(finished || age == max_ages)
 
   % finalW = W
@@ -151,7 +151,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  perceptron.a = a;
  perceptron.b = b;
  perceptron.weightsVector = weightsToVector(W);
- perceptron.noicePercentage = noicePercentage;
+ perceptron.noisePercentage = noisePercentage;
  perceptron.minimumDeltaError = minimumDeltaError;
 
 endfunction
