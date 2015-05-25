@@ -150,6 +150,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  perceptron.etaAdaptativo = etaAdaptativo;
  perceptron.a = a;
  perceptron.b = b;
+ perceptron.betaValue = betaValue;
  perceptron.weightsVector = weightsToVector(W);
  perceptron.noisePercentage = noisePercentage;
  perceptron.minimumDeltaError = minimumDeltaError;

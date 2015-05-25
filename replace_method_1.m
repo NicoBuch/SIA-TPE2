@@ -1,6 +1,6 @@
-function community = replace_method_1(community, community_fitness)
+function community = replace_method_1(community, community_fitness, pick_function, cross_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error)
   children = {};
-  while(length(children) < length(people))
+  while(length(children) < length(community))
     people = pick_function(community, 2, community_fitness); %implementar elite, ruleta, boltzman, torneos y mixto.
     if(rand < cross_probability)
       new_children = crossover(people, cross_function); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
@@ -9,5 +9,5 @@ function community = replace_method_1(community, community_fitness)
     endif
   endwhile
   mutants = mutate(children, mutation_probability, mutation_function); % mutacion clasica y no uniforme
-  community = train(mutants, ages_to_train); % hacer backpropagation durante x cantidad de epocas.
+  community = train(mutants, layerSizes, values, ages_to_train, error); % hacer backpropagation durante x cantidad de epocas.
 endfunction

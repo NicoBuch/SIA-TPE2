@@ -50,4 +50,4 @@ crossover_function = crossover_methods{crossover_method};
 mutation_methods = {@one_gen_mutation, @multi_gen_mutation};
 mutation_function = mutation_methods{mutation_method};
 
-genetic_algorithm(mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error);
+genetic_algorithm(mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability);
