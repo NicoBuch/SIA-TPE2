@@ -9,8 +9,26 @@ function genetic_algorithm(mutation_function, crossover_function, replace_functi
   	last_community_fitness = community_fitness;
     community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size);
 	  community_fitness = evaluate_fitness(community);
-    fitness = max(community_fitness)
+    [fitness, max_index] = max(community_fitness);
+    fitness
     age++;
+
+    if(mod(age, 20) == 0)
+      % outValues
+      i = max_index;
+      outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValue, community{i}.g);
+      hold on;
+      subplot(2,1,1)
+      plot(values(:, 1), values(:,2), values(:,1), outValues);
+      xlabel ("x");
+      ylabel("f(x)");
+      subplot(2,1,2);
+      plot(0 : age, 0: age);
+      xlabel("epoca");
+      ylabel("Error");
+      hold off;
+      refresh;
+    endif
   end
   fitness
   age

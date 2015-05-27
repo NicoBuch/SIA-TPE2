@@ -5,5 +5,6 @@ function finished = finished(community_fitness, last_community_fitness, max_gene
 		fitnessChanged = compareFitnesses(community_fitness, last_community_fitness, structureQuantity);
 		maxFitnessRemainsEqual = max(community_fitness) == max(last_community_fitness);
 	endif
-    finished = age >= max_generations || max(community_fitness) > (1/error) || maxFitnessRemainsEqual || !fitnessChanged;
+  % finished = age >= max_generations || max(community_fitness) > (1/error) || maxFitnessRemainsEqual || !fitnessChanged;
+  finished = max(community_fitness) > (1/error);
 endfunction

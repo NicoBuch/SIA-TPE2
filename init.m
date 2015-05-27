@@ -2,14 +2,13 @@ more off;
 format long;
 
 load ourFunctionHomogenic.txt values;
-x = -1 : 0.01 : 1;
-% y = sin(x) + 6 * (cos(x) .^ 2);
-y = sin(x + 2*x.^2 + 3*x.^3);
+x = -7.5 : 0.1 : 7.5;
+y = sin(x) + 6 * (cos(x) .^ 2);
+% y = sin(x + 2*x.^2 + 3*x.^3);
 % y  = (sin(x) .* x.^3 + x/2);
 % y = (sin(x) .* (x .^ 3) + x ./ 2);
-y = y ./ max(abs(y));
+% y = y ./ (max(abs(y))*1.01);
 gValue = 1;
-
 functions{1, 1} = @tanhFunc;
 functions{1, 2} = @derivativeTanh;
 functions{2, 1} = @exponential;
@@ -18,12 +17,12 @@ g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
 values = [x' y'];
-layerSizes = [1 15];
-eta = 0.025;
+layerSizes = [1 25 10];
+eta = 0.005;
 gValue = 1;
-betaValue = 1;
-error = 0.001;
-momentum = 0.75;
+betaValue = 0.75;
+error = 0.01;
+momentum = 0.7;
 etaAdaptativo = 0;
 a = 0.0005;
 b = 0.1;

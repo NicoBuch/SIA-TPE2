@@ -39,11 +39,11 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
         else
           H{j} = outValue(V{j-1}, W{j});
         endif
-        % if(j == M)
-        %   V{j} = H{j};
-        % else
+        if(j == M)
+          V{j} = H{j};
+        else
           V{j} = g(betaValue, H{j});
-        % endif
+        endif
         if(j != M)
           V{j}(end + 1, 1) = -1;
         endif
@@ -76,6 +76,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
         eta = eta - eta * b;
         errors(end) = errors(end-1);
         outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+        etaIterator = 1;
       else
         etaIterator = 1;
       end
