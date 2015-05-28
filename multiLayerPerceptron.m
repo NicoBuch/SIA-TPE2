@@ -14,7 +14,7 @@
 %cosas utiles:
 % El V evaluado en la capa ORIGEN, osea el v(i) va a ser de tamaño (N+1) (sirve saber esto para la mult de matrices con W y V)
 
-function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, betaValue,g,dg, error, momentum, etaAdaptativo, a, b, minimumDeltaError, noisePercentage)
+function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, betaValues,g,dg, error, momentum, etaAdaptativo, a, b, minimumDeltaError, noisePercentage)
 	% Esta funcion calcula con valores random todas las matrices de pesos iniciales, dependiendo de el layerSizes (Array en el que cada valor reprresenta cantidad de neuronas por capa)
 	% Devuelve en A un cell de matrices de pesos. (No olvidar el peso del umbral)
   previousDeltaW = W;
@@ -24,7 +24,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   initialMomentum = momentum;
   % tic;
   age = 0;
-  outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+  outValues = forwardPropagation(W, values(:, 1), M, betaValues, g);
   [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
   errors(1) = previousError;
   previousW = W;
@@ -42,20 +42,20 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
         if(j == M)
           V{j} = H{j};
         else
-          V{j} = g(betaValue, H{j});
+          V{j} = g(betaValues(i), H{j});
         endif
         if(j != M)
           V{j}(end + 1, 1) = -1;
         endif
       endfor
-      delta{M} = calculateLastDelta(values(i, 2), V{M}, dg, betaValue);
+      delta{M} = calculateLastDelta(values(i, 2), V{M}, dg, betaValues(i));
       for m = M : -1 : 2
-        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, dg, betaValue);
+        delta{m-1} = calculateDeltas(V{m-1}, W{m}, delta{m}, dg, betaValues(i));
       endfor
       [W, previousDeltaW, minDeltaW] = updateWeights(W, eta, delta, V, inp, momentum, previousDeltaW, firstTime);
       firstTime = 1;
     endfor
-    outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+    outValues = forwardPropagation(W, values(:, 1), M, betaValues, g);
     age = age + 1;
     [finished, errorr] = compareOutValues(values(:, 2), outValues, error);
     errors(end+1) = errorr;
@@ -75,7 +75,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
         momentum = 0;
         eta = eta - eta * b;
         errors(end) = errors(end-1);
-        outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
+        outValues = forwardPropagation(W, values(:, 1), M, betaValues, g);
         etaIterator = 1;
       else
         etaIterator = 1;
@@ -110,7 +110,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   % err = errors(end)
   % layerSizes
   % eta
-  % betaValue
+  % betaValues
   % etaAdaptativo
   % a
   % b
@@ -126,7 +126,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  %    %   disp("El valor ingresado no se encuentra en el intervalo aprendido\n");
  %    %   continue;
  %    % endif
- %    outValues = forwardPropagation(W, in, M, betaValue, g);
+ %    outValues = forwardPropagation(W, in, M, betaValues, g);
  %      hold on;
  %      subplot(2,1,1)
  %      plot(values(:, 1), values(:,2), in, outValues);
@@ -151,7 +151,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
  perceptron.etaAdaptativo = etaAdaptativo;
  perceptron.a = a;
  perceptron.b = b;
- perceptron.betaValue = betaValue;
+ perceptron.betaValues = betaValues;
  perceptron.weightsVector = weightsToVector(W);
  perceptron.noisePercentage = noisePercentage;
  perceptron.minimumDeltaError = minimumDeltaError;

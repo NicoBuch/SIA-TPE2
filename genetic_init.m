@@ -1,11 +1,11 @@
 more off;
 format long;
 % load ourFunctionHomogenic.txt values;
-x = -1 : 0.01 : 1;
-% y = sin(x) + 6 * (cos(x) .^ 2);
+x = -15 : 0.1 : 15;
+y = sin(x) + 6 * (cos(x) .^ 2);
 % y  = (sin(x) .* x.^3 + x/2);
-y = sin(x + 2*x.^2 + 3*x.^3);
-% y = y ./ max(abs(y));
+% y = sin(x + 2*x.^2 + 3*x.^3);
+y = y ./ max(abs(y));
 values = [x' y'];
 gValue = 1;
 layerSizes = [1 15];
@@ -19,9 +19,13 @@ g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
 error = 0.0025;
+betaValues = y ./ x;
+betaValues(151) = 10;
+% betaValues = ones(1, length(x));
+
 
 basePerceptron.eta = 0.025;
-basePerceptron.betaValue = 1;
+basePerceptron.betaValues = 1;
 basePerceptron.momentum = 0.75;
 basePerceptron.etaAdaptativo = 0;
 basePerceptron.a = 0.0005;
@@ -32,9 +36,9 @@ basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
 ages_to_train = 10;
-community_size = 20;
-replace_method = 3;
-parents_size = 10;
+community_size = 10;
+replace_method = 2;
+parents_size = 8;
 max_generations = 200;
 mutation_probability = 0.1;
 cross_probability = 0.75;
