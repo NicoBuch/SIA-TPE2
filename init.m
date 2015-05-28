@@ -1,6 +1,6 @@
 more off;
 format long;
-
+warning ("off", "Octave:broadcast");
 load ourFunctionHomogenic.txt values;
 x = -15 : 0.1 : 15;
 y = sin(x) + 6 * (cos(x) .^ 2);

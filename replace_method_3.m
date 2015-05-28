@@ -1,4 +1,4 @@
-function community = replace_method_3(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, crossover_probability, layerSizes, values, error, parents_size)
+function community = replace_method_3(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, crossover_probability, layerSizes, values, error, parents_size, age, replace_pick_function)
   children = {};
   if(mod(parents_size, 2) == 1)
     disp("Para el metodo de reemplazo 3, la cantidad de progenitores debe ser par");
@@ -11,8 +11,8 @@ function community = replace_method_3(community, community_fitness, pick_functio
     selected{2} = people{iterVector(i + length(people)/2)};
     children = [children crossover(selected, crossover_function, crossover_probability)];
   end
-  mutants = mutate(children, mutation_probability, mutation_function); % mutacion clasica y no uniforme
+  mutants = mutate(children, mutation_probability, mutation_function, age); % mutacion clasica y no uniforme
   trained = train(mutants, layerSizes, values, ages_to_train, error);
   trained_fitness = evaluate_fitness(trained);
-  community = pick_function([community trained], length(community), [community_fitness trained_fitness]);
+  community = replace_pick_function([community trained], length(community), [community_fitness trained_fitness]);
 endfunction
