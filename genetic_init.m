@@ -36,32 +36,37 @@ basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-ages_to_train = 2;
 community_size = 10;
-replace_method = 2;
 parents_size = 8;
+mixed_params = [4 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
+
+
+ages_to_train = 2;
 max_generations = 200;
-mutation_probability = 0.1;
-cross_probability = 0.75;
+structureQuantity = 0.75 * community_size;
+
+replace_method = 2;
 pick_method = 4;
 replace_pick_method = 2;
 crossover_method = 4;
 mutation_method = 1;
-structureQuantity = 0.75 * community_size;
+
+mutation_probability = 0.1;
+cross_probability = 0.75;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
-replace_function = replace_methods{replace_method};
-
 pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
+crossover_methods = {@classic, @two_points, @uniform, @anular};
+mutation_methods = {@multi_gen_classic_mutation, @multi_gen_not_uniform_mutation};
+
+replace_function = replace_methods{replace_method};
 pick_function = pick_methods{pick_method};
 replace_pick_function = pick_methods{replace_pick_method};
-
-crossover_methods = {@classic, @two_points, @uniform, @anular};
 crossover_function = crossover_methods{crossover_method};
-
-mutation_methods = {@multi_gen_classic_mutation, @multi_gen_not_uniform_mutation};
 mutation_function = mutation_methods{mutation_method};
+
+
 clf;
 tic
-genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity)
+genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params)
 toc;
