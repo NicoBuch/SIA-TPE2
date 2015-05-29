@@ -19,7 +19,7 @@ functions{2, 2} = @exponentialDerivated;
 g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
-error = 0.0025;
+error = 0.0001;
 betaValues = y ./ x;
 betaValues(151) = 10;
 % betaValues = ones(1, length(x));
@@ -29,14 +29,14 @@ basePerceptron.eta = 0.025;
 basePerceptron.betaValues = betaValues;
 basePerceptron.momentum = 0.75;
 basePerceptron.etaAdaptativo = 0;
-basePerceptron.a = 0.0005;
-basePerceptron.b = 0.1;
+basePerceptron.a = 0.05;
+basePerceptron.b = 0.2;
 basePerceptron.g = g;
 basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-ages_to_train = 1;
+ages_to_train = 2;
 community_size = 10;
 replace_method = 2;
 parents_size = 8;
@@ -45,7 +45,7 @@ mutation_probability = 0.1;
 cross_probability = 0.75;
 pick_method = 2;
 replace_pick_method = 2;
-crossover_method = 3;
+crossover_method = 4;
 mutation_method = 1;
 structureQuantity = 0.75 * community_size;
 
