@@ -1,21 +1,14 @@
-function people = tournaments(community, picked_size, community_fitness)	
+function people = tournaments(community, picked_size, community_fitness)
 
+	m = 2;
 	for i = 1 : picked_size
-		person1index = floor(rand()*length(community)) + 1;
-		person2index = floor(rand()*length(community)) + 1;
-		
-		if rand() < 0.75
-			if(community_fitness{person1index} > community_fitness{person2index})
-				people{i} = community{person1index};
-			else
-				people{i} = community{person2index};
-			endif
+		index1 = randi(length(community));
+		index2 = randi(length(community));
+		if(rand < 0.75)
+			[maxi, index] = max([community_fitness(index1), community_fitness(index2)]);
 		else
-			if(community_fitness{person1index} < community_fitness{person2index})
-				people{i} = community{person1index};
-			else
-				people{i} = community{person2index};
-			endif
-		endif
-	endfor
+			[mini, index] = min([community_fitness(index1), community_fitness(index2)]);
+		end
+		people{i} = community{index};
+	end
 endfunction
