@@ -6,7 +6,7 @@ function community = replace_method_1(community, community_fitness, pick_functio
   end
 
   while(length(children) < length(community))
-    people = pick_function(community, 2, community_fitness,mixed_params); %implementar elite, ruleta, boltzman, torneos y mixto.
+    people = pick_function(community, 2, community_fitness,mixed_params,age); %implementar elite, ruleta, boltzman, torneos y mixto.
 
     new_children = crossover(people, crossover_function, cross_probability); % implementar los algoritmos de cruza: clasico(un solo punto), dos puntos, uniforme, anular.
     children = [children new_children];

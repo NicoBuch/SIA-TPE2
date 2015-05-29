@@ -86,23 +86,23 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
       added = minDeltaW * noisePercentage
     endif
 
-    % if(mod(age, 1) == 0)
-    %   % outValues
-    %   err = errors(end)
-    %   age
-    %   eta
-    %   hold on;
-    %   subplot(2,1,1)
-    %   plot(values(:, 1), values(:,2), values(:,1), outValues);
-    %   xlabel ("x");
-    %   ylabel("f(x)");
-    %   subplot(2,1,2);
-    %   plot(0 : age, errors);
-    %   xlabel("epoca");
-    %   ylabel("Error");
-    %   hold off;
-    % 	refresh;
-    % endif
+    if(mod(age, 1) == 0)
+      % outValues
+      err = errors(end)
+      age
+      eta
+      hold on;
+      subplot(2,1,1)
+      plot(values(:, 1), values(:,2), values(:,1), outValues);
+      xlabel ("x");
+      ylabel("f(x)");
+      subplot(2,1,2);
+      plot(0 : age, errors);
+      xlabel("epoca");
+      ylabel("Error");
+      hold off;
+    	refresh;
+    endif
   until(finished || age == max_ages)
 
   % finalW = W
