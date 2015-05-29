@@ -2,7 +2,7 @@ more off;
 format long;
 warning ("off", "Octave:broadcast");
 % load ourFunctionHomogenic.txt values;
-x = -15 : 0.1 : 15;
+x = -5 : 0.1 : 5;
 y = sin(x) + 6 * (cos(x) .^ 2);
 % y  = (sin(x) .* x.^3 + x/2);
 % y = sin(x + 2*x.^2 + 3*x.^3);
@@ -20,9 +20,9 @@ g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
 error = 0.0001;
-betaValues = y ./ x;
-betaValues(151) = 10;
-% betaValues = ones(1, length(x));
+% betaValues = y ./ x;
+% betaValues(151) = 10;
+betaValues = ones(1, length(x));
 
 
 basePerceptron.eta = 0.025;
@@ -46,8 +46,8 @@ max_generations = 200;
 structureQuantity = 0.75 * community_size;
 
 replace_method = 2;
-pick_method = 4;
-replace_pick_method = 2;
+pick_method = 3;
+replace_pick_method = 1;
 crossover_method = 4;
 mutation_method = 1;
 
