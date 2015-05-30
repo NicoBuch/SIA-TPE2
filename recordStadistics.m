@@ -9,7 +9,7 @@ y = tanh(0.1 * x) + sin(3*x);
 y = y ./ max(abs(y));
 values = [x' y'];
 gValue = 1;
-layerSizes = [1 35 10];
+layerSizes = [1 15 5];
 
 functions{1, 1} = @tanhFunc;
 functions{1, 2} = @derivativeTanh;
@@ -24,7 +24,7 @@ betaValue = 0.5;
 
 
 basePerceptron1.eta = 0.01;
-basePerceptron1.betaValue = betaValue;
+basePerceptron1.betaValue = 0.5;
 basePerceptron1.momentum = 0.9;
 basePerceptron1.etaAdaptativo = 0;
 basePerceptron1.a = 0;
@@ -67,33 +67,24 @@ basePerceptron4.dg = functions{2, 2};
 basePerceptron4.noisePercentage = 0;
 basePerceptron4.minimumDeltaError = 0;
 
-max_generations = 1;
+max_generations = 1000;
 generations_without_change_criteria = 10;
-max_fitness_without_change_criteria = 6;
+max_fitness_without_change_criteria = 20;
 
 
-% ages_to_train_vec = [2 10];
-% community_sizes = [20 80];
-% parents_sizes = [0.6 0.9];
-% mutation_probabilities = [0.1 0.01];
-% cross_probabilities = [0.6 0.95];
-ages_to_train_vec = [2 ];
-community_sizes = [20 ];
-parents_sizes = [0.6 ];
-mutation_probabilities = [0.1];
-cross_probabilities = [0.6];
+ages_to_train_vec = [2 10];
+community_sizes = [10 20];
+parents_sizes = [0.6 0.8];
+mutation_probabilities = [0.1 0.01];
+cross_probabilities = [0.6 0.95];
 mixed_params = [4 1];
 
-% replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
-% pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
-% crossover_methods = {@classic, @two_points, @uniform, @anular};
-% mutation_methods = {@multi_gen_classic_mutation, @multi_gen_not_uniform_mutation};
-replace_methods = {@replace_method_1};
-pick_methods = {@elite, @roulette};
-crossover_methods = {@classic};
-mutation_methods = {@multi_gen_classic_mutation};
+replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
+pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
+crossover_methods = {@classic, @two_points, @uniform, @anular};
+mutation_methods = {@multi_gen_classic_mutation, @multi_gen_not_uniform_mutation};
 % base_perceptrons = {basePerceptron1, basePerceptron2, basePerceptron3, basePerceptron4};
-base_perceptrons = {basePerceptron1, basePerceptron2};
+base_perceptrons = {basePerceptron1};
 for basePerceptron = 1 : length(base_perceptrons)
 	bestPerceptrons{basePerceptron}.maxFitness = 0;
 	base_perceptron = base_perceptrons{basePerceptron};
