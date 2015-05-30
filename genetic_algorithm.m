@@ -21,7 +21,7 @@ function [age, minFitness, meanFitness, fitness] = genetic_algorithm(replace_pic
     % if(mod(age, 20) == 0)
     %   % outValues
     %   i = max_index;
-    %   outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValues, community{i}.g);
+    %   outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValue, community{i}.g);
     %   hold on;
     %   subplot(2,1,1)
     %   plot(values(:, 1), values(:,2), values(:,1), outValues);
@@ -37,7 +37,7 @@ function [age, minFitness, meanFitness, fitness] = genetic_algorithm(replace_pic
   end
   minFitness = min(community_fitness);
   meanFitness = mean(community_fitness);
-  
+
 endfunction
 
 

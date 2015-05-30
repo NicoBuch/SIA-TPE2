@@ -1,3 +1,3 @@
-function out = tanhFunc(betaValues, x)
-	out = tanh(betaValues .* x);
+function out = tanhFunc(betaValue, x)
+	out = tanh(betaValue * x);
 end

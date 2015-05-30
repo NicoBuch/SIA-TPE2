@@ -20,13 +20,13 @@ g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
 error = 0.0001;
-% betaValues = y ./ x;
-% betaValues(151) = 10;
-betaValues = ones(1, length(x));
+% betaValue = y ./ x;
+% betaValue(151) = 10;
+betaValue = ones(1, length(x));
 
 
 basePerceptron.eta = 0.025;
-basePerceptron.betaValues = betaValues;
+basePerceptron.betaValue = betaValue;
 basePerceptron.momentum = 0.75;
 basePerceptron.etaAdaptativo = 0;
 basePerceptron.a = 0.05;

@@ -17,13 +17,13 @@ functions{2, 1} = @exponential;
 functions{2, 2} = @exponentialDerivated;
 
 error = 0.1;
-betaValues = y ./ x;
-betaValues(151) = 10;
-% betaValues = ones(1, length(x));
+betaValue = y ./ x;
+betaValue(151) = 10;
+% betaValue = ones(1, length(x));
 
 
 basePerceptron1.eta = 0.025;
-basePerceptron1.betaValues = betaValues;
+basePerceptron1.betaValue = betaValue;
 basePerceptron1.momentum = 0.75;
 basePerceptron1.etaAdaptativo = 0;
 basePerceptron1.a = 0;
@@ -34,7 +34,7 @@ basePerceptron1.noisePercentage = 0;
 basePerceptron1.minimumDeltaError = 0;
 
 basePerceptron2.eta = 0.1;
-basePerceptron2.betaValues = betaValues;
+basePerceptron2.betaValue = betaValue;
 basePerceptron2.momentum = 0.9;
 basePerceptron2.etaAdaptativo = 5; % no varia
 basePerceptron2.a = 0.05; % no varia
@@ -45,7 +45,7 @@ basePerceptron2.noisePercentage = 0;
 basePerceptron2.minimumDeltaError = 0;
 
 basePerceptron3.eta = 0.025;
-basePerceptron3.betaValues = betaValues;
+basePerceptron3.betaValue = betaValue;
 basePerceptron3.momentum = 0.75;
 basePerceptron3.etaAdaptativo = 0;
 basePerceptron3.a = 0;
@@ -56,7 +56,7 @@ basePerceptron3.noisePercentage = 0;
 basePerceptron3.minimumDeltaError = 0;
 
 basePerceptron4.eta = 0.1;
-basePerceptron4.betaValues = betaValues;
+basePerceptron4.betaValue = betaValue;
 basePerceptron4.momentum = 0.9;
 basePerceptron4.etaAdaptativo = 5; % no varia
 basePerceptron4.a = 0.05; % no varia
@@ -116,7 +116,7 @@ for basePerceptron = 1 : length(base_perceptrons)
 								disp("-----------------------------------------------------------------------------------------")
 								printf("\t\t\t\t\t\t");
 								mutation_function = mutation_methods{mutationMethod}
-								for communitySize = 1 : length(community_sizes)			
+								for communitySize = 1 : length(community_sizes)
 									best_fitness_community = 0;
 									community_size = community_sizes(communitySize);
 									structureQuantity = 0.75 * community_size;
