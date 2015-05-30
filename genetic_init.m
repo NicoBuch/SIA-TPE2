@@ -2,14 +2,16 @@ more off;
 format long;
 warning ("off", "Octave:broadcast");
 % load ourFunctionHomogenic.txt values;
-x = -5 : 0.1 : 5;
-y = sin(x) + 6 * (cos(x) .^ 2);
+% x = -5 : 0.1 : 5;
+% y = sin(x) + 6 * (cos(x) .^ 2);
 % y  = (sin(x) .* x.^3 + x/2);
 % y = sin(x + 2*x.^2 + 3*x.^3);
+x = -4 : 0.1 : 4;
+y = tanh(0.1 * x) + sin(3*x);
 y = y ./ max(abs(y));
 values = [x' y'];
 gValue = 1;
-layerSizes = [1 25];
+layerSizes = [1 15 10];
 
 functions{1, 1} = @tanhFunc;
 functions{1, 2} = @derivativeTanh;
@@ -19,15 +21,14 @@ functions{2, 2} = @exponentialDerivated;
 g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
-error = 0.0001;
+error = 1/200;
 % betaValue = y ./ x;
 % betaValue(151) = 10;
-betaValue = ones(1, length(x));
+% betaValue = ones(1, length(x));
 
-
-basePerceptron.eta = 0.025;
-basePerceptron.betaValue = betaValue;
-basePerceptron.momentum = 0.75;
+basePerceptron.eta = 0.015;
+basePerceptron.betaValue = 0.5;
+basePerceptron.momentum = 0.9;
 basePerceptron.etaAdaptativo = 0;
 basePerceptron.a = 0.05;
 basePerceptron.b = 0.2;
@@ -37,15 +38,15 @@ basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
 community_size = 10;
-parents_size = 8;
+parents_size = 6;
 mixed_params = [4 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
 
 
 ages_to_train = 2;
-max_generations = 200;
+max_generations = 1000;
 structureQuantity = 0.75 * community_size;
-generations_without_change_criteria = 10;
-max_fitness_without_change_criteria = 6;
+generations_without_change_criteria = 20;
+max_fitness_without_change_criteria = 50;
 
 
 replace_method = 2;

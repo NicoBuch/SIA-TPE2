@@ -17,9 +17,10 @@ functions{2, 1} = @exponential;
 functions{2, 2} = @exponentialDerivated;
 
 error = 0.1;
-betaValue = y ./ x;
-betaValue(151) = 10;
+% betaValue = y ./ x;
+% betaValue(151) = 10;
 % betaValue = ones(1, length(x));
+betaValue = 0.5;
 
 
 basePerceptron1.eta = 0.025;
@@ -84,10 +85,8 @@ crossover_methods = {@classic, @two_points, @uniform, @anular};
 mutation_methods = {@multi_gen_classic_mutation, @multi_gen_not_uniform_mutation};
 % base_perceptrons = {basePerceptron1, basePerceptron2, basePerceptron3, basePerceptron4};
 base_perceptrons = {basePerceptron1, basePerceptron2};
-
 for basePerceptron = 1 : length(base_perceptrons)
-	delete(strcat("results base perceptron", num2str(basePerceptron)));
-	diary(strcat("results base perceptron", num2str(basePerceptron)));
+	bestPerceptrons{basePerceptron}.fitness = 0;
 	base_perceptron = base_perceptrons{basePerceptron};
 	for mutationProbability = 1 : length(mutation_probabilities)
 		disp("-----------------------------------------------------------------------------------------")
@@ -133,6 +132,19 @@ for basePerceptron = 1 : length(base_perceptrons)
 									min_fitness = answer.min_fitness
 									printf("\t\t\t\t\t\t\t");
 									mean_fitness = answer.mean_fitness
+									if(max_fitness(end) > bestPerceptrons{basePerceptron}.maxfitness)
+										bestPerceptrons{basePerceptron}.maxfitness = max_fitness;
+										bestPerceptrons{basePerceptron}.minFitness = min_fitness;
+										bestPerceptrons{basePerceptron}.meanFitness = mean_fitness;
+										bestPerceptrons{basePerceptron}.replaceMethod = replace_function;
+										bestPerceptrons{basePerceptron}.mutation_function = mutation_function;
+										bestPerceptrons{basePerceptron}.crossover_function = crossover_function;
+										bestPerceptrons{basePerceptron}.replace_pick_function = replace_pick_function;
+										bestPerceptrons{basePerceptron}.pick_function = pick_function;
+										bestPerceptrons{basePerceptron}.cross_probabilty = replace_function;
+										bestPerceptrons{basePerceptron}.mutation_probability = replace_function;
+										bestPerceptrons{basePerceptron}.perceptron = base_perceptron;
+									endif
 								endfor
 							endfor
 						endfor
@@ -141,5 +153,8 @@ for basePerceptron = 1 : length(base_perceptrons)
 			endfor
 		endfor
 	endfor
+	delete(strcat("results base perceptron", num2str(basePerceptron)));
+	diary(strcat("results base perceptron", num2str(basePerceptron)));
+	bestPerceptrons{basePerceptron}
 	diary off;
 endfor
