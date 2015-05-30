@@ -88,6 +88,8 @@ base_perceptrons = {basePerceptron1};
 for basePerceptron = 1 : length(base_perceptrons)
 	bestPerceptrons{basePerceptron}.maxFitness = 0;
 	base_perceptron = base_perceptrons{basePerceptron};
+	delete(strcat("results base perceptron", num2str(basePerceptron)));
+	diary(strcat("results base perceptron", num2str(basePerceptron)));
 	for mutationProbability = 1 : length(mutation_probabilities)
 
 		mutation_probability = mutation_probabilities(mutationProbability);
@@ -130,20 +132,21 @@ for basePerceptron = 1 : length(base_perceptrons)
 
 									mean_fitness = answer.mean_fitness;
 									if(max_fitness(end) > bestPerceptrons{basePerceptron}.maxFitness)
-										bestPerceptrons{basePerceptron}.maxFitness = max_fitness;
-										bestPerceptrons{basePerceptron}.minFitness = min_fitness;
-										bestPerceptrons{basePerceptron}.meanFitness = mean_fitness;
-										bestPerceptrons{basePerceptron}.replaceMethod = replace_function;
-										bestPerceptrons{basePerceptron}.mutation_function = mutation_function;
-										bestPerceptrons{basePerceptron}.crossover_function = crossover_function;
-										bestPerceptrons{basePerceptron}.replace_pick_function = replace_pick_function;
-										bestPerceptrons{basePerceptron}.parentSize = parentSize;
-										bestPerceptrons{basePerceptron}.age = age;
-										bestPerceptrons{basePerceptron}.pick_function = pick_function;
-										bestPerceptrons{basePerceptron}.cross_probabilty = replace_function;
-										bestPerceptrons{basePerceptron}.mutation_probability = replace_function;
+										bestPerceptrons{basePerceptron}.maxFitness = max_fitness
+										bestPerceptrons{basePerceptron}.minFitness = min_fitness
+										bestPerceptrons{basePerceptron}.meanFitness = mean_fitness
+										bestPerceptrons{basePerceptron}.replaceMethod = replace_function
+										bestPerceptrons{basePerceptron}.mutation_function = mutation_function
+										bestPerceptrons{basePerceptron}.crossover_function = crossover_function
+										bestPerceptrons{basePerceptron}.replace_pick_function = replace_pick_function
+										bestPerceptrons{basePerceptron}.parentSize = parentSize
+										bestPerceptrons{basePerceptron}.age = age
+										bestPerceptrons{basePerceptron}.pick_function = pick_function
+										bestPerceptrons{basePerceptron}.cross_probabilty = replace_function
+										bestPerceptrons{basePerceptron}.mutation_probability = replace_function
 										bestPerceptrons{basePerceptron}.perceptron = base_perceptron;
 										bestPerceptrons{basePerceptron}.weightsVector = answer.weightsVector;
+
 									endif
 								endfor
 							endfor
@@ -153,6 +156,7 @@ for basePerceptron = 1 : length(base_perceptrons)
 			endfor
 		endfor
 	endfor
+	diary off;
 	delete(strcat("results base perceptron", num2str(basePerceptron)));
 	diary(strcat("results base perceptron", num2str(basePerceptron)));
 	bestPerceptrons{basePerceptron}
