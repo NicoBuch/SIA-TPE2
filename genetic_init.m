@@ -44,6 +44,9 @@ mixed_params = [4 1];  % first parameter is N1. second parameter: 1 for universa
 ages_to_train = 2;
 max_generations = 200;
 structureQuantity = 0.75 * community_size;
+generations_without_change_criteria = 10;
+max_fitness_without_change_criteria = 6;
+
 
 replace_method = 2;
 pick_method = 3;
@@ -68,5 +71,5 @@ mutation_function = mutation_methods{mutation_method};
 
 clf;
 tic
-genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params)
+genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params, generations_without_change_criteria, max_fitness_without_change_criteria)
 toc;

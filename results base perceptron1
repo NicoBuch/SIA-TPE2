@@ -12,118 +12,361 @@ mutation_probability =  0.100000000000000
 					crossover_function = @classic
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_classic_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  16.0036252785339
-							min_fitness =  0.993227045757312
-							mean_fitness =  5.72563944371378
------------------------------------------------------------------------------------------
+							max_fitness =  26.2467447520341
+							min_fitness =  1.12857567446368
+							mean_fitness =  7.83580573890642
 							community_size =  80
 							age = 0
 							parentSize =  72
-							max_fitness =  31.4435260601948
-							min_fitness =  0.755190977275697
-							mean_fitness =  6.47990051156028
+							max_fitness =  69.6339891729641
+							min_fitness =  1.42826170079993
+							mean_fitness =  8.24079384277870
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_not_uniform_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  30.9933422209893
-							min_fitness =  1.58357054342948
-							mean_fitness =  7.79411182701822
------------------------------------------------------------------------------------------
+							max_fitness =  36.6502844763986
+							min_fitness =  1.59338868277768
+							mean_fitness =  9.46186253778898
 							community_size =  80
 							age = 0
 							parentSize =  72
-							max_fitness =  50.6828232941844
-							min_fitness =  0.932159967345212
-							mean_fitness =  5.92336433519954
+							max_fitness =  26.4213240675361
+							min_fitness =  1.19550903529988
+							mean_fitness =  6.90675306021854
 -----------------------------------------------------------------------------------------
 					crossover_function = @two_points
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_classic_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  22.0093412475921
-							min_fitness =  1.02556892417712
-							mean_fitness =  5.08497508860418
------------------------------------------------------------------------------------------
+							max_fitness =  47.0765434180953
+							min_fitness =  1.48522358633232
+							mean_fitness =  8.26958491699231
 							community_size =  80
 							age = 0
 							parentSize =  72
-							max_fitness =  52.7855930452254
-							min_fitness =  1.33515956152066
-							mean_fitness =  8.45693432974803
+							max_fitness =  34.9248835337527
+							min_fitness =  0.977429513516633
+							mean_fitness =  7.32858077079007
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_not_uniform_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  18.8638321975086
-							min_fitness =  1.79962856895172
-							mean_fitness =  5.21696515018965
------------------------------------------------------------------------------------------
+							max_fitness =  35.1931278858080
+							min_fitness =  1.36858265545068
+							mean_fitness =  7.02337910500449
 							community_size =  80
 							age = 0
 							parentSize =  72
-							max_fitness =  115.877905292866
-							min_fitness =  0.976308353165348
-							mean_fitness =  10.3366376856370
+							max_fitness =  90.3500163983588
+							min_fitness =  0.866277569989818
+							mean_fitness =  7.24006553685860
 -----------------------------------------------------------------------------------------
 					crossover_function = @uniform
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_classic_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  27.4949364847067
-							min_fitness =  1.01171569909760
-							mean_fitness =  6.20531348065291
------------------------------------------------------------------------------------------
+							max_fitness =  18.8774735846005
+							min_fitness =  1.01437592535588
+							mean_fitness =  5.67866364115694
 							community_size =  80
 							age = 0
 							parentSize =  72
-							max_fitness =  29.6997149739574
-							min_fitness =  0.876967291773238
-							mean_fitness =  6.26367098542376
+							max_fitness =  53.2065323274724
+							min_fitness =  1.17535108093685
+							mean_fitness =  7.79652593321956
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_not_uniform_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  108.396158241791
-							min_fitness =  1.51624115872001
-							mean_fitness =  15.9265051219590
------------------------------------------------------------------------------------------
+							max_fitness =  45.2983580857801
+							min_fitness =  1.13951974013450
+							mean_fitness =  7.94105054450952
 							community_size =  80
 							age = 0
 							parentSize =  72
-							max_fitness =  91.3009041774236
-							min_fitness =  0.757005705141679
-							mean_fitness =  9.40094118218886
+							max_fitness =  68.7778137516541
+							min_fitness =  1.01752835112179
+							mean_fitness =  10.2599471389251
 -----------------------------------------------------------------------------------------
 					crossover_function = @anular
 -----------------------------------------------------------------------------------------
 						mutation_function = @multi_gen_classic_mutation
------------------------------------------------------------------------------------------
 							community_size =  20
 							age = 0
 							parentSize =  18
-							max_fitness =  17.8177693772518
-							min_fitness =  1.65222349471721
-							mean_fitness =  7.10760662710711
+							max_fitness =  39.6988527403945
+							min_fitness =  1.56454755901197
+							mean_fitness =  9.93096385937890
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  29.3268647773049
+							min_fitness =  0.970822264733173
+							mean_fitness =  6.92734696448363
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  16.9585629531953
+							min_fitness =  1.10934004441617
+							mean_fitness =  5.54734954130029
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  30.9559225865764
+							min_fitness =  1.10274883683677
+							mean_fitness =  6.75422464447491
+-----------------------------------------------------------------------------------------
+				replace_pick_function = @roulette
+-----------------------------------------------------------------------------------------
+					crossover_function = @classic
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  36.8226333157091
+							min_fitness =  1.23104344785653
+							mean_fitness =  10.2547307855469
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  51.1811759422914
+							min_fitness =  1.28133203945858
+							mean_fitness =  7.60627508709087
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  31.3115655145756
+							min_fitness =  1.85195196085309
+							mean_fitness =  8.50379993112029
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  48.3927647801026
+							min_fitness =  0.938610449509094
+							mean_fitness =  6.50837268943148
+-----------------------------------------------------------------------------------------
+					crossover_function = @two_points
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  11.5915986395507
+							min_fitness =  1.17346354170955
+							mean_fitness =  5.39055690663927
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  44.4591305158405
+							min_fitness =  1.00816128825289
+							mean_fitness =  7.64586520550642
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  16.6736506652730
+							min_fitness =  1.86742301889976
+							mean_fitness =  5.67436021468836
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  52.6256453294852
+							min_fitness =  1.30079459029948
+							mean_fitness =  9.17519319783807
+-----------------------------------------------------------------------------------------
+					crossover_function = @uniform
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  18.8217696762732
+							min_fitness =  0.656870936218001
+							mean_fitness =  6.58407234444211
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  46.2553954542329
+							min_fitness =  0.963525778156914
+							mean_fitness =  6.87985310660391
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  49.8633308822295
+							min_fitness =  2.23730752395048
+							mean_fitness =  8.79644225971643
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  38.1113455455834
+							min_fitness =  1.10697311179904
+							mean_fitness =  7.85988928301758
+-----------------------------------------------------------------------------------------
+					crossover_function = @anular
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  23.9006693876679
+							min_fitness =  1.05076914926907
+							mean_fitness =  5.93650314425990
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  123.338010149545
+							min_fitness =  1.10879204761462
+							mean_fitness =  7.76846601975176
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  60.3076284077319
+							min_fitness =  1.96926298728769
+							mean_fitness =  12.4049606890034
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  54.0143741169002
+							min_fitness =  1.18430272169586
+							mean_fitness =  8.20783200813757
+-----------------------------------------------------------------------------------------
+				replace_pick_function = @boltzmann
+-----------------------------------------------------------------------------------------
+					crossover_function = @classic
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  36.3914576487824
+							min_fitness =  1.67572098234823
+							mean_fitness =  9.90515798434733
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  56.6838586735827
+							min_fitness =  0.842829105825948
+							mean_fitness =  7.19284550183096
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  84.1265305526604
+							min_fitness =  1.55841666802741
+							mean_fitness =  11.3363402215367
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  31.2723234718471
+							min_fitness =  0.921597388606989
+							mean_fitness =  7.00616014413233
+-----------------------------------------------------------------------------------------
+					crossover_function = @two_points
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  19.1562647872580
+							min_fitness =  1.18882673484933
+							mean_fitness =  6.91030149973768
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  57.3468141151282
+							min_fitness =  1.10988395028733
+							mean_fitness =  7.69308214150278
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  24.4112979234265
+							min_fitness =  1.39728426235928
+							mean_fitness =  7.16047126846922
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  78.0694300905113
+							min_fitness =  0.849921872137250
+							mean_fitness =  8.09957890053715
+-----------------------------------------------------------------------------------------
+					crossover_function = @uniform
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  23.3617754800452
+							min_fitness =  0.840268257320747
+							mean_fitness =  7.68397678387765
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  68.0573876047811
+							min_fitness =  1.02537880268723
+							mean_fitness =  8.26022119276703
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  26.7047577194994
+							min_fitness =  1.28082878715830
+							mean_fitness =  6.41929263865904
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  68.9221357523063
+							min_fitness =  1.30650194660419
+							mean_fitness =  8.28254764888699
+-----------------------------------------------------------------------------------------
+					crossover_function = @anular
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_classic_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  23.4643261602514
+							min_fitness =  1.52201820716280
+							mean_fitness =  6.08137603329303
+							community_size =  80
+							age = 0
+							parentSize =  72
+							max_fitness =  53.4254744957573
+							min_fitness =  1.06432326377177
+							mean_fitness =  8.70376249829146
+-----------------------------------------------------------------------------------------
+						mutation_function = @multi_gen_not_uniform_mutation
+							community_size =  20
+							age = 0
+							parentSize =  18
+							max_fitness =  80.0445409294857
+							min_fitness =  0.949522845973283
+							mean_fitness =  16.3501250104837
 
 ❯❯ clc
-❯❯ exi
-error: 'exi' undefined near line 1 column 1
 ❯❯ exit
 

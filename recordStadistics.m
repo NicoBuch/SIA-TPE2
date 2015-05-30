@@ -67,6 +67,9 @@ basePerceptron4.noisePercentage = 0;
 basePerceptron4.minimumDeltaError = 0;
 
 max_generations = 1;
+generations_without_change_criteria = 10;
+max_fitness_without_change_criteria = 6;
+
 
 ages_to_train_vec = [2 10];
 community_sizes = [20 80];
@@ -76,8 +79,7 @@ cross_probabilities = [0.6 0.95];
 mixed_params = [4 1];
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
-% pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
-pick_methods = {@elite, @roulette, @tournaments, @mixed};
+pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
 crossover_methods = {@classic, @two_points, @uniform, @anular};
 mutation_methods = {@multi_gen_classic_mutation, @multi_gen_not_uniform_mutation};
 % base_perceptrons = {basePerceptron1, basePerceptron2, basePerceptron3, basePerceptron4};
@@ -118,8 +120,7 @@ for basePerceptron = 1 : length(base_perceptrons)
 									best_fitness_community = 0;
 									community_size = community_sizes(communitySize);
 									structureQuantity = 0.75 * community_size;
-									answer = getBestValuesForCommunity(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_sizes, max_generations, mutation_probability, pick_function, ages_to_train_vec, layerSizes, values, base_perceptron,error, cross_probability, structureQuantity,mixed_params);
-									disp("-----------------------------------------------------------------------------------------")
+									answer = getBestValuesForCommunity(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_sizes, max_generations, mutation_probability, pick_function, ages_to_train_vec, layerSizes, values, base_perceptron,error, cross_probability, structureQuantity,mixed_params,generations_without_change_criteria,max_fitness_without_change_criteria);
 									printf("\t\t\t\t\t\t\t");
 									community_size
 									printf("\t\t\t\t\t\t\t");
