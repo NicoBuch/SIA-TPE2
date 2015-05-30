@@ -11,7 +11,7 @@ function people = universal(community, picked_size, community_fitness)
   endfor
 
   for j = 1 : picked_size
-    rj = (r + j -1) / k;
+    rj = (r + j -1) / picked_size;
     index = min(find(acummulated > rj));
     people{j} = community{index};
   endfor
