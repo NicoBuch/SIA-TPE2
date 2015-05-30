@@ -1,0 +1,25 @@
+mutation_probability =  0.100000000000000
+cross_probability =  0.600000000000000
+replace_function = @replace_method_1
+pick_function = @elite
+replace_pick_function = @elite
+crossover_function = @classic
+mutation_function = @multi_gen_not_uniform_mutation
+ans =  1
+-------------------------------------------------------
+community_size =  2
+age =  2
+min =  39.9502649827700
+mean =  40.0159060936657
+max =  40.0815472045614
+-------------------------------------------------------
+crossover_function = @two_points
+mutation_function = @multi_gen_not_uniform_mutation
+ans =  1
+-------------------------------------------------------
+community_size =  2
+age =  2
+min =  38.6040754956537
+mean =  38.8413570991420
+max =  39.0786387026303
+-------------------------------------------------------
