@@ -1,36 +1,19 @@
 mutation_probability =  0.100000000000000
 cross_probability =  0.750000000000000
-replace_function = @replace_method_2
-pick_function = @elite
-replace_pick_function = @elite
-crossover_function = @two_points
+replace_function = @replace_method_3
+pick_function = @mixed
+replace_pick_function = @mixed
+crossover_function = @anular
 mutation_function = @multi_gen_classic_mutation
--------------------------------------------------------
-community_size =  10
-age =  341
-min =  51.5479075197324
-mean =  58.4783153107535
-max =  61.3171681214584
--------------------------------------------------------
-replace_pick_function = @boltzmann
-crossover_function = @two_points
-mutation_function = @multi_gen_classic_mutation
--------------------------------------------------------
-community_size =  10
-age =  500
-min =  64.2912974628640
-mean =  685.423827667005
-max =  981.064769282897
--------------------------------------------------------
-pick_function = @boltzmann
-replace_pick_function = @elite
-crossover_function = @two_points
-mutation_function = @multi_gen_classic_mutation
-error: invalid number of elements on RHS of assignment
-error: called from:
-error:   /home/nicolas/ITBA/SIA/sia-2015-07/roulette.m at line 15, column 14
-error:   /home/nicolas/ITBA/SIA/sia-2015-07/boltzmann.m at line 9, column 10
-error:   /home/nicolas/ITBA/SIA/sia-2015-07/replace_method_2.m at line 7, column 12
-error:   /home/nicolas/ITBA/SIA/sia-2015-07/genetic_algorithm.m at line 18, column 15
-error:   /home/nicolas/ITBA/SIA/sia-2015-07/recordStadistics.m at line 119, column 48
-octave:1> 
+community_length =  20
+mix_paramss_1 =  8
+elite_length =  8
+others_lenth =  12
+elite_length =  8
+community_length =  40
+mix_paramss_1 =  8
+elite_length =  8
+others_lenth =  32
+elite_length =  8
+
+octave:3> 

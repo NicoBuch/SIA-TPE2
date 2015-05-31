@@ -26,7 +26,7 @@ error = 1/(200 * 200);
 % betaValue(151) = 10;
 % betaValue = ones(1, length(x));
 
-basePerceptron.eta = 0.01;
+basePerceptron.eta = 0.02;
 basePerceptron.betaValue = 0.5;
 basePerceptron.momentum = 0.9;
 basePerceptron.etaAdaptativo = 0;
@@ -39,14 +39,14 @@ basePerceptron.minimumDeltaError = 0;
 
 community_size = 10;
 parents_size = 6;
-mixed_params = [4 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
+mixed_params = [0.5 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
 
 
-ages_to_train = 2;
+ages_to_train = 5;
 max_generations = 500;
 structureQuantity = 0.75 * community_size;
-generations_without_change_criteria = 20;
-max_fitness_without_change_criteria = 50;
+generations_without_change_criteria = 5;
+max_fitness_without_change_criteria = 10;
 
 
 replace_method = 1;

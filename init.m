@@ -20,12 +20,12 @@ g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
 values = [x' y'];
-layerSizes = [1 15];
-eta = 0.001;
+layerSizes = [1 15 5 1];
+eta = 0.005;
 gValue = 1;
 betaValue = 1;
-error = 0.0001;
-momentum = 0.5;
+error = 0.005;
+momentum = 0.9;
 etaAdaptativo = 0;
 a = 0.01;
 b = 0.001;

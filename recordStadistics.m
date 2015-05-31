@@ -22,7 +22,7 @@ error = 1 / (200 ** 2);
 % betaValue = ones(1, length(x));
 betaValue = 0.5;
 
-basePerceptron1.eta = 0.01;
+basePerceptron1.eta = 0.02;
 basePerceptron1.betaValue = 0.5;
 basePerceptron1.momentum = 0.9;
 basePerceptron1.etaAdaptativo = 0;
@@ -33,10 +33,10 @@ basePerceptron1.dg = functions{1, 2};
 basePerceptron1.noisePercentage = 0;
 basePerceptron1.minimumDeltaError = 0;
 
-basePerceptron2.eta = 0.1;
-basePerceptron2.betaValue = betaValue;
+basePerceptron2.eta = 0.01;
+basePerceptron2.betaValue = 0.5;
 basePerceptron2.momentum = 0.9;
-basePerceptron2.etaAdaptativo = 5; % no varia
+basePerceptron2.etaAdaptativo = 0; % no varia
 basePerceptron2.a = 0.05; % no varia
 basePerceptron2.b = 0.2; % no varia
 basePerceptron2.g = functions{1, 1};
@@ -67,8 +67,8 @@ basePerceptron4.noisePercentage = 0;
 basePerceptron4.minimumDeltaError = 0;
 
 max_generations = 500;
-generations_without_change_criteria = 10;
-max_fitness_without_change_criteria = 20;
+generations_without_change_criteria = 5;
+max_fitness_without_change_criteria = 10;
 
 % ages_to_train_vec = [2 10];
 % community_sizes = [10 20];
@@ -76,16 +76,16 @@ max_fitness_without_change_criteria = 20;
 % mutation_probabilities = [0.1 0.01];
 % cross_probabilities = [0.6 0.95];
 % mixed_params = [4 1];
-ages_to_train_vec = [2];
-community_sizes = [10];
-parents_sizes = [0.6];
+ages_to_train_vec = [5];
+community_sizes = [20];
+parents_sizes = [0.8];
 mutation_probabilities = [0.1];
 cross_probabilities = [0.75];
-mixed_params = [4 1];
+mixed_params = [0.5 2];
 
-replace_methods = {@replace_method_2};
-pick_methods = {@elite, @boltzmann};
-crossover_methods = {@two_points};
+replace_methods = {@replace_method_3};
+pick_methods = {@mixed};
+crossover_methods = {@anular};
 mutation_methods = {@multi_gen_classic_mutation};
 % base_perceptrons = {basePerceptron1, basePerceptron2, basePerceptron3, basePerceptron4};
 base_perceptrons = {basePerceptron1};

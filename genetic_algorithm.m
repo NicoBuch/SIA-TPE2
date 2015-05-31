@@ -12,17 +12,18 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   maxFitnessWithoutChange = 0;
   finish = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
   while(!finish)
-    age ++;
-    [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
+    age = age + 1;
     last_community_fitness = community_fitness;
     community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params);
     community_fitness = evaluate_fitness(community);
-
     [fitness(age), max_index] = max(community_fitness);
     minFitness(age) = min(community_fitness);
     [meanFitness(age)] = mean(community_fitness);
+    f = fitness(end);
 
-   % if(mod(age, 20) == 0)
+    [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
+
+   % if(mod(age, 10) == 0)
    %    % outValues
    %    i = max_index;
    %    outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValue, community{i}.g);
