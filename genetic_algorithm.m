@@ -12,7 +12,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   maxFitnessWithoutChange = 0;
   finish = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
   while(!finish)
-    age ++
+    age ++;
     [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
     last_community_fitness = community_fitness;
     community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params);
@@ -32,7 +32,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
    %    xlabel ("x");
    %    ylabel("f(x)");
    %    subplot(2,1,2);
-   %    plot(1 : age-1, minFitness, 1:age-1, meanFitness, 1:age-1, fitness);
+   %    plot(1 : age, minFitness, 1:age, meanFitness, 1:age, fitness);
    %    xlabel("epoca");
    %    ylabel("Error");
    %    hold off;

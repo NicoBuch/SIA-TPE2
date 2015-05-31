@@ -11,7 +11,7 @@ y = tanh(0.1 * x) + sin(3*x);
 y = y ./ max(abs(y));
 values = [x' y'];
 gValue = 1;
-layerSizes = [1 15 10];
+layerSizes = [1 15 5];
 
 functions{1, 1} = @tanhFunc;
 functions{1, 2} = @derivativeTanh;
@@ -21,12 +21,12 @@ functions{2, 2} = @exponentialDerivated;
 g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
-error = 1/200;
+error = 1/(200 * 200);
 % betaValue = y ./ x;
 % betaValue(151) = 10;
 % betaValue = ones(1, length(x));
 
-basePerceptron.eta = 0.015;
+basePerceptron.eta = 0.01;
 basePerceptron.betaValue = 0.5;
 basePerceptron.momentum = 0.9;
 basePerceptron.etaAdaptativo = 0;
@@ -43,16 +43,16 @@ mixed_params = [4 1];  % first parameter is N1. second parameter: 1 for universa
 
 
 ages_to_train = 2;
-max_generations = 1000;
+max_generations = 500;
 structureQuantity = 0.75 * community_size;
 generations_without_change_criteria = 20;
 max_fitness_without_change_criteria = 50;
 
 
-replace_method = 2;
-pick_method = 3;
+replace_method = 1;
+pick_method = 1;
 replace_pick_method = 1;
-crossover_method = 4;
+crossover_method = 2;
 mutation_method = 1;
 
 mutation_probability = 0.1;

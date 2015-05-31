@@ -66,7 +66,7 @@ basePerceptron4.dg = functions{2, 2};
 basePerceptron4.noisePercentage = 0;
 basePerceptron4.minimumDeltaError = 0;
 
-max_generations = 1;
+max_generations = 500;
 generations_without_change_criteria = 10;
 max_fitness_without_change_criteria = 20;
 
@@ -77,16 +77,16 @@ max_fitness_without_change_criteria = 20;
 % cross_probabilities = [0.6 0.95];
 % mixed_params = [4 1];
 ages_to_train_vec = [2];
-community_sizes = [2];
+community_sizes = [10];
 parents_sizes = [0.6];
 mutation_probabilities = [0.1];
-cross_probabilities = [0.6];
-mixed_params = [4];
+cross_probabilities = [0.75];
+mixed_params = [4 1];
 
-replace_methods = {@replace_method_1};
-pick_methods = {@elite};
-crossover_methods = {@classic, @two_points};
-mutation_methods = {@multi_gen_not_uniform_mutation};
+replace_methods = {@replace_method_2};
+pick_methods = {@elite, @boltzmann};
+crossover_methods = {@two_points};
+mutation_methods = {@multi_gen_classic_mutation};
 % base_perceptrons = {basePerceptron1, basePerceptron2, basePerceptron3, basePerceptron4};
 base_perceptrons = {basePerceptron1};
 
