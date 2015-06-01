@@ -1,19 +1,14 @@
 mutation_probability =  0.100000000000000
 cross_probability =  0.750000000000000
-replace_function = @replace_method_3
-pick_function = @mixed
-replace_pick_function = @mixed
+replace_function = @replace_method_2
+pick_function = @roulette
+replace_pick_function = @roulette
 crossover_function = @anular
 mutation_function = @multi_gen_classic_mutation
-community_length =  20
-mix_paramss_1 =  8
-elite_length =  8
-others_lenth =  12
-elite_length =  8
-community_length =  40
-mix_paramss_1 =  8
-elite_length =  8
-others_lenth =  32
-elite_length =  8
-
-octave:3> 
+-------------------------------------------------------
+community_size =  10
+age =  500
+min =  53.3150848728658
+mean =  60.9335479140056
+max =  68.4369940698188
+-------------------------------------------------------

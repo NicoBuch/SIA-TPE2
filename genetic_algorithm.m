@@ -1,6 +1,6 @@
-function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params, generations_without_change_criteria, max_fitness_without_change_criteria)
+function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params, generations_without_change_criteria, max_fitness_without_change_criteria, train_probability)
   community = generate_initial_community_frum(community_size, layerSizes, basePerceptron); %implementar una generacion de 'comunity_size' W cells randomly
-  community = train(community, layerSizes, values,ages_to_train,error);
+  community = train(community, layerSizes, values,ages_to_train,error, 1);
   community_fitness = evaluate_fitness(community); % implementar el forward propagation que calcule los errores de cada individuo.
   last_community_fitness = community_fitness;
   fitness(1) = max(community_fitness);
@@ -14,12 +14,12 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   while(!finish)
     age = age + 1;
     last_community_fitness = community_fitness;
-    community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params);
+    community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params, train_probability);
     community_fitness = evaluate_fitness(community);
     [fitness(age), max_index] = max(community_fitness);
     minFitness(age) = min(community_fitness);
     [meanFitness(age)] = mean(community_fitness);
-    f = fitness(end);
+    f = fitness(end)
 
     [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
 

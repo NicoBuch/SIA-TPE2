@@ -37,26 +37,27 @@ basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-community_size = 10;
-parents_size = 6;
+community_size = 100;
+parents_size = 60;
 mixed_params = [0.5 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
 
 
 ages_to_train = 5;
-max_generations = 500;
+max_generations = 5000;
 structureQuantity = 0.75 * community_size;
 generations_without_change_criteria = 5;
 max_fitness_without_change_criteria = 10;
 
 
-replace_method = 1;
-pick_method = 1;
-replace_pick_method = 1;
+replace_method = 3;
+pick_method = 5;
+replace_pick_method = 2;
 crossover_method = 2;
 mutation_method = 1;
 
 mutation_probability = 0.1;
 cross_probability = 0.75;
+train_probability = 0.75;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
 pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed};
@@ -72,5 +73,5 @@ mutation_function = mutation_methods{mutation_method};
 
 clf;
 tic
-genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params, generations_without_change_criteria, max_fitness_without_change_criteria)
+genetic_algorithm(replace_pick_function, mutation_function, crossover_function, replace_function, community_size, parents_size, max_generations, mutation_probability, pick_function, ages_to_train, layerSizes, values, basePerceptron,error, cross_probability, structureQuantity, mixed_params, generations_without_change_criteria, max_fitness_without_change_criteria, train_probability)
 toc;
