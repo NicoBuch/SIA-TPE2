@@ -4,8 +4,8 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   community_fitness = evaluate_fitness(community); % implementar el forward propagation que calcule los errores de cada individuo.
   last_community_fitness = community_fitness;
   fitness(1) = max(community_fitness);
-  minFitness(1) = min(community_fitness);
-  meanFitness(1) = mean(community_fitness);
+  % minFitness(1) = min(community_fitness);
+  % meanFitness(1) = mean(community_fitness);
   finish = false;
   age = 1;
   structureGenerationsWithoutChange = 0;
@@ -17,30 +17,34 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
     community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params, train_probability);
     community_fitness = evaluate_fitness(community);
     [fitness(age), max_index] = max(community_fitness);
-    minFitness(age) = min(community_fitness);
-    [meanFitness(age)] = mean(community_fitness);
-    f = fitness(end)
+    % minFitness(age) = min(community_fitness);
+    % [meanFitness(age)] = mean(community_fitness);
 
     [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
 
-   % if(mod(age, 10) == 0)
-   %    % outValues
-   %    i = max_index;
-   %    outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValue, community{i}.g);
-   %    hold on;
-   %    subplot(2,1,1)
-   %    plot(values(:, 1), values(:,2), values(:,1), outValues);
-   %    xlabel ("x");
-   %    ylabel("f(x)");
-   %    subplot(2,1,2);
-   %    plot(1 : age, minFitness, 1:age, meanFitness, 1:age, fitness);
-   %    xlabel("epoca");
-   %    ylabel("Error");
-   %    hold off;
-   %    refresh;
-   %  endif
+   if(mod(age, 1) == 0)
+      f = fitness(end)
+      age
+      % outValues
+      i = max_index;
+      outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValue, community{i}.g);
+      hold on;
+      subplot(2,1,1)
+      plot(values(:, 1), values(:,2), values(:,1), outValues);
+      xlabel ("x");
+      ylabel("f(x)");
+      subplot(2,1,2);
+      plot(1:age, fitness);
+      xlabel("epoca");
+      ylabel("Error");
+      hold off;
+      refresh;
+    endif
   end
   weightsVector = community{max_index}.weightsVector;
+  maxF = max(community_fitness)
+  meanF = mean(community_fitness)
+  minF = min(community_fitness)
 endfunction
 
 

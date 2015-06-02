@@ -81,11 +81,11 @@ community_sizes = [10];
 parents_sizes = [0.6];
 mutation_probabilities = [0.1];
 cross_probabilities = [0.75];
-mixed_params = [0.5 2];
+mixed_params = [0.75 1];
 train_probability = 0.75;
 
 replace_methods = {@replace_method_2};
-pick_methods = {@roulette};
+pick_methods = {@roulette, @mixed};
 crossover_methods = {@anular};
 mutation_methods = {@multi_gen_classic_mutation};
 % base_perceptrons = {basePerceptron1, basePerceptron2, basePerceptron3, basePerceptron4};

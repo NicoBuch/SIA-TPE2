@@ -5,7 +5,7 @@ function [child1 child2] = uniform(father, mother)
     child1 = father;
     child2 = mother;
 
-    for i = 1:length(child1)
+    for i = 1:length(child1.weightsVector)
       if (rand < p)
         aux = child1.weightsVector(i);
         child1.weightsVector(i) = child2.weightsVector(i);
