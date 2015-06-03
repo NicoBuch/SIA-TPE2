@@ -2,6 +2,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   community = generate_initial_community_frum(community_size, layerSizes, basePerceptron); %implementar una generacion de 'comunity_size' W cells randomly
   community = train(community, layerSizes, values,ages_to_train,error, 1);
   community_fitness = evaluate_fitness(community); % implementar el forward propagation que calcule los errores de cada individuo.
+
   last_community_fitness = community_fitness;
   fitness(1) = max(community_fitness);
   % minFitness(1) = min(community_fitness);
@@ -11,23 +12,34 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   structureGenerationsWithoutChange = 0;
   maxFitnessWithoutChange = 0;
   finish = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
+
   while(!finish)
     age = age + 1;
     last_community_fitness = community_fitness;
     community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params, train_probability);
     community_fitness = evaluate_fitness(community);
+  end
     [fitness(age), max_index] = max(community_fitness);
     % minFitness(age) = min(community_fitness);
     % [meanFitness(age)] = mean(community_fitness);
 
     [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
 
-   if(mod(age, 1) == 0)
+    if(mod(age, 1) == 0)
       f = fitness(end)
       age
       % outValues
+
+
       i = max_index;
       outValues = forwardPropagation(vectorToWeights(community{i}.weightsVector,layerSizes), values(:, 1), length(layerSizes), community{i}.betaValue, community{i}.g);
+      [asd, previousError] = compareOutValues(values(:, 2), outValues, error);
+      if(community_fitness(i) != (1 / (previousError ** 2)))
+        disp("HAY ALGO MAL!");
+        actualFitness = community_fitness(i)
+        forwardFitness = (1 / (previousError ** 2))
+        pause
+      end
       hold on;
       subplot(2,1,1)
       plot(values(:, 1), values(:,2), values(:,1), outValues);
