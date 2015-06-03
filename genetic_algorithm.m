@@ -18,7 +18,6 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
     last_community_fitness = community_fitness;
     community = replace_function(community, community_fitness, pick_function, crossover_function, mutation_probability, mutation_function, ages_to_train, cross_probability, layerSizes, values, error, parents_size, age, replace_pick_function, mixed_params, train_probability);
     community_fitness = evaluate_fitness(community);
-  end
     [fitness(age), max_index] = max(community_fitness);
     % minFitness(age) = min(community_fitness);
     % [meanFitness(age)] = mean(community_fitness);

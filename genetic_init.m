@@ -37,7 +37,7 @@ basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-community_size = 2;
+community_size = 20;
 parents_size = 6;
 mixed_params = [0.6 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
 
@@ -50,7 +50,7 @@ max_fitness_without_change_criteria = 25;
 
 
 replace_method = 1;
-pick_method = 3;
+pick_method = 2;
 replace_pick_method = 1;
 crossover_method = 2;
 mutation_method = 1;
