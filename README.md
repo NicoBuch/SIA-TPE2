@@ -1,4 +1,4 @@
-# SIA-TPE3
+# SIA-TPE4
 
 
 ### Installation ###
@@ -15,7 +15,7 @@ Clone the repository, make sure you have octave installed
 
   Open genetic_init.m file and change the following values:
 
-     Perceptron Parameters 
+     Perceptron Parameters
 
     - layerSizes : Sizes of the layers you want to try. Eg: [1 512 256 128 64 32 16 8]
       basePerceptron.eta : The value of the eta you want to try. Eg: 0.001
@@ -29,7 +29,7 @@ Clone the repository, make sure you have octave installed
       basePerceptron.noisePercentage = How much noise will be added to the weights in case it is needed. Eg: 0.01
       basePerceptron.minimumDeltaError = Minimum the error can change until it needs to add noise. Eg: 0.001
 
-     Genetic Parameters 
+     Genetic Parameters
 
     - community_size : The total size of the population. For replace method 1, it MUST be an even number. Eg: 10
       parents_size : For replace methods 2 and 3. K individuals to be selected for the crossover. It MUST be an even number. Eg: 6
