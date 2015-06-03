@@ -37,21 +37,21 @@ basePerceptron.dg = dg;
 basePerceptron.noisePercentage = 0;
 basePerceptron.minimumDeltaError = 0;
 
-community_size = 20;
+community_size = 10;
 parents_size = 6;
-mixed_params = [0.6 1];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
+mixed_params = [0.6 2];  % first parameter is N1. second parameter: 1 for universal, 2 for roulette.
 
 
 ages_to_train = 5;
 max_generations = 500;
 structureQuantity = 0.75 * community_size;
-generations_without_change_criteria = 10;
+generations_without_change_criteria = 5;
 max_fitness_without_change_criteria = 25;
 
 
-replace_method = 1;
-pick_method = 2;
-replace_pick_method = 1;
+replace_method = 3;
+pick_method = 4;
+replace_pick_method = 5;
 crossover_method = 2;
 mutation_method = 1;
 

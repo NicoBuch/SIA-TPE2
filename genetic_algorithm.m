@@ -20,7 +20,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
     community_fitness = evaluate_fitness(community);
     [fitness(age), max_index] = max(community_fitness);
     % minFitness(age) = min(community_fitness);
-    % [meanFitness(age)] = mean(community_fitness);
+    meanFitness(age) = mean(community_fitness);
 
     [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
 
@@ -45,7 +45,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
       xlabel ("x");
       ylabel("f(x)");
       subplot(2,1,2);
-      plot(1:age, fitness);
+      plot(1:age, fitness, 1: age, meanFitness);
       xlabel("epoca");
       ylabel("Error");
       hold off;
