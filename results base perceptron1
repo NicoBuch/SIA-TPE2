@@ -3,12 +3,355 @@ cross_probability =  0.750000000000000
 replace_function = @replace_method_2
 pick_function = @roulette
 replace_pick_function = @roulette
-crossover_function = @anular
+crossover_function = @two_points
 mutation_function = @multi_gen_classic_mutation
+Maxima cantidad de generaciones alcanzada
 -------------------------------------------------------
 community_size =  10
 age =  500
-min =  53.3150848728658
-mean =  60.9335479140056
-max =  68.4369940698188
+min =  9629.09886322111
+mean =  43439.0344235009
+max =  64864.8137371550
 -------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  262
+min =  254.316021879226
+mean =  20607.2163336461
+max =  36695.7732158814
+-------------------------------------------------------
+replace_pick_function = @mixed
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  102
+min =  47.0201061817065
+mean =  49.3616324264669
+max =  50.6629296057344
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  258
+min =  515.376722180712
+mean =  9873.66939843557
+max =  15978.4712160094
+-------------------------------------------------------
+replace_pick_function = @elite
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  86
+min =  45.3747662022583
+mean =  49.5379588574575
+max =  50.5838744227314
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  133
+min =  1425.51657470313
+mean =  7975.13156253669
+max =  16631.8300636610
+-------------------------------------------------------
+replace_pick_function = @boltzmann
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  177
+min =  5650.79142929869
+mean =  18626.7179702715
+max =  25780.4305162187
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  160
+min =  94.5592154367920
+mean =  12780.5766414097
+max =  20403.9690987927
+-------------------------------------------------------
+pick_function = @mixed
+replace_pick_function = @roulette
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+Maxima cantidad de generaciones alcanzada
+-------------------------------------------------------
+community_size =  10
+age =  500
+min =  6326.04772516757
+mean =  31497.7672013744
+max =  60766.0268896894
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  202
+min =  21.7093642321409
+mean =  12844.3634278380
+max =  30666.2846035044
+-------------------------------------------------------
+replace_pick_function = @mixed
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  134
+min =  48.6118899450959
+mean =  50.7606486941870
+max =  51.4855350510666
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  125
+min =  426.589858614093
+mean =  9174.72946422785
+max =  14155.0000137171
+-------------------------------------------------------
+replace_pick_function = @elite
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  110
+min =  48.6058987299980
+mean =  50.0821232229736
+max =  50.7659073751112
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  138
+min =  42.4153299397588
+mean =  49.9258041603700
+max =  51.3573997506272
+-------------------------------------------------------
+replace_pick_function = @boltzmann
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  147
+min =  2044.33460112422
+mean =  8052.31848160473
+max =  13438.8977240321
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  124
+min =  233.136706165889
+mean =  5547.40766629702
+max =  9180.61710511091
+-------------------------------------------------------
+pick_function = @elite
+replace_pick_function = @roulette
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  408
+min =  4085.06734121937
+mean =  20694.1855091456
+max =  35983.7924319521
+-------------------------------------------------------
+Maxima cantidad de generaciones alcanzada
+-------------------------------------------------------
+community_size =  20
+age =  500
+min =  57.3012497387753
+mean =  62.1635438386341
+max =  63.6234421327606
+-------------------------------------------------------
+replace_pick_function = @mixed
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  141
+min =  767.453000262510
+mean =  7820.69047377168
+max =  12321.6322044996
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  192
+min =  21.5992887781292
+mean =  10345.1795315445
+max =  18143.6876012481
+-------------------------------------------------------
+replace_pick_function = @elite
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  167
+min =  82.5751941769686
+mean =  4255.57500243852
+max =  7282.59121021070
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  150
+min =  36.1637322326897
+mean =  5428.73206990781
+max =  9481.63058199659
+-------------------------------------------------------
+replace_pick_function = @boltzmann
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  202
+min =  4156.87198041578
+mean =  8234.35022658960
+max =  11924.5167739998
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  162
+min =  231.412219992780
+mean =  14467.0433124732
+max =  22057.4767859473
+-------------------------------------------------------
+pick_function = @boltzmann
+replace_pick_function = @roulette
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+Maxima cantidad de generaciones alcanzada
+-------------------------------------------------------
+community_size =  10
+age =  500
+min =  390.831916076321
+mean =  14763.2802256805
+max =  28010.4475357472
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  473
+min =  173.633538720944
+mean =  22780.8348673731
+max =  44334.1700590019
+-------------------------------------------------------
+replace_pick_function = @mixed
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  150
+min =  288.250750216347
+mean =  14710.9956236089
+max =  23535.7200191454
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  96
+min =  45.6656643987791
+mean =  50.0648756042803
+max =  51.3033719114391
+-------------------------------------------------------
+replace_pick_function = @elite
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  159
+min =  211.845646586226
+mean =  4849.19283626977
+max =  8205.17283300087
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  125
+min =  512.924334906579
+mean =  7139.87370863563
+max =  11134.3395535259
+-------------------------------------------------------
+replace_pick_function = @boltzmann
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+Maxima cantidad de generaciones alcanzada
+-------------------------------------------------------
+community_size =  10
+age =  500
+min =  366.543559704457
+mean =  3777.46739167872
+max =  5828.23182381629
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  208
+min =  607.851295154443
+mean =  11998.7313860517
+max =  19083.2965305240
+-------------------------------------------------------
+replace_function = @replace_method_3
+pick_function = @roulette
+replace_pick_function = @roulette
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  271
+min =  2633.26141241591
+mean =  10323.8369760391
+max =  12360.7159966449
+-------------------------------------------------------
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  20
+age =  306
+min =  11076.2433976801
+mean =  14524.4657364891
+max =  17155.4816526013
+-------------------------------------------------------
+replace_pick_function = @mixed
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+El fitnes maximo no cambio
+-------------------------------------------------------
+community_size =  10
+age =  148
+min =  48.4177907265663
+mean =  50.2177918850152
+max =  50.5782769211752
+-------------------------------------------------------
+La gran mayoria de los individuos no cambiaron
+-------------------------------------------------------
+community_size =  20
+age =  160
+min =  2503.12406547055
+mean =  11103.9576903361
+max =  11777.6976788184
+-------------------------------------------------------
+replace_pick_function = @elite
+crossover_function = @two_points
+mutation_function = @multi_gen_classic_mutation
+
+octave:7> 
+octave:7> 

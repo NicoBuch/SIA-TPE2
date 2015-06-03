@@ -22,7 +22,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
   firstTime = 0;
   etaIterator = 1;
   initialMomentum = momentum;
-  % tic;
+  tic;
   age = 0;
   outValues = forwardPropagation(W, values(:, 1), M, betaValue, g);
   [finished, previousError] = compareOutValues(values(:, 2), outValues, error);
@@ -59,6 +59,8 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
     age = age + 1;
     [finished, errorr] = compareOutValues(values(:, 2), outValues, error);
     errors(end+1) = errorr;
+    errorr;
+    age;
 
 	  if(etaAdaptativo != 0)
       deltaError = errors(end) - errors(end-1);
@@ -83,7 +85,7 @@ function perceptron = multiLayerPerceptron(max_ages, W,values, layerSizes, eta, 
 	  end
     if(age > 1 && abs(errors(end) - errors(end - 1)) > 0 && abs(errors(end) - errors(end - 1)) < minimumDeltaError)
       W = addNoise(W, minDeltaW, noisePercentage);
-      added = minDeltaW * noisePercentage
+      added = minDeltaW * noisePercentage;
     endif
 
     % if(mod(age, 1) == 0)

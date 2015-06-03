@@ -21,7 +21,7 @@ functions{2, 2} = @exponentialDerivated;
 g = functions{gValue, 1};
 dg = functions{gValue, 2};
 
-error = 0.005;
+error = 1/ 400;
 % betaValue = y ./ x;
 % betaValue(151) = 10;
 % betaValue = ones(1, length(x));
@@ -49,9 +49,9 @@ generations_without_change_criteria = 5;
 max_fitness_without_change_criteria = 25;
 
 
-replace_method = 3;
-pick_method = 4;
-replace_pick_method = 5;
+replace_method = 2;
+pick_method = 2;
+replace_pick_method = 2;
 crossover_method = 2;
 mutation_method = 1;
 

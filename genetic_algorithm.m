@@ -6,7 +6,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
   last_community_fitness = community_fitness;
   fitness(1) = max(community_fitness);
   % minFitness(1) = min(community_fitness);
-  % meanFitness(1) = mean(community_fitness);
+  meanFitness(1) = mean(community_fitness);
   finish = false;
   age = 1;
   structureGenerationsWithoutChange = 0;
@@ -41,13 +41,15 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
       end
       hold on;
       subplot(2,1,1)
-      plot(values(:, 1), values(:,2), values(:,1), outValues);
+      plot(values(:, 1), values(:,2),  '-b', values(:,1), outValues, '-g');
+      legend("tanh(0.1 * x) + sin(3*x)", "Aproximación", "location", "northwest");
       xlabel ("x");
       ylabel("f(x)");
       subplot(2,1,2);
-      plot(1:age, fitness, 1: age, meanFitness);
-      xlabel("epoca");
-      ylabel("Error");
+      plot(1:age, fitness, '-b', 1: age, meanFitness, '-g');
+      legend("Max Fitness", "Mean Fitness",  "location", "northwest");
+      xlabel("Generaciones");
+      ylabel("Fitness");
       hold off;
       refresh;
     endif
