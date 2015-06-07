@@ -45,8 +45,8 @@ mixed_params = [0.6 2];  % first parameter is N1. second parameter: 1 for univer
 ages_to_train = 5;
 max_generations = 500;
 structureQuantity = 0.75 * community_size;
-generations_without_change_criteria = 5;
-max_fitness_without_change_criteria = 25;
+generations_without_change_criteria = 50;
+max_fitness_without_change_criteria = 75;
 
 
 replace_method = 2;
@@ -57,7 +57,7 @@ mutation_method = 1;
 
 mutation_probability = 0.1;
 cross_probability = 0.75;
-train_probability = 0.75;
+train_probability = 1;
 
 replace_methods = {@replace_method_1, @replace_method_2, @replace_method_3};
 pick_methods = {@elite, @roulette, @boltzmann, @tournaments, @mixed, @universal};

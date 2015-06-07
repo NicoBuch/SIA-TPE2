@@ -24,9 +24,9 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
 
     [finish, structureGenerationsWithoutChange, maxFitnessWithoutChange] = finished(community_fitness, last_community_fitness, max_generations, age, error, structureQuantity, generations_without_change_criteria, structureGenerationsWithoutChange, max_fitness_without_change_criteria,  maxFitnessWithoutChange);
 
-    if(mod(age, 1) == 0)
-      f = fitness(end)
-      age
+    f = fitness(end)
+    age
+    if(mod(age, 25) == 0)
       % outValues
 
 
