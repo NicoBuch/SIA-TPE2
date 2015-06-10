@@ -26,7 +26,7 @@ function [age, minFitness, meanFitness, fitness, weightsVector] = genetic_algori
 
     f = fitness(end)
     age
-    if(mod(age, 25) == 0)
+    if(mod(age, 10) == 0)
       % outValues
 
 
